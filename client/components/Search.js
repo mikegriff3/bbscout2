@@ -30,7 +30,7 @@ export default class Search extends React.Component {
       return null;
     }
     const playerList = suggestions.map(player => (
-      <a style={{ textDecoration: "none" }} href={`/player/${player.id}`}>
+      <a style={{ textDecoration: "none" }} href={player.tag}>
         <div key={player.id} className="suggestion-item">
           <div className="suggestion-picture-container">
             <img
@@ -43,7 +43,7 @@ export default class Search extends React.Component {
           </div>
           <div className="suggestion-info">
             <div className="suggestion-name">{player.name}</div>
-            <div className="suggestion-team">{player.team}</div>
+            <div className="suggestion-team">{player.team || ""}</div>
           </div>
         </div>
       </a>

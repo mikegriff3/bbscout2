@@ -10,6 +10,7 @@ module.exports = {
     path: BUILD_DIR
   },
   devtool: "source-map",
+  mode: "production",
   devServer: {
     historyApiFallback: true
   },

@@ -37,3 +37,21 @@ body {
 .highcharts-credits {
   display: none;
 }
+
+.loading-gif {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: repeat(2, min-content);
+  text-align: center;
+  height: 60rem;
+  margin-top: 4rem;
+  align-items: center;
+}
+
+.gif {
+  height: 130px;
+}
+
+.load-text {
+  font-size: 1.8rem;
+}

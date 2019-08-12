@@ -29,6 +29,7 @@ const Main = () => (
       <Route path="/player/:id" component={PlayerPage} />
       <Route path="/team/:id" component={TeamPage} />
       <Route path="/nba-scouting" component={NBAScoutingPage} />
+      <Redirect from="/" to="/nba-scouting" />
     </Switch>
   </BrowserRouter>
 );

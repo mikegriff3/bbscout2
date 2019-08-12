@@ -8,6 +8,12 @@
   align-items: center;
   background-color: $color-background-dark;
 
+  &__title {
+    color: white;
+    padding-left: 2rem;
+    font-size: 1.8rem;
+  }
+
   &__menu {
     align-self: stretch;
     display: flex;

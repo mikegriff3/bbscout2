@@ -111,22 +111,14 @@ class PlayerInfo extends React.Component {
   renderMenu() {
     if (this.state.showMenu) {
       return (
-        <div
-          style={{
-            position: "relative",
-            zIndex: 100,
-            color: this.state.colors.Color_Sec || "white",
-            cursor: "pointer"
-          }}
-          className="marker"
-        >
-          <div onClick={this.handleClick}>Season Stats</div>
+        <div className="menu-option">
+          {/*<div onClick={this.handleClick}>Season Stats</div>
           <div onClick={this.handleClick}>Career Stats</div>
           <div onClick={this.handleClick}>Player Ratings</div>
           <div onClick={this.handleClick}>Player Projection</div>
           <div onClick={this.handleClick}>Player Comparison</div>
           <div onClick={this.handleClick}>Shot Chart</div>
-          <div onClick={this.handleClick}>Contract</div>
+      <div onClick={this.handleClick}>Contract</div>*/}
         </div>
       );
     }
@@ -135,7 +127,7 @@ class PlayerInfo extends React.Component {
   handleClick(event) {
     this.setState({
       selection: event.currentTarget.textContent,
-      showMenu: false
+      showMenu: !this.state.showMenu
     });
   }
 
@@ -278,7 +270,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), rgba(80, 251, 240, 0.5), rgba(102, 252, 241, 0.5))"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">80</span>
+          </button>
         );
       }
       if (grade.Grade === 75) {
@@ -289,7 +283,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), rgba(80, 251, 240, 0.5), transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">75</span>
+          </button>
         );
       }
       if (grade.Grade === 70) {
@@ -300,7 +296,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">70</span>
+          </button>
         );
       }
       if (grade.Grade === 65) {
@@ -311,7 +309,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">65</span>
+          </button>
         );
       }
       if (grade.Grade === 60) {
@@ -322,7 +322,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">60</span>
+          </button>
         );
       }
       if (grade.Grade === 55) {
@@ -333,7 +335,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">55</span>
+          </button>
         );
       }
       if (grade.Grade === 50) {
@@ -344,7 +348,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">50</span>
+          </button>
         );
       }
       if (grade.Grade === 45) {
@@ -355,7 +361,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">45</span>
+          </button>
         );
       }
       if (grade.Grade === 40) {
@@ -366,7 +374,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">40</span>
+          </button>
         );
       }
       if (grade.Grade === 35) {
@@ -377,7 +387,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">35</span>
+          </button>
         );
       }
       if (grade.Grade === 30) {
@@ -388,7 +400,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">30</span>
+          </button>
         );
       }
       if (grade.Grade === 25) {
@@ -399,7 +413,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">25</span>
+          </button>
         );
       }
       return (
@@ -409,7 +425,9 @@ class PlayerInfo extends React.Component {
               "linear-gradient(to right, rgba(1, 50, 46, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
           }}
           className="player__ratings-oversight-button"
-        />
+        >
+          <span className="player__ratings-rating">20</span>
+        </button>
       );
     }
   }
@@ -428,7 +446,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), rgba(80, 251, 240, 0.5), rgba(102, 252, 241, 0.5))"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">80</span>
+          </button>
         );
       }
       if (grade.Grade === 75) {
@@ -439,7 +459,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), rgba(80, 251, 240, 0.5), transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">75</span>
+          </button>
         );
       }
       if (grade.Grade === 70) {
@@ -450,7 +472,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">70</span>
+          </button>
         );
       }
       if (grade.Grade === 65) {
@@ -461,7 +485,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">65</span>
+          </button>
         );
       }
       if (grade.Grade === 60) {
@@ -472,7 +498,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">60</span>
+          </button>
         );
       }
       if (grade.Grade === 55) {
@@ -483,7 +511,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">55</span>
+          </button>
         );
       }
       if (grade.Grade === 50) {
@@ -494,7 +524,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">50</span>
+          </button>
         );
       }
       if (grade.Grade === 45) {
@@ -505,7 +537,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">45</span>
+          </button>
         );
       }
       if (grade.Grade === 40) {
@@ -516,7 +550,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">40</span>
+          </button>
         );
       }
       if (grade.Grade === 35) {
@@ -527,7 +563,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">35</span>
+          </button>
         );
       }
       if (grade.Grade === 30) {
@@ -538,7 +576,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">30</span>
+          </button>
         );
       }
       if (grade.Grade === 25) {
@@ -549,7 +589,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">25</span>
+          </button>
         );
       }
       return (
@@ -559,7 +601,9 @@ class PlayerInfo extends React.Component {
               "linear-gradient(to right, rgba(1, 50, 46, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
           }}
           className="player__ratings-oversight-button"
-        />
+        >
+          <span className="player__ratings-rating">20</span>
+        </button>
       );
     }
   }
@@ -581,7 +625,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), rgba(80, 251, 240, 0.5), rgba(102, 252, 241, 0.5))"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">80</span>
+          </button>
         );
       }
       if (grade.Grade === 75) {
@@ -592,7 +638,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), rgba(80, 251, 240, 0.5), transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">75</span>
+          </button>
         );
       }
       if (grade.Grade === 70) {
@@ -603,7 +651,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), rgba(55, 251, 238, 0.5), transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">70</span>
+          </button>
         );
       }
       if (grade.Grade === 65) {
@@ -614,7 +664,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), rgba(30, 250, 236, 0.5), transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">65</span>
+          </button>
         );
       }
       if (grade.Grade === 60) {
@@ -625,7 +677,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), rgba(5, 250, 234, 0.5), transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">60</span>
+          </button>
         );
       }
       if (grade.Grade === 55) {
@@ -636,7 +690,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), rgba(5, 225, 210, 0.5), transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">55</span>
+          </button>
         );
       }
       if (grade.Grade === 50) {
@@ -647,7 +703,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), rgba(4, 200, 187, 0.5), transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">50</span>
+          </button>
         );
       }
       if (grade.Grade === 45) {
@@ -658,7 +716,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), rgba(4, 175, 164, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">45</span>
+          </button>
         );
       }
       if (grade.Grade === 40) {
@@ -669,7 +729,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), rgba(3, 150, 140, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">40</span>
+          </button>
         );
       }
       if (grade.Grade === 35) {
@@ -680,7 +742,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), rgba(3, 125, 117, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">35</span>
+          </button>
         );
       }
       if (grade.Grade === 30) {
@@ -691,7 +755,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), rgba(3, 99, 93, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">30</span>
+          </button>
         );
       }
       if (grade.Grade === 25) {
@@ -702,7 +768,9 @@ class PlayerInfo extends React.Component {
                 "linear-gradient(to right, rgba(1, 50, 46, 0.5), rgba(2, 74, 69, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
             }}
             className="player__ratings-oversight-button"
-          />
+          >
+            <span className="player__ratings-rating">25</span>
+          </button>
         );
       }
       return (
@@ -712,7 +780,9 @@ class PlayerInfo extends React.Component {
               "linear-gradient(to right, rgba(1, 50, 46, 0.5), transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent)"
           }}
           className="player__ratings-oversight-button"
-        />
+        >
+          <span className="player__ratings-rating">20</span>
+        </button>
       );
     }
   }
@@ -890,7 +960,12 @@ class PlayerInfo extends React.Component {
                   <span className="player__info-stat-title">
                     Team:{" "}
                     <span className="player__info-stat-text">
-                      {this.state.player.team}
+                      <a
+                        style={{ textDecoration: "none", cursor: "pointer" }}
+                        href={`/team/${this.state.colors.id}`}
+                      >
+                        {this.state.player.team}
+                      </a>
                     </span>
                   </span>
                 </div>
@@ -914,8 +989,13 @@ class PlayerInfo extends React.Component {
             </div>
             <div className="player__stats">
               <div className="player__menu-container">
-                <div style={headerStyle} className="player__menu">
-                  Player Ratings
+                <div
+                  style={headerStyle}
+                  className="player__menu"
+                  onClick={this.handleClick}
+                >
+                  {this.state.selection}
+                  {this.renderMenu()}
                 </div>
               </div>
               <div className="player__charts">{this.renderSelection()}</div>

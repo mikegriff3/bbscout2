@@ -175,9 +175,12 @@ export default class NBAScouting extends React.Component {
       );
     } else {
       return (
-        <div>
-          <img src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif" />
-          <div>Loading Team...</div>
+        <div className="loading-gif">
+          <img
+            className="gif"
+            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+          />
+          <div className="load-text">Loading Players...</div>
         </div>
       );
     }

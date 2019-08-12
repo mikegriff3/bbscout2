@@ -18,11 +18,31 @@ export default class NavBar extends React.Component {
 
   getResults() {
     axios
-      .get("/api/teams/getAllNbaPlayers")
-      .then(data => {
-        //console.log(data.data);
-        this.setState({ results: data.data });
-      })
+      .all([
+        axios.get("/api/teams/getLeagueStats"),
+        axios.get("/api/teams/getAllNbaPlayers")
+      ])
+      .then(
+        axios.spread((teams, players) => {
+          //console.log(teams.data);
+          //console.log(players.data);
+          for (var i = 0; i < teams.data.length; i++) {
+            teams.data[i].name = teams.data[i].Name;
+            delete teams.data[i].Name;
+            teams.data[i].picture = teams.data[i].Logo;
+            delete teams.data[i].Logo;
+            var tag = `team/${teams.data[i].id}`;
+            teams.data[i].tag = tag;
+          }
+          for (var i = 0; i < players.data.length; i++) {
+            var tag = `player/${players.data[i].id}`;
+            players.data[i].tag = tag;
+          }
+          var results = teams.data.concat(players.data);
+          console.log(results);
+          this.setState({ results: results });
+        })
+      )
       .catch(err => {
         console.log(err);
       });
@@ -39,11 +59,15 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <header className="navigation">
-        <img
-          src="../public/images/basketball-logo-vector.jpg"
-          alt="bbscout logo"
-          className="navigation__logo"
-        />
+        <div className="navigation__title">
+          BB SCOUT
+          {/*<img
+            src="https://ui-ex.com/images/basketball-transparent-vector-2.png"
+            alt="bbscout logo"
+            className="navigation__logo"
+            style={{ color: "red" }}
+    />*/}
+        </div>
         {this.renderSearch()}
         {/*<Search suggestions={this.state.results} />*/}
 
