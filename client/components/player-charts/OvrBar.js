@@ -16,6 +16,36 @@ export default class OvrBar extends React.Component {
     }
   }
 
+  calculateGrades() {
+    var highPer = 27.0;
+    var highWs = 9.0;
+    var highWsFourtyEight = 0.3;
+    var highVorp = 5.0;
+    var highBpm = 8.0;
+
+    var per = this.getGrade(highPer, this.state.player.per, 5.0);
+    var ws = this.getGrade(highWs, this.state.player.ws, -1.0);
+    var wsFourtyEight = this.getGrade(
+      highWsFourtyEight,
+      this.state.player.wsFourtyEight,
+      -0.03
+    );
+    var vorp = this.getGrade(highVorp, this.state.player.vorp, -1.0);
+    var bpm = this.getGrade(highBpm, this.state.player.bpm, -7.0);
+    this.setState(
+      {
+        per: per,
+        ws: ws,
+        wsFourtyEight: wsFourtyEight,
+        vorp: vorp,
+        bpm: bpm
+      },
+      () => {
+        this.createChart();
+      }
+    );
+  }
+
   getGrade(high, actual, min) {
     var playerGrade = {};
     var gradeSlots = 13;
@@ -78,7 +108,151 @@ export default class OvrBar extends React.Component {
     return playerGrade;
   }
 
+  createChart() {
+    var chart = Highcharts.chart("container-rating-ovr", {
+      chart: {
+        type: "bar",
+        backgroundColor: null
+      },
+      title: {
+        text: null
+      },
+      subtitle: {
+        text: null
+      },
+      exporting: {
+        enabled: false
+      },
+      xAxis: {
+        categories: ["PER", "WS", "WS/48", "VORP", "BPM"],
+        title: {
+          text: null
+        }
+      },
+      yAxis: {
+        min: 18,
+        max: 80,
+        title: {
+          text: null,
+          align: "high"
+        },
+        labels: {
+          overflow: "justify",
+          enabled: false
+        },
+        gridLineWidth: 0,
+        minorGridLineWidth: 0
+      },
+      tooltip: {
+        headerFormat: "<b>{point.key}</b><br/>",
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span>`
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true
+          },
+          grouping: false
+        },
+        series: {
+          borderRadius: 10
+        }
+      },
+      credits: {
+        enabled: false
+      },
+      legend: {
+        enabled: false
+      },
+      series: [
+        {
+          name: "Possible",
+          dataLabels: false,
+          data: [
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" }
+          ]
+        },
+        {
+          name: "Grade",
+          data: [
+            {
+              y: this.state.per.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "PER",
+              stat: this.state.player.per
+            },
+            {
+              y: this.state.ws.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "WS",
+              stat: this.state.player.ws
+            },
+            {
+              y: this.state.wsFourtyEight.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "WS/48",
+              stat: this.state.player.wsFourtyEight
+            },
+            {
+              y: this.state.vorp.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "VORP",
+              stat: this.state.player.vorp
+            },
+            {
+              y: this.state.bpm.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "BPM",
+              stat: this.state.player.bpm
+            }
+          ]
+        }
+      ]
+    });
+  }
+
   render() {
-    return <div />;
+    return (
+      <div
+        id="container-rating-ovr"
+        style={{
+          height: "490px"
+        }}
+      />
+    );
   }
 }

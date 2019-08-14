@@ -289,7 +289,7 @@ export default class RankGauges extends React.Component {
       <div className="rank-gauge-container">
         <div className="player__gauge-container">
           <div style={headerStyle} className="player__gauge-header">
-            Position Rankings
+            Pos. Rankings
           </div>
         </div>
         <div className="gauge" id="gauge1" />

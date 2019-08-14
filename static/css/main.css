@@ -190,7 +190,8 @@ body {
   min-height: 100px;
   height: auto;
   margin-left: 0.6rem;
-  max-height: 100rem; }
+  max-height: 100rem;
+  overflow: hidden; }
 
 .suggestion-item {
   height: 10rem;
@@ -337,13 +338,13 @@ body {
     margin-bottom: 2rem; }
   .player__gauge-header {
     height: 3.5rem;
-    width: 60%;
+    width: 40%;
     margin-top: 2rem;
     clip-path: polygon(7% 0%, 100% 0%, 93% 100%, 0% 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 3rem;
+    padding-left: 2rem;
     letter-spacing: 1.1px;
     font-size: 1.6rem; }
   .player__stats {
@@ -388,7 +389,8 @@ body {
     grid-column: 1 / -1;
     display: flex;
     align-items: flex-end;
-    justify-content: center; }
+    justify-content: center;
+    position: relative; }
 
 .player__stat-overview {
   display: grid;
@@ -408,17 +410,39 @@ body {
   font-size: 1.4rem;
   color: grey; }
 
-.btn__stat-selector {
+.btn__stat-selector, .btn__stat-selector:link, .btn__stat-selectorvisited {
   background-color: transparent;
   font-size: 1.5rem;
   color: #45a29e;
+  min-height: min-content;
   height: 4rem;
   width: 20%;
   text-transform: uppercase;
   border: 1px solid #45a29e;
+  cursor: pointer;
+  transition: all 0.2s; }
+
+.btn__stat-selector:hover {
+  width: 30%; }
+
+.btn__stat-selector:focus {
+  outline: none;
+  width: 30%; }
+
+.stat-menu-container {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 100%;
+  width: 30%;
+  z-index: 12000;
+  min-height: 100px;
+  max-height: 60rem;
+  color: white;
+  text-align: center; }
+
+.stat-menu-item {
+  height: 12rem;
   cursor: pointer; }
-  .btn__stat-selector:focus {
-    outline: none; }
 
 .team-image-box {
   padding: 1.5rem;
@@ -520,6 +544,14 @@ body {
   z-index: 11000;
   height: 300px;
   background-color: red; }
+
+.no-stats-found {
+  color: white;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  margin-top: 10rem; }
 
 .team-grid {
   display: grid;

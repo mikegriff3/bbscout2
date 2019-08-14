@@ -69,6 +69,7 @@ class PlayerInfo extends React.Component {
     this.renderSelection = this.renderSelection.bind(this);
     this.renderRankGauges = this.renderRankGauges.bind(this);
     this.renderBarChart = this.renderBarChart.bind(this);
+    this.setBar = this.setBar.bind(this);
   }
 
   componentDidMount() {
@@ -128,6 +129,12 @@ class PlayerInfo extends React.Component {
     this.setState({
       selection: event.currentTarget.textContent,
       showMenu: !this.state.showMenu
+    });
+  }
+
+  setBar(event) {
+    this.setState({
+      barSelect: event.currentTarget.textContent
     });
   }
 
@@ -804,13 +811,25 @@ class PlayerInfo extends React.Component {
     if (this.state.barSelect === "Offense") {
       return <OffBar player={this.state.player} />;
     } else if (this.state.barSelect === "Defense") {
-      return <DefBar player={this.state.player} />;
+      return <DefBar player={this.state.player} hustle={this.state.hustle} />;
+    } else if (this.props.statCat === "Overall") {
+      return <OvrBar player={this.state.player} />;
+    } else if (this.props.statCat === "Shooting") {
+      return (
+        <ShootingBar
+          catch={this.state.catchShootStats}
+          player={this.state.player}
+          shooting={this.state.shootingStats}
+        />
+      );
+    } else if (this.props.statCat === "Hustle/Transition") {
+      return (
+        <HustleBar
+          transition={this.state.transition}
+          hustle={this.state.hustle}
+        />
+      );
     }
-    // } else if (this.props.statCat === "Overall") {
-    //   return <PlayerOvrBarRatings player={this.props.player} />;
-    // } else if (this.props.statCat === "Catch/Shoot") {
-    //   return <PlayerCatchShootBarRatings player={this.props.catchShootStats} />;
-    // }
   }
 
   getGrade(high, min, actual) {
@@ -973,7 +992,7 @@ class PlayerInfo extends React.Component {
                   <span className="player__info-stat-title">
                     College:{" "}
                     <span className="player__info-stat-text">
-                      {this.state.player.college}
+                      {this.state.player.college || "None"}
                     </span>
                   </span>
                 </div>
@@ -1063,11 +1082,36 @@ class PlayerInfo extends React.Component {
             <div className="player__bar-container">
               <div className="extended-bar-menu">
                 <div className="extended-header">Extended Stats</div>
-                <div className="extended-selector">Offense</div>
-                <div className="extended-selector">Defense</div>
-                <div className="extended-selector">Overall</div>
-                <div className="extended-selector">Shooting</div>
-                <div className="extended-selector">Hustle/Transition</div>
+                <div
+                  className="extended-selector"
+                  onClick={e => this.setBar(e)}
+                >
+                  Offense
+                </div>
+                <div
+                  className="extended-selector"
+                  onClick={e => this.setBar(e)}
+                >
+                  Defense
+                </div>
+                {/*<div
+                  className="extended-selector"
+                  onClick={e => this.setBar(e)}
+                >
+                  Overall
+                </div>*/}
+                <div
+                  className="extended-selector"
+                  onClick={e => this.setBar(e)}
+                >
+                  Shooting
+                </div>
+                {/*<div
+                  className="extended-selector"
+                  onClick={e => this.setBar(e)}
+                >
+                  Hustle/Transition
+                </div>*/}
               </div>
               {this.renderBarChart()}
             </div>

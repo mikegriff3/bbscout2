@@ -246,7 +246,7 @@ export default class PolarColumn extends React.Component {
             useHTML: true,
             enabled: true,
             format:
-              '<span class="wheel-label" style="color: grey">{point.name}</span>',
+              '<span class="wheel-label" style="color: white">{point.name}</span>',
             style: {
               fontSize: "1.6rem"
             }

@@ -170,13 +170,13 @@
 
   &__gauge-header {
     height: 3.5rem;
-    width: 60%;
+    width: 40%;
     margin-top: 2rem;
     clip-path: polygon(7% 0%, 100% 0%, 93% 100%, 0% 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 3rem;
+    padding-left: 2rem;
     letter-spacing: 1.1px;
     font-size: 1.6rem;
   }
@@ -241,6 +241,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    position: relative;
   }
 }
 
@@ -268,24 +269,57 @@
 
 .btn {
   &__stat-selector {
-    background-color: transparent;
-    font-size: 1.5rem;
-    color: rgb(69, 162, 158);
-    height: 4rem;
-    width: 20%;
-    //border-radius: 100px;
-    text-transform: uppercase;
-    //background-image: radial-gradient(rgb(31, 40, 51), rgb(10, 13, 16));
-    border: 1px solid rgb(69, 162, 158);
-    cursor: pointer;
+    &,
+    &:link,
+    &visited {
+      background-color: transparent;
+      font-size: 1.5rem;
+      color: rgb(69, 162, 158);
+      min-height: min-content;
+      height: 4rem;
+      width: 20%;
+      //border-radius: 100px;
+      text-transform: uppercase;
+      //background-image: radial-gradient(rgb(31, 40, 51), rgb(10, 13, 16));
+      border: 1px solid rgb(69, 162, 158);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
     &:hover {
+      width: 30%;
+      // & * {
+      //   transform: scaleX(0.4);
+      //   font-size: 1.3rem;
+      // }
     }
 
     &:focus {
       outline: none;
+      width: 30%;
     }
   }
+}
+
+.stat-menu {
+  &-container {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 100%;
+    width: 30%;
+    z-index: 12000;
+    min-height: 100px;
+    //height: 21rem;
+    //overflow: scroll;
+    max-height: 60rem;
+    color: white;
+    text-align: center;
+  }
+}
+
+.stat-menu-item {
+  height: 12rem;
+  cursor: pointer;
 }
 
 .team-image-box {
@@ -418,4 +452,13 @@
   z-index: 11000;
   height: 300px;
   background-color: red;
+}
+
+.no-stats-found {
+  color: white;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  margin-top: 10rem;
 }

@@ -10,9 +10,12 @@ export default class DefBar extends React.Component {
 
   componentDidMount() {
     if (this.props.player.name) {
-      this.setState({ player: this.props.player }, () => {
-        this.calculateGrades();
-      });
+      this.setState(
+        { player: this.props.player, hustle: this.props.hustle },
+        () => {
+          this.calculateGrades();
+        }
+      );
     }
   }
 
@@ -26,6 +29,12 @@ export default class DefBar extends React.Component {
     var highStl = 2.4;
     var highBlk = 2.4;
     var highPf = 0;
+    var highCharges = 0.68;
+    var highLooseRec = 2.1;
+    var highDeflections = 4.1;
+    var highContestTwo = 15.0;
+    var highContestThree = 5.3;
+    var highContestShot = 16.0;
 
     var blkPct = this.getGrade(highBlkPct, this.state.player.blkPct, 0);
     var stlPct = this.getGrade(highStlPct, this.state.player.stlPct, 0);
@@ -52,6 +61,37 @@ export default class DefBar extends React.Component {
       (this.state.player.pf / this.state.player.mpg) * 36 * -1,
       -6.0
     );
+
+    var chargesDrawn = this.getGrade(
+      highCharges,
+      (this.state.hustle.chargesDrawn / this.state.player.mpg) * 36,
+      0
+    );
+    var looseBallRec = this.getGrade(
+      highLooseRec,
+      (this.state.hustle.looseBallRec / this.state.player.mpg) * 36,
+      0.5
+    );
+    var deflections = this.getGrade(
+      highDeflections,
+      (this.state.hustle.deflections / this.state.player.mpg) * 36,
+      0.5
+    );
+    var contestedTwo = this.getGrade(
+      highContestTwo,
+      (this.state.hustle.contestedTwo / this.state.player.mpg) * 36,
+      1.0
+    );
+    var contestedThree = this.getGrade(
+      highContestThree,
+      (this.state.hustle.contestedThree / this.state.player.mpg) * 36,
+      1.5
+    );
+    var contestedShots = this.getGrade(
+      highContestShot,
+      (this.state.hustle.contestedShots / this.state.player.mpg) * 36,
+      3.5
+    );
     this.setState(
       {
         blkPct: blkPct,
@@ -62,7 +102,13 @@ export default class DefBar extends React.Component {
         blk: blk,
         dbpm: dbpm,
         dws: dws,
-        pf: pf
+        pf: pf,
+        chargesDrawn: chargesDrawn,
+        looseBallRec: looseBallRec,
+        deflections: deflections,
+        contestedTwo: contestedTwo,
+        contestedThree: contestedThree,
+        contestedShots: contestedShots
       },
       () => {
         this.createChart();
@@ -148,7 +194,20 @@ export default class DefBar extends React.Component {
         text: null
       },
       xAxis: {
-        categories: ["BLK%", "STL%", "DRB%", "DRB", "DBPM", "DWS"],
+        categories: [
+          "BLK%",
+          "STL%",
+          "DRB%",
+          "DRB",
+          "DBPM",
+          "DWS",
+          "CHRG",
+          "LBRC",
+          "DFCT",
+          "CNT2",
+          "CNT3",
+          "CNTS"
+        ],
         title: {
           text: null
         }
@@ -193,6 +252,12 @@ export default class DefBar extends React.Component {
           name: "Possible",
           dataLabels: false,
           data: [
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" },
+            { y: 80, color: "transparent" },
             { y: 80, color: "transparent" },
             { y: 80, color: "transparent" },
             { y: 80, color: "transparent" },
@@ -279,6 +344,78 @@ export default class DefBar extends React.Component {
               },
               name: "DWS",
               stat: this.state.player.dws
+            },
+            {
+              y: this.state.chargesDrawn.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "CHRG",
+              stat: this.state.hustle.chargesDrawn
+            },
+            {
+              y: this.state.looseBallRec.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "LBRC",
+              stat: this.state.hustle.looseBallRec
+            },
+            {
+              y: this.state.deflections.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "DFCT",
+              stat: this.state.hustle.deflections
+            },
+            {
+              y: this.state.contestedTwo.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "CNT2",
+              stat: this.state.hustle.contestedTwo
+            },
+            {
+              y: this.state.contestedThree.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "CNT3",
+              stat: this.state.hustle.contestedThree
+            },
+            {
+              y: this.state.contestedShots.Grade,
+              color: {
+                linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
+                stops: [
+                  [0, "rgba(96, 128, 0, 0.8)"],
+                  [1, "rgba(243, 243, 21, 0.8)"]
+                ]
+              },
+              name: "CNTS",
+              stat: this.state.hustle.contestedShots
             }
           ]
         }
@@ -291,7 +428,7 @@ export default class DefBar extends React.Component {
       <div
         id="container-rating-def"
         style={{
-          height: "275px"
+          height: "490px"
         }}
       />
     );
