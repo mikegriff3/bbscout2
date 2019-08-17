@@ -6,13 +6,22 @@ export default class RankGauges extends React.Component {
     this.state = {
       gauge1: "pts",
       gauge2: "trb",
-      gauge3: "ast"
+      gauge3: "ast",
+      showMenuOne: false,
+      showMenuTwo: false,
+      showMenuThree: false
     };
     this.createChart = this.createChart.bind(this);
     this.getPlayerRank = this.getPlayerRank.bind(this);
     this.selectG1 = this.selectG1.bind(this);
     this.selectG2 = this.selectG2.bind(this);
     this.selectG3 = this.selectG3.bind(this);
+    this.renderMenuOne = this.renderMenuOne.bind(this);
+    this.renderMenuTwo = this.renderMenuTwo.bind(this);
+    this.renderMenuThree = this.renderMenuThree.bind(this);
+    this.handleMenuClickOne = this.handleMenuClickOne.bind(this);
+    this.handleMenuClickTwo = this.handleMenuClickTwo.bind(this);
+    this.handleMenuClickThree = this.handleMenuClickThree.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +41,444 @@ export default class RankGauges extends React.Component {
         }
       );
     }
+  }
+
+  renderMenuOne() {
+    if (this.state.renderMenuOne) {
+      return (
+        <div className="gauge-menu">
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            pts
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            ast
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            tov
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            astPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            tovPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            usgPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            ftr
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            fgm
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            fga
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            fgPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            threePt
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            threePtAtt
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            twoPt
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            twoPtAtt
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            twoPtPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            threePtPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            ft
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            fta
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            freeThrowPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            efgPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            tsPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            threePAr
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            trb
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            orb
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            drb
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            orbPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            drbPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            trbPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            stl
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            blk
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            stlPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            blkPct
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            mpg
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            pf
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            per
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            ows
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            dws
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            bpm
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            ws
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            obpm
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            dbpm
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            wsFortyEight
+          </div>
+          <div onClick={e => this.selectG1(e)} className="gauge-menu-item">
+            vorp
+          </div>
+        </div>
+      );
+    }
+  }
+
+  renderMenuTwo() {
+    if (this.state.renderMenuTwo) {
+      return (
+        <div className="gauge-menu">
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            pts
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            ast
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            tov
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            astPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            tovPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            usgPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            ftr
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            fgm
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            fga
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            fgPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            threePt
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            threePtAtt
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            twoPt
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            twoPtAtt
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            twoPtPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            threePtPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            ft
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            fta
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            freeThrowPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            efgPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            tsPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            threePAr
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            trb
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            orb
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            drb
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            orbPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            drbPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            trbPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            stl
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            blk
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            stlPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            blkPct
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            mpg
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            pf
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            per
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            ows
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            dws
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            bpm
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            ws
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            obpm
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            dbpm
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            wsFortyEight
+          </div>
+          <div onClick={e => this.selectG2(e)} className="gauge-menu-item">
+            vorp
+          </div>
+        </div>
+      );
+    }
+  }
+
+  renderMenuThree() {
+    if (this.state.renderMenuThree) {
+      return (
+        <div className="gauge-menu">
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            pts
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            ast
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            tov
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            astPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            tovPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            usgPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            ftr
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            fgm
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            fga
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            fgPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            threePt
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            threePtAtt
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            twoPt
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            twoPtAtt
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            twoPtPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            threePtPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            ft
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            fta
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            freeThrowPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            efgPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            tsPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            threePAr
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            trb
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            orb
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            drb
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            orbPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            drbPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            trbPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            stl
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            blk
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            stlPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            blkPct
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            mpg
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            pf
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            per
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            ows
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            dws
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            bpm
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            ws
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            obpm
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            dbpm
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            wsFortyEight
+          </div>
+          <div onClick={e => this.selectG3(e)} className="gauge-menu-item">
+            vorp
+          </div>
+        </div>
+      );
+    }
+  }
+
+  handleMenuClickOne() {
+    this.setState({
+      renderMenuOne: !this.state.renderMenuOne,
+      renderMenuTwo: false,
+      renderMenuThree: false
+    });
+  }
+
+  handleMenuClickTwo() {
+    this.setState({
+      renderMenuTwo: !this.state.renderMenuTwo,
+      renderMenuOne: false,
+      renderMenuThree: false
+    });
+  }
+
+  handleMenuClickThree() {
+    this.setState({
+      renderMenuThree: !this.state.renderMenuThree,
+      renderMenuTwo: false,
+      renderMenuOne: false
+    });
   }
 
   createChart() {
@@ -221,7 +668,10 @@ export default class RankGauges extends React.Component {
           rank === 31 ||
           rank === 41 ||
           rank === 51 ||
-          rank === 61
+          rank === 61 ||
+          rank === 71 ||
+          rank === 81 ||
+          rank === 91
         ) {
           suffix = "st";
         } else if (
@@ -230,7 +680,10 @@ export default class RankGauges extends React.Component {
           rank === 32 ||
           rank === 42 ||
           rank === 52 ||
-          rank === 62
+          rank === 62 ||
+          rank === 72 ||
+          rank === 82 ||
+          rank === 92
         ) {
           suffix = "nd";
         } else if (
@@ -239,7 +692,10 @@ export default class RankGauges extends React.Component {
           rank === 33 ||
           rank === 43 ||
           rank === 53 ||
-          rank === 63
+          rank === 63 ||
+          rank === 73 ||
+          rank === 83 ||
+          rank === 93
         ) {
           suffix = "rd";
         } else {
@@ -252,7 +708,7 @@ export default class RankGauges extends React.Component {
     return obj;
   }
 
-  selectG1(evt, eventKey) {
+  selectG1(eventKey) {
     this.setState({ gauge1: eventKey.target.innerHTML }, () => {
       var gauge1Rank = this.getPlayerRank(this.state.gauge1);
       this.setState({ gauge1Rank: gauge1Rank }, () => {
@@ -261,7 +717,7 @@ export default class RankGauges extends React.Component {
     });
   }
 
-  selectG2(evt, eventKey) {
+  selectG2(eventKey) {
     this.setState({ gauge2: eventKey.target.innerHTML }, () => {
       var gauge2Rank = this.getPlayerRank(this.state.gauge2);
       this.setState({ gauge2Rank: gauge2Rank }, () => {
@@ -270,7 +726,7 @@ export default class RankGauges extends React.Component {
     });
   }
 
-  selectG3(evt, eventKey) {
+  selectG3(eventKey) {
     this.setState({ gauge3: eventKey.target.innerHTML }, () => {
       var gauge3Rank = this.getPlayerRank(this.state.gauge3);
       this.setState({ gauge3Rank: gauge3Rank }, () => {
@@ -293,11 +749,20 @@ export default class RankGauges extends React.Component {
           </div>
         </div>
         <div className="gauge" id="gauge1" />
-        <div className="gauge-header">PTS</div>
+        <div className="gauge-header" onClick={this.handleMenuClickOne}>
+          {this.state.gauge1.toUpperCase()}
+          {this.renderMenuOne()}
+        </div>
         <div className="gauge" id="gauge2" />
-        <div className="gauge-header">AST</div>
+        <div className="gauge-header" onClick={this.handleMenuClickTwo}>
+          {this.state.gauge2.toUpperCase()}
+          {this.renderMenuTwo()}
+        </div>
         <div className="gauge" id="gauge3" />
-        <div className="gauge-header">REB</div>
+        <div className="gauge-header" onClick={this.handleMenuClickThree}>
+          {this.state.gauge3.toUpperCase()}
+          {this.renderMenuThree()}
+        </div>
       </div>
     );
   }

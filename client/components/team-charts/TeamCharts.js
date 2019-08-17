@@ -10,13 +10,34 @@ export default class TeamCharts extends React.Component {
       statTwo: "mpg",
       position: "All",
       teamPlayers: [],
-      pieStat: "Pts",
+      pieStat: "pts",
       leaderStat: "pts",
-      averageStat: "pts"
+      averageStat: "pts",
+      renderPie: false,
+      xStat: "mpg",
+      yStat: "pts",
+      barStat: "pts",
+      renderBar: false,
+      renderScatterX: false,
+      renderScatterY: false
     };
     this.createChart = this.createChart.bind(this);
     this.getPlayerShare = this.getPlayerShare.bind(this);
     this.getColumnData = this.getColumnData.bind(this);
+    this.handlePieClick = this.handlePieClick.bind(this);
+    this.renderPieMenu = this.renderPieMenu.bind(this);
+    this.selectPieStat = this.selectPieStat.bind(this);
+    this.handleScatterClickX = this.handleScatterClickX.bind(this);
+    this.handleScatterClickY = this.handleScatterClickY.bind(this);
+    this.renderScatterMenuX = this.renderScatterMenuX.bind(this);
+    this.selectScatterStatX = this.selectScatterStatX.bind(this);
+    this.renderScatterMenuY = this.renderScatterMenuY.bind(this);
+    this.selectScatterStatY = this.selectScatterStatY.bind(this);
+    this.handleBarClick = this.handleBarClick.bind(this);
+    this.renderBarMenu = this.renderBarMenu.bind(this);
+    this.selectBarStat = this.selectBarStat.bind(this);
+    this.updateColumnData = this.updateColumnData.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -27,8 +48,52 @@ export default class TeamCharts extends React.Component {
         params: {
           team: this.props.team.Name,
           position: this.state.position,
-          statOne: this.state.statOne,
-          statTwo: this.state.statTwo
+          statOne: this.state.yStat,
+          statTwo: this.state.xStat
+        }
+      })
+      .then(data => {
+        var data = data.data;
+        //console.log(data);
+        for (var i = 0; i < data.length; i++) {
+          if (parseInt(data[i]["mpg"]) >= 5) {
+            playerData.push(data[i]);
+          }
+        }
+        this.setState({ teamPlayers: playerData });
+        for (var j = 0; j < playerData.length; j++) {
+          //console.log("J: ", playerData[j].id);
+          scatterData.push({
+            data: [
+              [playerData[j][this.state.xStat], playerData[j][this.state.yStat]]
+            ],
+            name: playerData[j].name,
+            color: "rgba(102, 252, 241, 0.8)",
+            _symbolIndex: 0,
+            id: playerData[j].id
+          });
+        }
+        this.setState({ data: scatterData }, () => {
+          this.getColumnData(this.state.barStat);
+          this.getPlayerShare(this.state.pieStat.toLowerCase());
+          //this.createChart();
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  handleSearch() {
+    var playerData = [];
+    var scatterData = [];
+    axios
+      .get("/api/teams/getPlayerStats", {
+        params: {
+          team: this.props.team.Name,
+          position: this.state.position,
+          statOne: this.state.yStat,
+          statTwo: this.state.xStat
         }
       })
       .then(data => {
@@ -45,8 +110,8 @@ export default class TeamCharts extends React.Component {
           scatterData.push({
             data: [
               [
-                playerData[j][this.state.statTwo],
-                playerData[j][this.state.statOne]
+                parseFloat(playerData[j][this.state.xStat]),
+                parseFloat(playerData[j][this.state.yStat])
               ]
             ],
             name: playerData[j].name,
@@ -56,9 +121,9 @@ export default class TeamCharts extends React.Component {
           });
         }
         this.setState({ data: scatterData }, () => {
-          this.getColumnData("pts");
-          this.getPlayerShare(this.state.pieStat.toLowerCase());
-          //this.createChart();
+          //this.getColumnData(this.state.barStat);
+          //this.getPlayerShare(this.state.pieStat.toLowerCase());
+          this.createChart();
         });
       })
       .catch(err => {
@@ -105,6 +170,825 @@ export default class TeamCharts extends React.Component {
     });
   }
 
+  updateColumnData(stat) {
+    var columnData = [];
+    if (this.state.teamPlayers) {
+      for (var i = 0; i < this.state.teamPlayers.length; i++) {
+        var player = [
+          this.state.teamPlayers[i].name,
+          parseFloat(this.state.teamPlayers[i][stat])
+        ];
+        columnData.push(player);
+      }
+    }
+    this.setState({ columnData: columnData }, () => {
+      this.createChart();
+    });
+  }
+
+  handlePieClick() {
+    this.setState({ renderPie: !this.state.renderPie });
+  }
+
+  selectPieStat(eventKey) {
+    this.setState({ pieStat: eventKey.target.innerHTML }, () => {
+      this.getPlayerShare(this.state.pieStat);
+      //this.createChart();
+    });
+  }
+
+  renderPieMenu() {
+    if (this.state.renderPie) {
+      return (
+        <div className="pie-menu">
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            pts
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            ast
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            tov
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            fgm
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            fga
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            threePt
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            threePtAtt
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            twoPt
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            twoPtAtt
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            ft
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            fta
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            trb
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            orb
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            drb
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            stl
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            blk
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            mpg
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            pf
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            per
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            ows
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            dws
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            bpm
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            ws
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            obpm
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            dbpm
+          </div>
+          <div onClick={e => this.selectPieStat(e)} className="pie-menu-item">
+            vorp
+          </div>
+        </div>
+      );
+    }
+  }
+
+  handleBarClick() {
+    this.setState({ renderBar: !this.state.renderBar });
+  }
+
+  selectBarStat(eventKey) {
+    this.setState({ barStat: eventKey.target.innerHTML }, () => {
+      this.updateColumnData(this.state.barStat);
+      //this.createChart();
+    });
+  }
+
+  renderBarMenu() {
+    if (this.state.renderBar) {
+      return (
+        <div className="bar-menu">
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            pts
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            ast
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            tov
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            astPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            tovPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            usgPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            ftr
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            fgm
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            fga
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            fgPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            threePt
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            threePtAtt
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            twoPt
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            twoPtAtt
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            twoPtPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            threePtPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            ft
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            fta
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            freeThrowPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            efgPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            tsPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            threePAr
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            trb
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            orb
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            drb
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            orbPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            drbPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            trbPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            stl
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            blk
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            stlPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            blkPct
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            mpg
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            pf
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            per
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            ows
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            dws
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            bpm
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            ws
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            obpm
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            dbpm
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            wsFortyEight
+          </div>
+          <div onClick={e => this.selectBarStat(e)} className="bar-menu-item">
+            vorp
+          </div>
+        </div>
+      );
+    }
+  }
+
+  handleScatterClickX() {
+    this.setState({ renderScatterX: !this.state.renderScatterX });
+  }
+
+  selectScatterStatX(eventKey) {
+    this.setState({ xStat: eventKey.target.innerHTML }, () => {
+      //this.getPlayerShare(this.state.pieStat);
+      //this.createChart();
+    });
+  }
+
+  handleScatterClickY() {
+    this.setState({ renderScatterY: !this.state.renderScatterY });
+  }
+
+  selectScatterStatY(eventKey) {
+    this.setState({ yStat: eventKey.target.innerHTML }, () => {
+      //this.getPlayerShare(this.state.pieStat);
+      //this.createChart();
+    });
+  }
+
+  renderScatterMenuX() {
+    if (this.state.renderScatterX) {
+      return (
+        <div className="scatter-menu">
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            pts
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            ast
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            tov
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            astPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            tovPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            usgPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            ftr
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            fgm
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            fga
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            fgPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            threePt
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            threePtAtt
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            twoPt
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            twoPtAtt
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            twoPtPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            threePtPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            ft
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            fta
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            freeThrowPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            efgPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            tsPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            threePAr
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            trb
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            orb
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            drb
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            orbPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            drbPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            trbPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            stl
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            blk
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            stlPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            blkPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            mpg
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            pf
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            per
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            ows
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            dws
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            bpm
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            ws
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            obpm
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            dbpm
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            wsFortyEight
+          </div>
+          <div
+            onClick={e => this.selectScatterStatX(e)}
+            className="scatter-menu-item"
+          >
+            vorp
+          </div>
+        </div>
+      );
+    }
+  }
+
+  renderScatterMenuY() {
+    if (this.state.renderScatterY) {
+      return (
+        <div className="scatter-menu">
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            pts
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            ast
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            tov
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            astPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            tovPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            usgPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            ftr
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            fgm
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            fga
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            fgPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            threePt
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            threePtAtt
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            twoPt
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            twoPtAtt
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            twoPtPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            threePtPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            ft
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            fta
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            freeThrowPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            efgPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            tsPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            threePAr
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            trb
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            orb
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            drb
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            orbPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            drbPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            trbPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            stl
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            blk
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            stlPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            blkPct
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            mpg
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            pf
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            per
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            ows
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            dws
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            bpm
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            ws
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            obpm
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            dbpm
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            wsFortyEight
+          </div>
+          <div
+            onClick={e => this.selectScatterStatY(e)}
+            className="scatter-menu-item"
+          >
+            vorp
+          </div>
+        </div>
+      );
+    }
+  }
+
   createChart() {
     var chart = Highcharts.chart({
       chart: {
@@ -123,7 +1007,7 @@ export default class TeamCharts extends React.Component {
       xAxis: {
         title: {
           enabled: true,
-          text: `${this.state.statTwo}`
+          text: `${this.state.xStat}`
         },
         startOnTick: true,
         endOnTick: true,
@@ -131,7 +1015,7 @@ export default class TeamCharts extends React.Component {
       },
       yAxis: {
         title: {
-          text: `${this.state.statOne}`
+          text: `${this.state.yStat}`
         }
       },
       legend: {
@@ -186,8 +1070,8 @@ export default class TeamCharts extends React.Component {
           },
           tooltip: {
             headerFormat: `<b>{series.name}</b><br>`,
-            pointFormat: `{point.x} ${this.state.statTwo}, {point.y} ${
-              this.state.statOne
+            pointFormat: `{point.x} ${this.state.xStat}, {point.y} ${
+              this.state.yStat
             }`
           }
         }
@@ -215,6 +1099,18 @@ export default class TeamCharts extends React.Component {
       exporting: { enabled: false },
       plotOptions: {
         pie: {
+          colors: [
+            "#cfff4d",
+            "#bbff00",
+            "#a8e600",
+            "#96cc00",
+            "#83b300",
+            "#709900",
+            "#5e8000",
+            "#4b6600",
+            "#384d00",
+            "#253300"
+          ],
           allowPointSelect: true,
           cursor: "pointer",
           depth: 35,
@@ -260,7 +1156,7 @@ export default class TeamCharts extends React.Component {
       },
       series: [
         {
-          name: `${this.state.averageStat}`,
+          name: `${this.state.barStat}`,
           color: {
             linearGradient: {
               x1: 0,
@@ -310,6 +1206,12 @@ export default class TeamCharts extends React.Component {
               height: "400px"
             }}
           />
+          <div className="pie-stat-container">
+            <div className="pie-stat" onClick={this.handlePieClick}>
+              {this.state.pieStat.toUpperCase()}
+              {this.renderPieMenu()}
+            </div>
+          </div>
         </div>
         <div className="team__scatter-chart-container">
           <div className="team__chart-title-container">
@@ -324,6 +1226,25 @@ export default class TeamCharts extends React.Component {
               height: "500px"
             }}
           />
+          <div className="team-scatter-menu-container">
+            <div className="axis-container">
+              <div>Y-AXIS:</div>
+              <div className="scatter-stat" onClick={this.handleScatterClickY}>
+                {this.state.yStat}
+                {this.renderScatterMenuY()}
+              </div>
+            </div>
+            <div className="axis-container">
+              <div>X-AXIS:</div>
+              <div className="scatter-stat" onClick={this.handleScatterClickX}>
+                {this.state.xStat}
+                {this.renderScatterMenuX()}
+              </div>
+            </div>
+            <div className="scatter-search" onClick={this.handleSearch}>
+              SEARCH
+            </div>
+          </div>
         </div>
         <div className="team__bar-chart-container">
           <div className="team__chart-title-container">
@@ -338,19 +1259,13 @@ export default class TeamCharts extends React.Component {
               height: "500px"
             }}
           />
+          <div className="bar-stat-container">
+            <div className="bar-stat" onClick={this.handleBarClick}>
+              {this.state.barStat.toUpperCase()}
+              {this.renderBarMenu()}
+            </div>
+          </div>
         </div>
-        {/*<div
-          id="scatter-container"
-          style={{
-            height: "400px"
-          }}
-        />
-        <div
-          id="bar-container"
-          style={{
-            height: "400px"
-          }}
-        />*/}
       </div>
     );
   }
