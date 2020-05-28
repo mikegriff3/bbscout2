@@ -11,17 +11,11 @@ export default class PlayerPage extends React.Component {
 
   render() {
     return (
-      <Container>
-        <Row>
-          <NavBar />
-        </Row>
-        <Row>
-          <PlayerInfo props={this.props} />
-        </Row>
-        <Row>
-          <Footer />
-        </Row>
-      </Container>
+      <div className="container">
+        <NavBar />
+        <PlayerInfo props={this.props} />
+        <Footer />
+      </div>
     );
   }
 }
