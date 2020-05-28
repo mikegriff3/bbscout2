@@ -233,7 +233,10 @@ export default class DefBar extends React.Component {
       plotOptions: {
         bar: {
           dataLabels: {
-            enabled: true
+            enabled: true,
+            style: {
+              color: "white"
+            }
           },
           grouping: false
         },

@@ -1,11 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import PlayerRatings from "./PlayerRatings";
 import RankGauges from "./player-charts/RankGauges";
 import OffBar from "./player-charts/OffBar";
 import DefBar from "./player-charts/DefBar";
 import OvrBar from "./player-charts/OvrBar";
+import CareerProgression from "./player-charts/CareerProgression";
 
 const mapStateToProps = state => {
   return {
@@ -41,7 +43,9 @@ class PlayerInfo extends React.Component {
       selection: "Player Ratings",
       showMenu: false,
       statCat: "Basic",
-      barSelect: "Offense"
+      barSelect: "Offense",
+      progStat: "Overall",
+      stats: []
     };
     this.getPlayer = this.getPlayer.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
@@ -70,9 +74,11 @@ class PlayerInfo extends React.Component {
     this.renderRankGauges = this.renderRankGauges.bind(this);
     this.renderBarChart = this.renderBarChart.bind(this);
     this.setBar = this.setBar.bind(this);
+    this.getCareerStats = this.getCareerStats.bind(this);
   }
 
   componentDidMount() {
+    //this.setState({ stats: [...this.state.stats, this.props.player] });
     this.getPlayer();
   }
 
@@ -80,19 +86,35 @@ class PlayerInfo extends React.Component {
     axios
       .get(`/api/teams/getPlayerProfile/${this.state.id}`)
       .then(data => {
-        this.setState({ player: data.data }, () => {});
+        console.log("DATA:", data);
+        this.setState(
+          { player: data.data, stats: [...this.state.stats, data.data] },
+          () => {}
+        );
         this.getTeamColors(data.data.team);
         this.getPositionStats(data.data.position);
-        this.getPostStats(data.data.name);
-        this.getCatchShootStats(data.data.name);
-        this.getSpeedDistanceStats(data.data.name);
-        this.getShootingStats(data.data.name);
-        this.getPRHandler(data.data.name);
-        this.getPRRollMan(data.data.name);
-        this.getIso(data.data.name);
-        this.getHustleStats(data.data.name);
-        this.getTransition(data.data.name);
-        this.getContract(data.data.name);
+        // this.getPostStats(data.data.name);
+        // this.getCatchShootStats(data.data.name);
+        // this.getSpeedDistanceStats(data.data.name);
+        // this.getShootingStats(data.data.name);
+        // this.getPRHandler(data.data.name);
+        // this.getPRRollMan(data.data.name);
+        // this.getIso(data.data.name);
+        // this.getHustleStats(data.data.name);
+        // this.getTransition(data.data.name);
+        // this.getContract(data.data.name);
+        //this.getCareerStats(data.data.name);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  getCareerStats(name) {
+    axios
+      .get(`/api/teams/getCareerStats/${name}`)
+      .then(data => {
+        this.setState({ stats: [...this.state.stats, ...data.data] });
       })
       .catch(err => {
         console.log(err);
@@ -171,7 +193,7 @@ class PlayerInfo extends React.Component {
         />
       );
     } else if (this.state.selection === "Career Stats") {
-      return <CareerProgression colors={this.state.colors} />;
+      //return <CareerProgression colors={this.state.colors} />;
     }
   }
 
@@ -909,6 +931,12 @@ class PlayerInfo extends React.Component {
       color: "white",
       cursor: "pointer"
     };
+    var headerStyle3 = {
+      backgroundImage:
+        "linear-gradient(to right, rgba(204, 0, 153, 0) 0.15%, rgba(204, 0, 153, 0.8) 40%, rgba(204, 0, 153, 0))",
+      color: "white",
+      cursor: "pointer"
+    };
     var nameStyle = {
       color: this.state.colors.Color_Main || "red",
       fontFamily: "serif"
@@ -923,211 +951,226 @@ class PlayerInfo extends React.Component {
     if (JSON.stringify(this.state.colors) != "{}") {
       return (
         <div>
-          <div className="player">
-            <div className="player__card">
-              <div className="player__picture-container">
-                <img
-                  src={picture}
-                  alt="Player picture"
-                  className="player__picture"
-                />
+          <Row>
+            <div className="player">
+              <div className="player__card">
+                <div className="player__picture-container">
+                  <img
+                    src={picture}
+                    alt="Player picture"
+                    className="player__picture"
+                  />
+                </div>
+                <div className="player__info">
+                  <div className="player__info-name">
+                    <span className="player__info-name-text">
+                      {this.state.player.name.toUpperCase()}
+                    </span>
+                    <span style={{ paddingLeft: "1rem", fontSize: "1.8rem" }}>
+                      {this.state.player.position}
+                    </span>
+                  </div>
+                  <div className="player__info-text">
+                    <span className="player__info-stat-title">
+                      Height:{" "}
+                      <span className="player__info-stat-text">
+                        {this.state.player.height}
+                      </span>
+                    </span>
+                    <span
+                      style={{ paddingLeft: "1rem" }}
+                      className="player__info-stat-title"
+                    >
+                      Weight:{" "}
+                      <span className="player__info-stat-text">
+                        {this.state.player.weight}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="player__info-text">
+                    <span className="player__info-stat-title">
+                      Age:{" "}
+                      <span className="player__info-stat-text">
+                        {this.state.player.age}
+                      </span>
+                    </span>
+                    <span
+                      style={{ paddingLeft: "1rem" }}
+                      className="player__info-stat-title"
+                    >
+                      Exp:{" "}
+                      <span className="player__info-stat-text">
+                        {this.state.player.experience}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="player__info-text">
+                    <span className="player__info-stat-title">
+                      Team:{" "}
+                      <span className="player__info-stat-text">
+                        <a
+                          style={{ textDecoration: "none", cursor: "pointer" }}
+                          href={`/team/${this.state.colors.id}`}
+                        >
+                          {this.state.player.team}
+                        </a>
+                      </span>
+                    </span>
+                  </div>
+                  <div className="player__info-text">
+                    <span className="player__info-stat-title">
+                      College:{" "}
+                      <span className="player__info-stat-text">
+                        {this.state.player.college || "None"}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="player__info-text">
+                    <span className="player__info-stat-title">
+                      Draft:{" "}
+                      <span className="player__info-stat-text">
+                        {this.state.player.draft || "Unavailable"}
+                      </span>
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div className="player__info">
-                <div className="player__info-name">
-                  <span className="player__info-name-text">
-                    {this.state.player.name.toUpperCase()}
-                  </span>
-                  <span style={{ paddingLeft: "1rem", fontSize: "1.8rem" }}>
-                    {this.state.player.position}
-                  </span>
-                </div>
-                <div className="player__info-text">
-                  <span className="player__info-stat-title">
-                    Height:{" "}
-                    <span className="player__info-stat-text">
-                      {this.state.player.height}
-                    </span>
-                  </span>
-                  <span
-                    style={{ paddingLeft: "1rem" }}
-                    className="player__info-stat-title"
+              <div className="player__stats">
+                <div className="player__menu-container">
+                  <div
+                    style={headerStyle}
+                    className="player__menu"
+                    onClick={this.handleClick}
                   >
-                    Weight:{" "}
-                    <span className="player__info-stat-text">
-                      {this.state.player.weight}
-                    </span>
-                  </span>
+                    {this.state.selection}
+                    {this.renderMenu()}
+                  </div>
                 </div>
-                <div className="player__info-text">
-                  <span className="player__info-stat-title">
-                    Age:{" "}
-                    <span className="player__info-stat-text">
-                      {this.state.player.age}
-                    </span>
-                  </span>
-                  <span
-                    style={{ paddingLeft: "1rem" }}
-                    className="player__info-stat-title"
-                  >
-                    Exp:{" "}
-                    <span className="player__info-stat-text">
-                      {this.state.player.experience}
-                    </span>
-                  </span>
-                </div>
-                <div className="player__info-text">
-                  <span className="player__info-stat-title">
-                    Team:{" "}
-                    <span className="player__info-stat-text">
-                      <a
-                        style={{ textDecoration: "none", cursor: "pointer" }}
-                        href={`/team/${this.state.colors.id}`}
-                      >
-                        {this.state.player.team}
-                      </a>
-                    </span>
-                  </span>
-                </div>
-                <div className="player__info-text">
-                  <span className="player__info-stat-title">
-                    College:{" "}
-                    <span className="player__info-stat-text">
-                      {this.state.player.college || "None"}
-                    </span>
-                  </span>
-                </div>
-                <div className="player__info-text">
-                  <span className="player__info-stat-title">
-                    Draft:{" "}
-                    <span className="player__info-stat-text">
-                      {this.state.player.draft || "Unavailable"}
-                    </span>
-                  </span>
+                <div className="player__charts">{this.renderSelection()}</div>
+                <div className="player__ratings">
+                  <div className="player__ratings-oversight-container">
+                    <div>
+                      <div style={{ paddingLeft: ".6rem" }}>Overall</div>
+                      {this.getOverallRating()}
+                    </div>
+                    <div>
+                      <div style={{ paddingLeft: ".6rem" }}>Offense</div>
+                      {this.getOffenseRating()}
+                    </div>
+                    <div>
+                      <div style={{ paddingLeft: ".6rem" }}>Defense</div>
+                      {this.getDefenseRating()}
+                    </div>
+                  </div>
+                  <div className="player__stat-overview">
+                    <div className="stat-box">
+                      <span className="stat-title">PPG</span>
+                      <span className="stat-text">
+                        {this.state.player.pts || 0}
+                      </span>
+                    </div>
+                    <div className="stat-box">
+                      <span className="stat-title">RPG</span>
+                      <span className="stat-text">
+                        {this.state.player.trb || 0}
+                      </span>
+                    </div>
+                    <div className="stat-box">
+                      <span className="stat-title">APG</span>
+                      <span className="stat-text">
+                        {this.state.player.ast || 0}
+                      </span>
+                    </div>
+                    <div className="stat-box">
+                      <span className="stat-title">GP</span>
+                      <span className="stat-text">
+                        {this.state.player.gamesPlayed || 0}
+                      </span>
+                    </div>
+                    <div className="stat-box">
+                      <span className="stat-title">MPG</span>
+                      <span className="stat-text">
+                        {this.state.player.mpg || 0}
+                      </span>
+                    </div>
+                    <div className="stat-box">
+                      <span className="stat-title">PER</span>
+                      <span className="stat-text">
+                        {this.state.player.per || 0}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="team-image-box">
+                    <img src={this.state.colors.Logo} className="team-image" />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="player__stats">
-              <div className="player__menu-container">
-                <div
-                  style={headerStyle}
-                  className="player__menu"
-                  onClick={this.handleClick}
-                >
-                  {this.state.selection}
-                  {this.renderMenu()}
-                </div>
-              </div>
-              <div className="player__charts">{this.renderSelection()}</div>
-              <div className="player__ratings">
-                <div className="player__ratings-oversight-container">
-                  <div>
-                    <div style={{ paddingLeft: ".6rem" }}>Overall</div>
-                    {this.getOverallRating()}
+          </Row>
+          <Row>
+            <div className="player-sub-ratings">
+              {this.renderRankGauges()}
+              <div className="player__bar-container">
+                <div className="extended-bar-menu">
+                  <div className="extended-header">Extended Stats</div>
+                  <div
+                    className="extended-selector"
+                    onClick={e => this.setBar(e)}
+                  >
+                    Offense
                   </div>
-                  <div>
-                    <div style={{ paddingLeft: ".6rem" }}>Offense</div>
-                    {this.getOffenseRating()}
+                  <div
+                    className="extended-selector"
+                    onClick={e => this.setBar(e)}
+                  >
+                    Defense
                   </div>
-                  <div>
-                    <div style={{ paddingLeft: ".6rem" }}>Defense</div>
-                    {this.getDefenseRating()}
-                  </div>
-                </div>
-                <div className="player__stat-overview">
-                  <div className="stat-box">
-                    <span className="stat-title">PPG</span>
-                    <span className="stat-text">
-                      {this.state.player.pts || 0}
-                    </span>
-                  </div>
-                  <div className="stat-box">
-                    <span className="stat-title">RPG</span>
-                    <span className="stat-text">
-                      {this.state.player.trb || 0}
-                    </span>
-                  </div>
-                  <div className="stat-box">
-                    <span className="stat-title">APG</span>
-                    <span className="stat-text">
-                      {this.state.player.ast || 0}
-                    </span>
-                  </div>
-                  <div className="stat-box">
-                    <span className="stat-title">GP</span>
-                    <span className="stat-text">
-                      {this.state.player.gamesPlayed || 0}
-                    </span>
-                  </div>
-                  <div className="stat-box">
-                    <span className="stat-title">MPG</span>
-                    <span className="stat-text">
-                      {this.state.player.mpg || 0}
-                    </span>
-                  </div>
-                  <div className="stat-box">
-                    <span className="stat-title">PER</span>
-                    <span className="stat-text">
-                      {this.state.player.per || 0}
-                    </span>
-                  </div>
-                </div>
-                <div className="team-image-box">
-                  <img src={this.state.colors.Logo} className="team-image" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="player-sub-ratings">
-            {this.renderRankGauges()}
-            <div className="player__bar-container">
-              <div className="extended-bar-menu">
-                <div className="extended-header">Extended Stats</div>
-                <div
-                  className="extended-selector"
-                  onClick={e => this.setBar(e)}
-                >
-                  Offense
-                </div>
-                <div
-                  className="extended-selector"
-                  onClick={e => this.setBar(e)}
-                >
-                  Defense
-                </div>
-                {/*<div
+                  {/*<div
                   className="extended-selector"
                   onClick={e => this.setBar(e)}
                 >
                   Overall
                 </div>*/}
-                <div
-                  className="extended-selector"
-                  onClick={e => this.setBar(e)}
-                >
-                  Shooting
-                </div>
-                {/*<div
+                  <div
+                    className="extended-selector"
+                    onClick={e => this.setBar(e)}
+                  >
+                    Shooting
+                  </div>
+                  {/*<div
                   className="extended-selector"
                   onClick={e => this.setBar(e)}
                 >
                   Hustle/Transition
                 </div>*/}
+                </div>
+                {this.renderBarChart()}
               </div>
-              {this.renderBarChart()}
             </div>
-          </div>
-          {/*<div className="player-progression-main">
-            <div className="player-progression-menu">
-              <div>Career Progression</div>
-              <div>Stat Selection</div>
+          </Row>
+          <Row>
+            <div className="player-progression-main">
+              <div>
+                <div className="player__menu-prog" style={headerStyle3}>
+                  Career Progression
+                </div>
+                <div>Stat Selection</div>
+                {/*<CareerProgression
+                progStat={this.state.progStat}
+                seasons={this.state.stats}
+              />*/}
+              </div>
             </div>
-      </div>*/}
+          </Row>
         </div>
       );
     } else {
       return (
-        <div>
-          <img src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif" />
+        <div className="loading-gif">
+          <img
+            className="gif"
+            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+          />
           <div>Loading Player...</div>
         </div>
       );

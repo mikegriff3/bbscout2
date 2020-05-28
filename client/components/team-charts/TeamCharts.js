@@ -1070,9 +1070,7 @@ export default class TeamCharts extends React.Component {
           },
           tooltip: {
             headerFormat: `<b>{series.name}</b><br>`,
-            pointFormat: `{point.x} ${this.state.xStat}, {point.y} ${
-              this.state.yStat
-            }`
+            pointFormat: `{point.x} ${this.state.xStat}, {point.y} ${this.state.yStat}`
           }
         }
       },

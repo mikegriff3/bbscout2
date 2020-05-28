@@ -1176,6 +1176,7 @@ module.exports = {
   getPlayerProfile: (req, res) => {
     db.Players.findByPk(req.params.id)
       .then(data => {
+        //console.log("DATA ///////:", data);
         res.send(data);
       })
       .catch(err => {

@@ -206,7 +206,10 @@ export default class OffBar extends React.Component {
       plotOptions: {
         bar: {
           dataLabels: {
-            enabled: true
+            enabled: true,
+            style: {
+              color: "white"
+            }
           },
           grouping: false
         },

@@ -266,7 +266,11 @@ export default class PlayerRatings extends React.Component {
         </div>
         <div className="player__btn-container">
           <button className="btn__stat-selector" onClick={this.setStatMenu}>
-            {this.state.statCat.toUpperCase()}
+            <div>
+              {this.state.statCat.toUpperCase()}
+              {"  "}
+              <span style={{ fontSize: "10px" }}>&#9660;</span>
+            </div>
           </button>
           {this.renderStatMenu()}
         </div>
