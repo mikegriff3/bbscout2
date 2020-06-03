@@ -564,9 +564,7 @@ export default class RankGauges extends React.Component {
                 '<div style="text-align:center"><span style="font-size:18px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "white") +
-                `">${this.state.gauge1Rank.rank}${
-                  this.state.gauge1Rank.suffix
-                }</span><br/>` +
+                `">${this.state.gauge1Rank.rank}${this.state.gauge1Rank.suffix}</span><br/>` +
                 "</div>"
             },
             tooltip: {
@@ -601,9 +599,7 @@ export default class RankGauges extends React.Component {
                 '<div style="text-align:center"><span style="font-size:18px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "white") +
-                `">${this.state.gauge2Rank.rank}${
-                  this.state.gauge2Rank.suffix
-                }</span><br/>` +
+                `">${this.state.gauge2Rank.rank}${this.state.gauge2Rank.suffix}</span><br/>` +
                 "</div>"
             },
             tooltip: {
@@ -638,9 +634,7 @@ export default class RankGauges extends React.Component {
                 '<div style="text-align:center"><span style="font-size:18px;color:' +
                 ((Highcharts.theme && Highcharts.theme.contrastTextColor) ||
                   "white") +
-                `">${this.state.gauge3Rank.rank}${
-                  this.state.gauge3Rank.suffix
-                }</span><br/>` +
+                `">${this.state.gauge3Rank.rank}${this.state.gauge3Rank.suffix}</span><br/>` +
                 "</div>"
             },
             tooltip: {

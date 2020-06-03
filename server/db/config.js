@@ -1,24 +1,38 @@
 const Sequelize = require("sequelize");
 
-const bbscoutdb = new Sequelize(
-  "postgres://griff:temecula1@bbscoutdb.cpbianqr35ok.us-west-1.rds.amazonaws.com:5432/bbscoutdb",
-  {
-    dialect: "postgres",
-    pool: {
-      min: 0,
-      idle: 1000
-    },
-    logging: false
-  }
-);
+// const bbscoutdb = new Sequelize(
+//   "postgres://griff:temecula1@bbscoutdb.cpbianqr35ok.us-west-1.rds.amazonaws.com:5432/bbscoutdb",
+//   {
+//     dialect: "postgres",
+//     pool: {
+//       min: 0,
+//       idle: 1000
+//     },
+//     logging: false
+//   }
+// );
 
-bbscoutdb
-  .authenticate()
-  .then(() => console.log("connected to db"))
-  .catch(err => console.log("FAILED TO CONNECT TO DB", err));
+// bbscoutdb
+//   .authenticate()
+//   .then(() => console.log("connected to db"))
+//   .catch(err => console.log("FAILED TO CONNECT TO DB", err));
 
 const db = new Sequelize(
   "postgres://cbncypxc:GWEic6mmnNU5q46ZOO2z1djA4RGwz4aN@baasu.db.elephantsql.com:5432/cbncypxc",
+  {
+    dialect: "postgres",
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 20000,
+      acquire: 20000,
+      evict: 20000
+    }
+  }
+);
+
+const playerHistdb = new Sequelize(
+  "postgres://jupsdajv:iX10xzBNGQBT4GkegGM8VEFw7GisAFYt@ruby.db.elephantsql.com:5432/jupsdajv",
   {
     dialect: "postgres",
     pool: {
@@ -248,5 +262,5 @@ module.exports = {
   eurodb,
   gleaguedb,
   salariesdb,
-  bbscoutdb
+  playerHistdb
 };

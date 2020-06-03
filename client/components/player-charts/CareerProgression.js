@@ -5,11 +5,13 @@ export default class CareerProgression extends React.Component {
     super();
     this.state = {
       stats: [],
-      progStat: "Overall"
+      progStat: "Ovr/Off/Def"
     };
     this.createChart = this.createChart.bind(this);
     this.getStat = this.getStat.bind(this);
     this.getOverall = this.getOverall.bind(this);
+    this.getOffense = this.getOffense.bind(this);
+    this.getDefense = this.getDefense.bind(this);
     this.scaleStat = this.scaleStat.bind(this);
   }
 
@@ -17,9 +19,9 @@ export default class CareerProgression extends React.Component {
     this.getStat(this.state.progStat);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   this.getStat(nextProps.progStat);
-  // }
+  componentWillReceiveProps(nextProps) {
+    this.getStat(nextProps.progStat);
+  }
 
   scaleStat(high, stat, low) {
     var scaled = (100 / (high - low)) * (stat - low);
@@ -37,6 +39,20 @@ export default class CareerProgression extends React.Component {
       scaledPer + scaledBpm + scaledWs48 + scaledWs + scaledVorp;
 
     return weightedOvr;
+  }
+
+  getOffense(player) {
+    var scaledObpm = this.scaleStat(10.2, parseFloat(player.obpm), -6.0) * 0.5;
+    var scaledOws = this.scaleStat(8.7, parseFloat(player.ows), -2.0) * 0.5;
+    var offRating = scaledObpm + scaledOws;
+    return offRating;
+  }
+
+  getDefense(player) {
+    var scaledDbpm = this.scaleStat(5.8, parseFloat(player.dbpm), -4.0) * 0.5;
+    var scaledDws = this.scaleStat(4.1, parseFloat(player.dws), 0) * 0.5;
+    var defRating = scaledDbpm + scaledDws;
+    return defRating;
   }
 
   getStat(stat) {
@@ -75,9 +91,14 @@ export default class CareerProgression extends React.Component {
       }
     }
     if (stat === "Overall") {
-      var seasons = this.props.seasons.sort(function(a, b) {
-        return parseInt(a.year) - parseInt(b.year);
-      });
+      var seasons = this.props.seasons.sort(
+        function(a, b) {
+          return parseInt(a.year) - parseInt(b.year);
+        },
+        () => {
+          console.log(seasons);
+        }
+      );
       for (var i = 0; i < seasons.length; i++) {
         var player = {};
         var ovr = this.getOverall(seasons[i]);
@@ -161,7 +182,7 @@ export default class CareerProgression extends React.Component {
           text: `${this.state.progStat}`
         },
         min: 0,
-        max: 115,
+        max: 130,
         tickInterval: 10
       };
     }
@@ -247,17 +268,17 @@ export default class CareerProgression extends React.Component {
         {
           data: this.state.statOneData,
           name: `${this.props.statCat}`,
-          color: `${this.props.colors.Color_Sec}`
+          color: "rgba(102, 252, 241, 0.8)"
         },
         {
           name: "Offense",
           data: this.state.statTwoData,
-          color: `${this.props.colors.Color_Main}`
+          color: "rgba(210, 255, 77, 0.8)"
         },
         {
           name: "Defense",
           data: this.state.statThreeData,
-          color: colorThree
+          color: "rgba(255, 0, 127, 0.8)"
         }
       ],
 

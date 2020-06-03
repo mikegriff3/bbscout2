@@ -11,8 +11,7 @@ module.exports = {
   savePlayerInfo: (req, res) => {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
-    //console.log("Players Array: \n", playersArr);
-    for (var i = 200; i < playersArr.length; i++) {
+    for (var i = 400; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.Players.findOrCreate({
         where: {
@@ -496,7 +495,7 @@ module.exports = {
   updatePlayerStats: (req, res) => {
     console.log("REQ\n", req.body.data);
     var players = req.body.data;
-    for (var i = 0; i < players.length; i++) {
+    for (var i = 200; i < players.length; i++) {
       var player = players[i];
       db.Players.update(
         {
@@ -542,7 +541,7 @@ module.exports = {
   updatePlayerAdvancedStats: (req, res) => {
     console.log("REQ\n", req.body.data);
     var players = req.body.data;
-    for (var i = 0; i < players.length; i++) {
+    for (var i = 300; i < players.length; i++) {
       var player = players[i];
       db.Players.update(
         {

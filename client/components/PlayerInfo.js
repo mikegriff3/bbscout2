@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import PlayerRatings from "./PlayerRatings";
 import RankGauges from "./player-charts/RankGauges";

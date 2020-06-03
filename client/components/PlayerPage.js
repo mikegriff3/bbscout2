@@ -1,8 +1,7 @@
 import React from "react";
 import NavBar from "./NavBar";
-import PlayerInfo from "./PlayerInfo";
+import PlayerInfo2 from "./PlayerInfo2";
 import Footer from "./Footer";
-import { Container, Row } from "react-bootstrap";
 
 export default class PlayerPage extends React.Component {
   constructor() {
@@ -11,9 +10,9 @@ export default class PlayerPage extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <NavBar />
-        <PlayerInfo props={this.props} />
+        <PlayerInfo2 props={this.props} />
         <Footer />
       </div>
     );

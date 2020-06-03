@@ -1,8 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Row, Col } from "react-bootstrap";
 import axios from "axios";
-import PlayerRatings from "./PlayerRatings";
+import PlayerRatings2 from "./PlayerRatings2";
+import PlayerContract from "./PlayerContract";
+import PlayerSeasonStats from "./PlayerSeasonStats";
+import PlayerCareerStats from "./PlayerCareerStats";
 import RankGauges from "./player-charts/RankGauges";
 import OffBar from "./player-charts/OffBar";
 import DefBar from "./player-charts/DefBar";
@@ -26,7 +28,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class PlayerInfo extends React.Component {
+class PlayerInfo2 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +46,8 @@ class PlayerInfo extends React.Component {
       showMenu: false,
       statCat: "Basic",
       barSelect: "Offense",
-      progStat: "Overall",
+      progStat: "Ovr/Off/Def",
+      showProgMenu: false,
       stats: []
     };
     this.getPlayer = this.getPlayer.bind(this);
@@ -75,6 +78,10 @@ class PlayerInfo extends React.Component {
     this.renderBarChart = this.renderBarChart.bind(this);
     this.setBar = this.setBar.bind(this);
     this.getCareerStats = this.getCareerStats.bind(this);
+    this.handleMenuClick = this.handleMenuClick.bind(this);
+    this.handleProgClick = this.handleProgClick.bind(this);
+    this.renderProgMenu = this.renderProgMenu.bind(this);
+    this.selectProgStat = this.selectProgStat.bind(this);
   }
 
   componentDidMount() {
@@ -86,24 +93,23 @@ class PlayerInfo extends React.Component {
     axios
       .get(`/api/teams/getPlayerProfile/${this.state.id}`)
       .then(data => {
-        console.log("DATA:", data);
         this.setState(
           { player: data.data, stats: [...this.state.stats, data.data] },
           () => {}
         );
         this.getTeamColors(data.data.team);
         this.getPositionStats(data.data.position);
-        // this.getPostStats(data.data.name);
-        // this.getCatchShootStats(data.data.name);
-        // this.getSpeedDistanceStats(data.data.name);
-        // this.getShootingStats(data.data.name);
-        // this.getPRHandler(data.data.name);
-        // this.getPRRollMan(data.data.name);
-        // this.getIso(data.data.name);
-        // this.getHustleStats(data.data.name);
-        // this.getTransition(data.data.name);
-        // this.getContract(data.data.name);
-        //this.getCareerStats(data.data.name);
+        this.getPostStats(data.data.name);
+        this.getCatchShootStats(data.data.name);
+        this.getSpeedDistanceStats(data.data.name);
+        this.getShootingStats(data.data.name);
+        this.getPRHandler(data.data.name);
+        this.getPRRollMan(data.data.name);
+        this.getIso(data.data.name);
+        this.getHustleStats(data.data.name);
+        this.getTransition(data.data.name);
+        this.getContract(data.data.name);
+        this.getCareerStats(data.data.name);
       })
       .catch(err => {
         console.log(err);
@@ -114,11 +120,312 @@ class PlayerInfo extends React.Component {
     axios
       .get(`/api/teams/getCareerStats/${name}`)
       .then(data => {
-        this.setState({ stats: [...this.state.stats, ...data.data] });
+        this.setState({ stats: [...data.data, ...this.state.stats] }); //...this.state.stats
       })
       .catch(err => {
         console.log(err);
       });
+  }
+
+  handleProgClick() {
+    this.setState({ showProgMenu: !this.state.showProgMenu }, () => {
+      console.log("Progmenu: ", this.state.showProgMenu);
+    });
+  }
+
+  renderProgMenu() {
+    if (this.state.showProgMenu) {
+      return (
+        <div className="prog-stat-menu">
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            Ovr/Off/Def
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            Overall
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            Offense
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            Defense
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            pts
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            ast
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            tov
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            astPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            tovPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            usgPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            ftr
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            fgm
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            fga
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            fgPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            threePt
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            threePtAtt
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            twoPt
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            twoPtAtt
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            twoPtPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            threePtPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            ft
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            fta
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            freeThrowPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            efgPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            tsPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            threePAr
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            trb
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            orb
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            drb
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            orbPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            drbPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            trbPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            stl
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            blk
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            stlPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            blkPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            mpg
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            pf
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            per
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            ows
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            dws
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            bpm
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            ws
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            obpm
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            dbpm
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            wsFortyEight
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e)}
+            className="prog-stat-option"
+          >
+            vorp
+          </div>
+        </div>
+      );
+    }
+  }
+
+  selectProgStat(eventKey) {
+    this.setState({ progStat: eventKey.target.innerHTML, showProgMenu: false });
   }
 
   selectMenu() {
@@ -135,21 +442,32 @@ class PlayerInfo extends React.Component {
     if (this.state.showMenu) {
       return (
         <div className="menu-option">
-          {/*<div onClick={this.handleClick}>Season Stats</div>
-          <div onClick={this.handleClick}>Career Stats</div>
-          <div onClick={this.handleClick}>Player Ratings</div>
-          <div onClick={this.handleClick}>Player Projection</div>
-          <div onClick={this.handleClick}>Player Comparison</div>
-          <div onClick={this.handleClick}>Shot Chart</div>
-      <div onClick={this.handleClick}>Contract</div>*/}
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            Season Stats
+          </div>
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            Career Stats
+          </div>
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            Player Ratings
+          </div>
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            Contract
+          </div>
         </div>
       );
     }
   }
 
-  handleClick(event) {
+  handleMenuClick(event) {
     this.setState({
       selection: event.currentTarget.textContent,
+      showMenu: false
+    });
+  }
+
+  handleClick(event) {
+    this.setState({
       showMenu: !this.state.showMenu
     });
   }
@@ -163,7 +481,7 @@ class PlayerInfo extends React.Component {
   renderSelection() {
     if (this.state.selection === "Player Ratings") {
       return (
-        <PlayerRatings
+        <PlayerRatings2
           player={this.state.player}
           colors={this.state.colors}
           postStats={this.state.postStats}
@@ -186,14 +504,9 @@ class PlayerInfo extends React.Component {
         />
       );
     } else if (this.state.selection === "Season Stats") {
-      return (
-        <PlayerSeasonStats
-          player={this.state.player}
-          colors={this.state.colors}
-        />
-      );
+      return <PlayerSeasonStats player={this.state.player} />;
     } else if (this.state.selection === "Career Stats") {
-      //return <CareerProgression colors={this.state.colors} />;
+      return <PlayerCareerStats seasons={this.state.stats} />;
     }
   }
 
@@ -933,7 +1246,7 @@ class PlayerInfo extends React.Component {
     };
     var headerStyle3 = {
       backgroundImage:
-        "linear-gradient(to right, rgba(204, 0, 153, 0) 0.15%, rgba(204, 0, 153, 0.8) 40%, rgba(204, 0, 153, 0))",
+        "linear-gradient(to right, rgba(102, 252, 241, 0) 0.15%, rgba(102, 252, 241, 0.8) 40%, rgba(102, 252, 241, 0))",
       color: "white",
       cursor: "pointer"
     };
@@ -950,19 +1263,32 @@ class PlayerInfo extends React.Component {
     }
     if (JSON.stringify(this.state.colors) != "{}") {
       return (
-        <div>
-          <div className="player">
-            <div className="player__card">
-              <div className="player__picture-container">
+        <div className="container-fluid">
+          <div
+            className="row"
+            style={{
+              minHeight: "calc(96vh - 4rem)",
+              backgroundColor: "rgba(0,0,0,0.7)"
+            }}
+          >
+            <div className="player-card col-sm-4 col-xs-12">
+              <div
+                className="player-pic-container"
+                style={{
+                  height: "auto",
+                  width: "60%",
+                  marginBottom: "4rem"
+                }}
+              >
                 <img
                   src={picture}
                   alt="Player picture"
-                  className="player__picture"
+                  className="img-responsive"
                 />
               </div>
-              <div className="player__info">
-                <div className="player__info-name">
-                  <span className="player__info-name-text">
+              <div className="player-info">
+                <div>
+                  <span className="player-info-name-text">
                     {this.state.player.name.toUpperCase()}
                   </span>
                   <span style={{ paddingLeft: "1rem", fontSize: "1.8rem" }}>
@@ -1034,34 +1360,62 @@ class PlayerInfo extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="player__stats">
+            <div className="player-stats col-sm-8 col-xs-12">
               <div className="player__menu-container">
                 <div
                   style={headerStyle}
                   className="player__menu"
                   onClick={this.handleClick}
                 >
-                  {this.state.selection}
-                  {this.renderMenu()}
-                </div>
-              </div>
-              <div className="player__charts">{this.renderSelection()}</div>
-              <div className="player__ratings">
-                <div className="player__ratings-oversight-container">
                   <div>
+                    {this.state.selection}{" "}
+                    <span style={{ fontSize: "10px" }}>&#9660;</span>
+                  </div>
+                </div>
+                {this.renderMenu()}
+              </div>
+              <div
+                className="player-graph-row row"
+                style={{ paddingTop: "2rem" }}
+              >
+                <div className="player-charts">{this.renderSelection()}</div>
+              </div>
+              <div
+                className="player-rating-row row"
+                style={{
+                  marginTop: "3rem",
+                  //display: "flex",
+                  alignItems: "center",
+                  height: "170px"
+                }}
+              >
+                <div
+                  className="player-ratings-oversight-container col-sm-5 col-xs-12"
+                  style={{
+                    paddingBottom: "1.5rem",
+                    textTransform: "uppercase",
+                    color: "grey",
+                    fontSize: "1.4rem",
+                    height: "100%"
+                  }}
+                >
+                  <div className="rating-bar">
                     <div style={{ paddingLeft: ".6rem" }}>Overall</div>
                     {this.getOverallRating()}
                   </div>
-                  <div>
+                  <div className="rating-bar">
                     <div style={{ paddingLeft: ".6rem" }}>Offense</div>
                     {this.getOffenseRating()}
                   </div>
-                  <div>
+                  <div className="rating-bar">
                     <div style={{ paddingLeft: ".6rem" }}>Defense</div>
                     {this.getDefenseRating()}
                   </div>
                 </div>
-                <div className="player__stat-overview">
+                <div
+                  className="player__stat-overview col-sm-4 col-xs-12"
+                  style={{ height: "100%" }}
+                >
                   <div className="stat-box">
                     <span className="stat-title">PPG</span>
                     <span className="stat-text">
@@ -1099,61 +1453,134 @@ class PlayerInfo extends React.Component {
                     </span>
                   </div>
                 </div>
-                <div className="team-image-box">
-                  <img src={this.state.colors.Logo} className="team-image" />
+                <div
+                  className="col-sm-3 col-xs-12"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyItems: "center",
+                    height: "100%"
+                  }}
+                >
+                  <div className="team-image-box">
+                    <img
+                      src={this.state.colors.Logo}
+                      className="img-responsive"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div className="player-sub-ratings">
-            {this.renderRankGauges()}
-            <div className="player__bar-container">
-              <div className="extended-bar-menu">
-                <div className="extended-header">Extended Stats</div>
-                <div
-                  className="extended-selector"
-                  onClick={e => this.setBar(e)}
-                >
-                  Offense
-                </div>
-                <div
-                  className="extended-selector"
-                  onClick={e => this.setBar(e)}
-                >
-                  Defense
-                </div>
-                {/*<div
+          <div
+            className="hr-box"
+            style={{ backgroundColor: "rgba(0,0,0,0.7)", padding: "0 80px" }}
+          >
+            <hr
+              style={{
+                borderBottom: "1px solid #eee",
+                borderTop: "0px",
+                margin: "0",
+                paddingTop: "50px"
+              }}
+            />
+          </div>
+          <div className="row" style={{ backgroundColor: "rgba(0,0,0,0.7)" }}>
+            <div
+              className="player-sub-ratings2"
+              style={{
+                padding: "0px 60px",
+                marginTop: "40px"
+              }}
+            >
+              <div className="col-md-4 col-xs-12">
+                {this.renderRankGauges()}
+              </div>
+              <div className="col-md-8 col-xs-12">
+                <div className="player__bar-container">
+                  <div className="extended-bar-menu">
+                    <div className="extended-header">Extended Stats</div>
+                    <div
+                      className="extended-selector"
+                      onClick={e => this.setBar(e)}
+                    >
+                      Offense
+                    </div>
+                    <div
+                      className="extended-selector"
+                      onClick={e => this.setBar(e)}
+                    >
+                      Defense
+                    </div>
+                    {/*<div
                   className="extended-selector"
                   onClick={e => this.setBar(e)}
                 >
                   Overall
                 </div>*/}
-                <div
-                  className="extended-selector"
-                  onClick={e => this.setBar(e)}
-                >
-                  Shooting
-                </div>
-                {/*<div
+                    {/*<div
+                      className="extended-selector"
+                      onClick={e => this.setBar(e)}
+                    >
+                      Shooting
+                    </div>*/}
+                    {/*<div
                   className="extended-selector"
                   onClick={e => this.setBar(e)}
                 >
                   Hustle/Transition
                 </div>*/}
+                  </div>
+                  {this.renderBarChart()}
+                </div>
               </div>
-              {this.renderBarChart()}
             </div>
           </div>
-          <div className="player-progression-main">
-            <div>
-              <div className="player__menu-prog" style={headerStyle3}>
-                Career Progression
+          <div
+            className="hr-box"
+            style={{ backgroundColor: "rgba(0,0,0,0.7)", padding: "0 80px" }}
+          >
+            <hr
+              style={{
+                borderBottom: "1px solid #eee",
+                borderTop: "0px",
+                margin: "0",
+                paddingTop: "50px"
+              }}
+            />
+          </div>
+          <div className="row">
+            <div
+              className="player-progression-main"
+              style={{ padding: "40px 60px 80px 60px" }}
+            >
+              <div className="row">
+                <div className="player__menu-prog" style={headerStyle3}>
+                  Career Progression
+                </div>
+                <div style={{ paddingRight: "20px", position: "relative" }}>
+                  <div style={{ position: "relative", height: "4rem" }}>
+                    <div className="btn-cp-stat" onClick={this.handleProgClick}>
+                      {this.state.progStat}
+                      {"  "}
+                      <span
+                        style={{
+                          fontSize: "8px",
+                          marginLeft: "5px",
+                          marginTop: "3px"
+                        }}
+                      >
+                        &#9660;
+                      </span>
+                    </div>
+                    {this.renderProgMenu()}
+                  </div>
+                </div>
               </div>
-              <div>Stat Selection</div>
-              {/*<CareerProgression
+              <CareerProgression
                 progStat={this.state.progStat}
                 seasons={this.state.stats}
-              />*/}
+              />
             </div>
           </div>
         </div>
@@ -1179,4 +1606,4 @@ class PlayerInfo extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PlayerInfo);
+)(PlayerInfo2);

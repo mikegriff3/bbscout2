@@ -23,20 +23,20 @@ export default class ShootingBar extends React.Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.player.name) {
-  //     this.setState(
-  //       {
-  //         player: nextProps.player,
-  //         catch: nextProps.catch,
-  //         shooting: nextProps.shooting
-  //       },
-  //       () => {
-  //         this.calculateGrades();
-  //       }
-  //     );
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.player.name) {
+      this.setState(
+        {
+          player: nextProps.player,
+          catch: nextProps.catch,
+          shooting: nextProps.shooting
+        },
+        () => {
+          this.calculateGrades();
+        }
+      );
+    }
+  }
 
   calculateGrades() {
     var highDrPts = 9.5;
