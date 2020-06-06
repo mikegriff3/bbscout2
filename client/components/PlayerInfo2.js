@@ -10,6 +10,7 @@ import OffBar from "./player-charts/OffBar";
 import DefBar from "./player-charts/DefBar";
 import OvrBar from "./player-charts/OvrBar";
 import CareerProgression from "./player-charts/CareerProgression";
+import PlayerFullStats from "./PlayerFullStats";
 
 const mapStateToProps = state => {
   return {
@@ -48,7 +49,10 @@ class PlayerInfo2 extends React.Component {
       barSelect: "Offense",
       progStat: "Ovr/Off/Def",
       showProgMenu: false,
-      stats: []
+      stats: [],
+      progMax: 130,
+      progMin: 0,
+      progTick: 10
     };
     this.getPlayer = this.getPlayer.bind(this);
     this.getTeamColors = this.getTeamColors.bind(this);
@@ -127,294 +131,295 @@ class PlayerInfo2 extends React.Component {
       });
   }
 
-  handleProgClick() {
+  handleProgClick(event) {
+    event.preventDefault();
     this.setState({ showProgMenu: !this.state.showProgMenu }, () => {
       console.log("Progmenu: ", this.state.showProgMenu);
     });
   }
 
-  renderProgMenu() {
+  renderProgMenu(event) {
     if (this.state.showProgMenu) {
       return (
         <div className="prog-stat-menu">
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 130, 0, 10)}
             className="prog-stat-option"
           >
             Ovr/Off/Def
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 130, 0, 10)}
             className="prog-stat-option"
           >
             Overall
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 130, 0, 10)}
             className="prog-stat-option"
           >
             Offense
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 130, 0, 10)}
             className="prog-stat-option"
           >
             Defense
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 40, 0, 5)}
             className="prog-stat-option"
           >
             pts
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 15, 0, 1)}
             className="prog-stat-option"
           >
             ast
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 10, 0, 1)}
             className="prog-stat-option"
           >
             tov
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 0, 60, 5)}
             className="prog-stat-option"
           >
             astPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 0, 20, 2)}
             className="prog-stat-option"
           >
             tovPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 50, 0, 5)}
             className="prog-stat-option"
           >
             usgPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 0.8, 0, 0.1)}
             className="prog-stat-option"
           >
             ftr
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 15, 0, 1)}
             className="prog-stat-option"
           >
             fgm
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 30, 0, 5)}
             className="prog-stat-option"
           >
             fga
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 0.8, 0, 0.1)}
             className="prog-stat-option"
           >
             fgPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 8, 0, 1)}
             className="prog-stat-option"
           >
             threePt
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 16, 0, 2)}
             className="prog-stat-option"
           >
             threePtAtt
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
-            className="prog-stat-option"
-          >
-            twoPt
-          </div>
-          <div
-            onClick={e => this.selectProgStat(e)}
-            className="prog-stat-option"
-          >
-            twoPtAtt
-          </div>
-          <div
-            onClick={e => this.selectProgStat(e)}
-            className="prog-stat-option"
-          >
-            twoPtPct
-          </div>
-          <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 0.6, 0, 0.05)}
             className="prog-stat-option"
           >
             threePtPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 12, 0, 1)}
+            className="prog-stat-option"
+          >
+            twoPt
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e, 18, 0, 2)}
+            className="prog-stat-option"
+          >
+            twoPtAtt
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e, 0.8, 0, 0.1)}
+            className="prog-stat-option"
+          >
+            twoPtPct
+          </div>
+          <div
+            onClick={e => this.selectProgStat(e, 12, 0, 1)}
             className="prog-stat-option"
           >
             ft
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 14, 0, 2)}
             className="prog-stat-option"
           >
             fta
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 1, 0, 0.1)}
             className="prog-stat-option"
           >
             freeThrowPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 0.8, 0, 0.1)}
             className="prog-stat-option"
           >
             efgPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 0.8, 0, 0.1)}
             className="prog-stat-option"
           >
             tsPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 0.7, 0, 0.1)}
             className="prog-stat-option"
           >
             threePAr
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 16, 0, 2)}
             className="prog-stat-option"
           >
             trb
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 10, 0, 1)}
             className="prog-stat-option"
           >
             orb
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 14, 0, 2)}
             className="prog-stat-option"
           >
             drb
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 16, 0, 2)}
             className="prog-stat-option"
           >
             orbPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 40, 0, 2)}
             className="prog-stat-option"
           >
             drbPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 30, 0, 3)}
             className="prog-stat-option"
           >
             trbPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 3.5, 0, 0.5)}
             className="prog-stat-option"
           >
             stl
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 4, 0, 0.5)}
             className="prog-stat-option"
           >
             blk
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 4.5, 0, 0.5)}
             className="prog-stat-option"
           >
             stlPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 7, 0, 1)}
             className="prog-stat-option"
           >
             blkPct
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 42, 0, 3)}
             className="prog-stat-option"
           >
             mpg
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 6, 0, 1)}
             className="prog-stat-option"
           >
             pf
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 36, 0, 3)}
             className="prog-stat-option"
           >
             per
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 16, 0, 2)}
             className="prog-stat-option"
           >
             ows
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 8, 0, 1)}
             className="prog-stat-option"
           >
             dws
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 14, 0, 2)}
             className="prog-stat-option"
           >
             bpm
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 21, 0, 3)}
             className="prog-stat-option"
           >
             ws
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 10, 0, 1)}
             className="prog-stat-option"
           >
             obpm
           </div>
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 6, -5, 1)}
             className="prog-stat-option"
           >
             dbpm
           </div>
-          <div
-            onClick={e => this.selectProgStat(e)}
+          {/*<div
+            onClick={e => this.selectProgStat(e, 0.5, -0.5, 0.1)}
             className="prog-stat-option"
           >
             wsFortyEight
-          </div>
+      </div>*/}
           <div
-            onClick={e => this.selectProgStat(e)}
+            onClick={e => this.selectProgStat(e, 10, -5, 1)}
             className="prog-stat-option"
           >
             vorp
@@ -424,8 +429,14 @@ class PlayerInfo2 extends React.Component {
     }
   }
 
-  selectProgStat(eventKey) {
-    this.setState({ progStat: eventKey.target.innerHTML, showProgMenu: false });
+  selectProgStat(eventKey, progMax, progMin, tickInterval) {
+    this.setState({
+      progStat: eventKey.target.innerHTML,
+      showProgMenu: false,
+      progMax: progMax,
+      progMin: progMin,
+      progTick: tickInterval
+    });
   }
 
   selectMenu() {
@@ -1265,10 +1276,11 @@ class PlayerInfo2 extends React.Component {
       return (
         <div className="container-fluid">
           <div
-            className="row"
+            className="row player-row"
             style={{
               minHeight: "calc(96vh - 4rem)",
               backgroundColor: "rgba(0,0,0,0.7)"
+              //display: "flex"
             }}
           >
             <div className="player-card col-sm-4 col-xs-12">
@@ -1276,7 +1288,7 @@ class PlayerInfo2 extends React.Component {
                 className="player-pic-container"
                 style={{
                   height: "auto",
-                  width: "60%",
+                  width: "65%",
                   marginBottom: "4rem"
                 }}
               >
@@ -1549,6 +1561,33 @@ class PlayerInfo2 extends React.Component {
               }}
             />
           </div>
+          <div className="row" style={{ backgroundColor: "rgba(0,0,0,0.7)" }}>
+            <div
+              className="player-full-stats"
+              style={{
+                padding: "0px 60px",
+                marginTop: "60px"
+              }}
+            >
+              <div className="player__menu-prog" style={headerStyle3}>
+                Player Stats
+              </div>
+              <PlayerFullStats seasons={this.state.stats} />
+            </div>
+          </div>
+          <div
+            className="hr-box"
+            style={{ backgroundColor: "rgba(0,0,0,0.7)", padding: "0 80px" }}
+          >
+            <hr
+              style={{
+                borderBottom: "1px solid #eee",
+                borderTop: "0px",
+                margin: "0",
+                paddingTop: "50px"
+              }}
+            />
+          </div>
           <div className="row">
             <div
               className="player-progression-main"
@@ -1580,6 +1619,9 @@ class PlayerInfo2 extends React.Component {
               <CareerProgression
                 progStat={this.state.progStat}
                 seasons={this.state.stats}
+                maxScale={this.state.progMax}
+                tickInterval={this.state.progTick}
+                minScale={this.state.progMin}
               />
             </div>
           </div>

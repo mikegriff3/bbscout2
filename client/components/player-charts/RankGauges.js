@@ -9,7 +9,10 @@ export default class RankGauges extends React.Component {
       gauge3: "ast",
       showMenuOne: false,
       showMenuTwo: false,
-      showMenuThree: false
+      showMenuThree: false,
+      gauge1Rank: {},
+      gauge2Rank: {},
+      gauge3Rank: {}
     };
     this.createChart = this.createChart.bind(this);
     this.getPlayerRank = this.getPlayerRank.bind(this);
@@ -650,9 +653,17 @@ export default class RankGauges extends React.Component {
     var obj = {};
     var rank;
     var suffix;
-    var sorted = this.props.positionStats.sort((a, b) => {
+    var newArray = this.props.positionStats.filter(function(el) {
+      return el[stat] !== null;
+    });
+    var sorted = newArray.sort((a, b) => {
       return parseFloat(b[stat]) - parseFloat(a[stat]);
     });
+    for (let k = 0; k < sorted.length; k++) {
+      console.log(
+        k + ". " + sorted[k]["name"] + "- " + stat + ": " + sorted[k][stat]
+      );
+    }
     for (var i = 0; i < sorted.length; i++) {
       if (sorted[i].name === this.props.player.name) {
         rank = i + 1;

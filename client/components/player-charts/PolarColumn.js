@@ -222,7 +222,7 @@ export default class PolarColumn extends React.Component {
 
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`,
+        pointFormat: `<span>Rating: {point.temp}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`,
         style: {
           fontSize: "1.6rem"
         }
@@ -231,6 +231,8 @@ export default class PolarColumn extends React.Component {
       yAxis: {
         min: 0,
         max: 60,
+        //maxPadding: 50,
+        //tickInterval: 4,
         labels: {
           enabled: false
         },
@@ -245,8 +247,11 @@ export default class PolarColumn extends React.Component {
           dataLabels: {
             useHTML: true,
             enabled: true,
+            crop: false,
+            overflow: "allow",
+            allowOverlap: true,
             format:
-              '<span class="wheel-label" style="color: white">{point.name}</span>',
+              '<span class="wheel-label" style="color: white;">{point.name}</span>',
             style: {
               fontSize: "1.6rem"
             }
@@ -274,7 +279,8 @@ export default class PolarColumn extends React.Component {
           name: "Rating",
           data: [
             {
-              y: this.state.scoring.Grade,
+              y: this.state.scoring.Grade - 5,
+              temp: this.state.scoring.Grade,
               color: this.state.scoring.Color,
               borderColor: this.state.scoring.ColorStroke,
               borderWidth: 3,
@@ -286,7 +292,8 @@ export default class PolarColumn extends React.Component {
               ).toFixed(1)
             },
             {
-              y: this.state.ast.Grade,
+              y: this.state.ast.Grade - 5,
+              temp: this.state.ast.Grade,
               color: this.state.ast.Color,
               borderColor: this.state.scoring.ColorStroke,
               borderWidth: 3,
@@ -298,7 +305,8 @@ export default class PolarColumn extends React.Component {
               ).toFixed(1)
             },
             {
-              y: this.state.reb.Grade,
+              y: this.state.reb.Grade - 5,
+              temp: this.state.reb.Grade,
               color: this.state.reb.Color,
               borderColor: this.state.scoring.ColorStroke,
               borderWidth: 3,
@@ -310,7 +318,8 @@ export default class PolarColumn extends React.Component {
               ).toFixed(1)
             },
             {
-              y: this.state.stl.Grade,
+              y: this.state.stl.Grade - 5,
+              temp: this.state.stl.Grade,
               color: this.state.stl.Color,
               borderColor: this.state.scoring.ColorStroke,
               borderWidth: 3,
@@ -322,7 +331,8 @@ export default class PolarColumn extends React.Component {
               ).toFixed(1)
             },
             {
-              y: this.state.blk.Grade,
+              y: this.state.blk.Grade - 5,
+              temp: this.state.blk.Grade,
               color: this.state.blk.Color,
               borderColor: this.state.scoring.ColorStroke,
               borderWidth: 3,
@@ -334,7 +344,8 @@ export default class PolarColumn extends React.Component {
               ).toFixed(1)
             },
             {
-              y: this.state.ft.Grade,
+              y: this.state.ft.Grade - 5,
+              temp: this.state.ft.Grade,
               color: this.state.ft.Color,
               borderColor: this.state.scoring.ColorStroke,
               borderWidth: 3,
@@ -346,7 +357,8 @@ export default class PolarColumn extends React.Component {
               // ).toFixed(1)
             },
             {
-              y: this.state.threePoint.Grade,
+              y: this.state.threePoint.Grade - 5,
+              temp: this.state.threePoint.Grade,
               color: this.state.threePoint.Color,
               borderColor: this.state.scoring.ColorStroke,
               borderWidth: 3,
@@ -358,7 +370,8 @@ export default class PolarColumn extends React.Component {
               // ).toFixed(1)
             },
             {
-              y: this.state.twoPoint.Grade,
+              y: this.state.twoPoint.Grade - 5,
+              temp: this.state.twoPoint.Grade,
               color: this.state.twoPoint.Color,
               borderColor: this.state.scoring.ColorStroke,
               borderWidth: 3,

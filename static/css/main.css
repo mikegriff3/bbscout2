@@ -286,6 +286,10 @@ body {
   font-size: 1.6rem;
 }
 
+.full-stat-table-cont table th td {
+  border: 1px solid grey;
+}
+
 .footer {
   background-color: rgba(0, 0, 0, 0.7);
   grid-column: full-start / full-end;
@@ -1185,6 +1189,7 @@ th {
   display: grid;
   background-color: rgba(0, 0, 0, 0.7);
   margin-top: 2rem;
+  margin-bottom: 4rem;
 }
 .scout__header-container {
   display: flex;
@@ -1203,7 +1208,7 @@ th {
   font-size: 2rem;
 }
 .scout__scatter-chart-container {
-  height: 60rem;
+  height: 55rem;
 }
 .scout__scatter-chart {
   height: 50rem;
@@ -1216,6 +1221,45 @@ th {
 }
 .scout__menu-item:hover {
   color: white;
+}
+
+.scatter-stat-option {
+  height: 40px;
+  padding: 10px;
+  text-align: center;
+  min-width: 140px;
+}
+
+.scatter-stat-option:hover {
+  background-color: rgba(102, 252, 241, 0.6);
+}
+
+.filter-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: underline;
+}
+
+.filter-form {
+  color: white;
+  margin-top: 10px;
+  padding-left: 70px;
+}
+
+.full-data:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.full-data:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.full-data td {
+  vertical-align: middle;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .player-comp {
@@ -1294,12 +1338,20 @@ th {
   padding-top: 6rem;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   flex-direction: column;
   min-height: calc(96vh - 4rem);
+  padding-bottom: 3rem;
+}
+
+.player-row {
+  display: flex;
 }
 
 @media (max-width: 768px) {
+  .player-row {
+    display: block;
+  }
   .player-card {
     padding-top: 4rem;
   }
@@ -1345,8 +1397,14 @@ th {
     flex-direction: column;
     justify-content: space-between;
   }
+  .player-row {
+    display: block;
+  }
 }
 @media (min-width: 992px) {
+  .player-row {
+    display: flex;
+  }
 }
 @media (min-width: 1200px) {
 }

@@ -181,9 +181,9 @@ export default class CareerProgression extends React.Component {
         title: {
           text: `${this.state.progStat}`
         },
-        min: 0,
-        max: 130,
-        tickInterval: 10
+        min: this.props.minScale,
+        max: this.props.maxScale,
+        tickInterval: this.props.tickInterval
       };
     }
     var colorOne = "white";

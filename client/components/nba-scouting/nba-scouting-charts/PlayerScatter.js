@@ -51,7 +51,11 @@ export default class PlayerScatter extends React.Component {
           playerData.push(data[i]);
         }
       }
-      this.setState({ teamPlayers: playerData });
+      this.setState({
+        teamPlayers: playerData,
+        statOne: this.props.yStat,
+        statTwo: this.props.xStat
+      });
       for (var j = 0; j < playerData.length; j++) {
         scatterData.push({
           data: [
@@ -66,42 +70,113 @@ export default class PlayerScatter extends React.Component {
           id: playerData[j].id
         });
       }
-      this.setState({ data: scatterData }, () => {
-        this.createChart();
-      });
+      this.setState(
+        {
+          data: scatterData,
+          statOne: this.props.yStat,
+          statTwo: this.props.xStat
+        },
+        () => {
+          this.createChart();
+        }
+      );
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    var playerData = [];
-    var scatterData = [];
-    if (nextProps.players) {
-      var data = nextProps.players;
-      for (var i = 0; i < data.length; i++) {
-        if (parseFloat(data[i]["mpg"]) >= 5.0) {
-          playerData.push(data[i]);
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.xStat !== this.props.xStat ||
+      prevProps.yStat !== this.props.yStat ||
+      prevProps.players !== this.props.players
+    ) {
+      console.log("Scatter Props: ", this.props);
+      var playerData = [];
+      var scatterData = [];
+      if (this.props.players) {
+        var data = this.props.players;
+        for (var i = 0; i < data.length; i++) {
+          if (parseFloat(data[i]["mpg"]) >= 5.0) {
+            playerData.push(data[i]);
+          }
         }
+        this.setState(
+          {
+            teamPlayers: playerData,
+            statOne: this.props.yStat,
+            statTwo: this.props.xStat
+          },
+          () => {
+            for (var j = 0; j < playerData.length; j++) {
+              scatterData.push({
+                data: [
+                  [
+                    parseFloat(playerData[j][this.state.statTwo]),
+                    parseFloat(playerData[j][this.state.statOne])
+                  ]
+                ],
+                name: playerData[j].name,
+                color: "rgba(102, 252, 241, 0.7)",
+                _symbolIndex: 0,
+                id: playerData[j].id
+              });
+            }
+          }
+        );
+        this.setState(
+          {
+            data: scatterData
+            // statOne: this.props.yStat,
+            // statTwo: this.props.xStat
+          },
+          () => {
+            this.createChart();
+          }
+        );
       }
-      this.setState({ teamPlayers: playerData });
-      for (var j = 0; j < playerData.length; j++) {
-        scatterData.push({
-          data: [
-            [
-              parseFloat(playerData[j][this.state.statTwo]),
-              parseFloat(playerData[j][this.state.statOne])
-            ]
-          ],
-          name: playerData[j].name,
-          color: "rgba(102, 252, 241, 0.7)",
-          _symbolIndex: 0,
-          id: playerData[j].id
-        });
-      }
-      this.setState({ data: scatterData }, () => {
-        this.createChart();
-      });
     }
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   var playerData = [];
+  //   var scatterData = [];
+  //   if (nextProps.players) {
+  //     var data = nextProps.players;
+  //     for (var i = 0; i < data.length; i++) {
+  //       if (parseFloat(data[i]["mpg"]) >= 5.0) {
+  //         playerData.push(data[i]);
+  //       }
+  //     }
+  //     this.setState({
+  //       teamPlayers: playerData,
+  //       statOne: this.props.yStat,
+  //       statTwo: this.props.xStat
+  //     });
+  //     for (var j = 0; j < playerData.length; j++) {
+  //       scatterData.push({
+  //         data: [
+  //           [
+  //             parseFloat(playerData[j][this.state.statTwo]),
+  //             parseFloat(playerData[j][this.state.statOne])
+  //           ]
+  //         ],
+  //         name: playerData[j].name,
+  //         color: "rgba(102, 252, 241, 0.7)",
+  //         _symbolIndex: 0,
+  //         id: playerData[j].id
+  //       });
+  //     }
+  //     this.setState(
+  //       {
+  //         data: scatterData,
+  //         statOne: this.props.yStat,
+  //         statTwo: this.props.xStat
+  //       },
+  //       () => {
+  //         this.createChart();
+  //       }
+  //     );
+  //   }
+  // }
 
   createChart() {
     var chart = Highcharts.chart("containerScatterP", {
@@ -177,9 +252,7 @@ export default class PlayerScatter extends React.Component {
           },
           tooltip: {
             headerFormat: "<b>{series.name}</b><br>",
-            pointFormat: `{point.x} ${this.state.statTwo}, {point.y} ${
-              this.state.statOne
-            }`
+            pointFormat: `{point.x} ${this.state.statTwo}, {point.y} ${this.state.statOne}`
           }
         }
       },

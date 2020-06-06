@@ -39,7 +39,7 @@ export default class NavBar extends React.Component {
             players.data[i].tag = tag;
           }
           var results = teams.data.concat(players.data);
-          console.log(results);
+          //console.log(results);
           this.setState({ results: results });
         })
       )
