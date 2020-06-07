@@ -6,14 +6,20 @@ export default class NavBar extends React.Component {
   constructor() {
     super();
     this.state = {
-      results: []
+      results: [],
+      showLinks: false
     };
     this.getResults = this.getResults.bind(this);
     this.renderSearch = this.renderSearch.bind(this);
+    this.handleNavClick = this.handleNavClick.bind(this);
   }
 
   componentDidMount() {
     this.getResults();
+  }
+
+  handleNavClick() {
+    this.setState({ showLinks: true });
   }
 
   getResults() {
@@ -57,6 +63,12 @@ export default class NavBar extends React.Component {
   }
 
   render() {
+    let displayProp;
+    if (this.state.showLinks) {
+      displayProp = "flex";
+    } else {
+      displayProp = "none";
+    }
     return (
       <header className="navigation">
         <div className="navigation__title">
@@ -71,7 +83,7 @@ export default class NavBar extends React.Component {
         {this.renderSearch()}
         {/*<Search suggestions={this.state.results} />*/}
 
-        <nav className="navigation__menu">
+        <nav className="navigation__menu" onClick={this.handleNavClick}>
           <input
             type="checkbox"
             className="navigation__checkbox"
@@ -85,29 +97,29 @@ export default class NavBar extends React.Component {
           <div className="navigation__background">&nbsp;</div>
 
           <nav className="navigation__nav">
-            <ul className="navigation__list">
+            <ul className="navigation__list" style={{ display: displayProp }}>
               <li className="navigation__item">
                 <a href="/nba-scouting" className="navigation__link">
                   <span>01</span>NBA Scouting
                 </a>
               </li>
               <li className="navigation__item">
-                <a href="#" className="navigation__link">
+                <a href="/college-scouting" className="navigation__link">
                   <span>02</span>College Scouting
                 </a>
               </li>
               <li className="navigation__item">
-                <a href="#" className="navigation__link">
+                <a href="/gleague-scouting" className="navigation__link">
                   <span>03</span>G-League Scouting
                 </a>
               </li>
               <li className="navigation__item">
-                <a href="#" className="navigation__link">
+                <a href="/inter-scouting" className="navigation__link">
                   <span>04</span>International Scouting
                 </a>
               </li>
               <li className="navigation__item">
-                <a href="#" className="navigation__link">
+                <a href="/about" className="navigation__link">
                   <span>05</span>About bb scout
                 </a>
               </li>

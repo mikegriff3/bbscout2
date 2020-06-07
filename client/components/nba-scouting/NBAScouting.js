@@ -226,8 +226,680 @@ export default class NBAScouting extends React.Component {
             </div>
           </div>
           <div className="row" style={{ marginTop: "20px" }}>
-            <div className="col-sm-4">Selection Area</div>
-            <div className="col-sm-8">Results Area</div>
+            <div
+              className="col-sm-4"
+              style={{ color: "grey", paddingLeft: "40px" }}
+            >
+              <div style={{ textDecoration: "underline" }}>Overall Grades</div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <label for="overall">Overall:</label>
+                  <select
+                    name="overall"
+                    id="overall"
+                    style={{ marginLeft: "29px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="grade" id="grade">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <label for="offense">Offense:</label>
+                  <select
+                    name="offense"
+                    id="offense"
+                    style={{ marginLeft: "24px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="grade" id="grade">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <label for="defense">Defense:</label>
+                  <select
+                    name="defense"
+                    id="defense"
+                    style={{ marginLeft: "20px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="grade" id="grade">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div style={{ textDecoration: "underline", marginTop: "10px" }}>
+                Offensive Grades
+              </div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <select name="stat" id="stat">
+                    <option value="le">-</option>
+                    <option value="-">Scoring</option>
+                    <option value="ge">Assist</option>
+                    <option value="le">Rebounding</option>
+                    <option value="le">Off Reb</option>
+                    <option value="le">Free Throws</option>
+                    <option value="le">3P%</option>
+                    <option value="le">2P%</option>
+                    <option value="le">FG%</option>
+                    <option value="le">Turnovers</option>
+                    <option value="le">OBPM</option>
+                    <option value="le">PER</option>
+                    <option value="le">OWS</option>
+                    <option value="le">Win Shares</option>
+                    <option value="le">VORP</option>
+                    <option value="le">BPM</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select
+                    name="stat-ou"
+                    id="stat-ou"
+                    //style={{ marginLeft: "20px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="ograde1" id="ograde1">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <select name="stat" id="stat">
+                    <option value="le">-</option>
+                    <option value="-">Scoring</option>
+                    <option value="ge">Assist</option>
+                    <option value="le">Rebounding</option>
+                    <option value="le">Off Reb</option>
+                    <option value="le">Free Throws</option>
+                    <option value="le">3P%</option>
+                    <option value="le">2P%</option>
+                    <option value="le">FG%</option>
+                    <option value="le">Turnovers</option>
+                    <option value="le">OBPM</option>
+                    <option value="le">PER</option>
+                    <option value="le">OWS</option>
+                    <option value="le">Win Shares</option>
+                    <option value="le">VORP</option>
+                    <option value="le">BPM</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select
+                    name="stat-ou"
+                    id="stat-ou"
+                    //style={{ marginLeft: "20px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="ograde1" id="ograde1">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <select name="stat" id="stat">
+                    <option value="le">-</option>
+                    <option value="-">Scoring</option>
+                    <option value="ge">Assist</option>
+                    <option value="le">Rebounding</option>
+                    <option value="le">Off Reb</option>
+                    <option value="le">Free Throws</option>
+                    <option value="le">3P%</option>
+                    <option value="le">2P%</option>
+                    <option value="le">FG%</option>
+                    <option value="le">Turnovers</option>
+                    <option value="le">OBPM</option>
+                    <option value="le">PER</option>
+                    <option value="le">OWS</option>
+                    <option value="le">Win Shares</option>
+                    <option value="le">VORP</option>
+                    <option value="le">BPM</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select
+                    name="stat-ou"
+                    id="stat-ou"
+                    //style={{ marginLeft: "20px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="ograde1" id="ograde1">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div style={{ textDecoration: "underline", marginTop: "20px" }}>
+                Defensive Grades
+              </div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <select name="stat" id="stat">
+                    <option value="le">-</option>
+                    <option value="-">Steals</option>
+                    <option value="ge">Blocks</option>
+                    <option value="le">Rebounding</option>
+                    <option value="le">Def Reb</option>
+                    <option value="le">Drb%</option>
+                    <option value="le">Blk%</option>
+                    <option value="le">Stl%</option>
+                    <option value="le">Fouls</option>
+                    <option value="le">DBPM</option>
+                    <option value="le">DWS</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select
+                    name="stat-ou"
+                    id="stat-ou"
+                    //style={{ marginLeft: "20px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="ograde1" id="ograde1">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <select name="stat" id="stat">
+                    <option value="le">-</option>
+                    <option value="-">Steals</option>
+                    <option value="ge">Blocks</option>
+                    <option value="le">Rebounding</option>
+                    <option value="le">Def Reb</option>
+                    <option value="le">Drb%</option>
+                    <option value="le">Blk%</option>
+                    <option value="le">Stl%</option>
+                    <option value="le">Fouls</option>
+                    <option value="le">DBPM</option>
+                    <option value="le">DWS</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select
+                    name="stat-ou"
+                    id="stat-ou"
+                    //style={{ marginLeft: "20px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="ograde1" id="ograde1">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div>
+                <form className="pf-form" style={{ display: "inline-block" }}>
+                  <select name="stat" id="stat">
+                    <option value="le">-</option>
+                    <option value="-">Steals</option>
+                    <option value="ge">Blocks</option>
+                    <option value="le">Rebounding</option>
+                    <option value="le">Def Reb</option>
+                    <option value="le">Drb%</option>
+                    <option value="le">Blk%</option>
+                    <option value="le">Stl%</option>
+                    <option value="le">Fouls</option>
+                    <option value="le">DBPM</option>
+                    <option value="le">DWS</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select
+                    name="stat-ou"
+                    id="stat-ou"
+                    //style={{ marginLeft: "20px" }}
+                  >
+                    <option value="-">-</option>
+                    <option value="ge">&ge;</option>
+                    <option value="le">&le;</option>
+                  </select>
+                </form>
+                <form
+                  className="pf-form"
+                  style={{ display: "inline-block", marginLeft: "20px" }}
+                >
+                  <select name="ograde1" id="ograde1">
+                    <option value="-">-</option>
+                    <option value="80">80</option>
+                    <option value="75">75</option>
+                    <option value="70">70</option>
+                    <option value="65">65</option>
+                    <option value="60">60</option>
+                    <option value="55">55</option>
+                    <option value="50">50</option>
+                    <option value="45">45</option>
+                    <option value="40">40</option>
+                    <option value="35">35</option>
+                    <option value="30">30</option>
+                    <option value="25">25</option>
+                    <option value="20">20</option>
+                  </select>
+                </form>
+              </div>
+              <div style={{ textDecoration: "underline", marginTop: "20px" }}>
+                Filters
+              </div>
+              <div className="row" style={{ display: "flex" }}>
+                <div className="col-sm-3">
+                  <div className="filter-title-pf">Position</div>
+                  <form className="filter-form-pf">
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="pos1"
+                      name="pos1"
+                      value="PG"
+                    />
+                    <label for="pos1"> PG</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="pos2"
+                      name="pos2"
+                      value="SG"
+                    />
+                    <label for="pos2"> SG</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="pos3"
+                      name="pos3"
+                      value="SF"
+                    />
+                    <label for="pos3"> SF</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="pos4"
+                      name="pos4"
+                      value="PF"
+                    />
+                    <label for="pos4"> PF</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="pos5"
+                      name="pos5"
+                      value="C"
+                    />
+                    <label for="pos5"> C</label>
+                  </form>
+                </div>
+                <div className="col-sm-3">
+                  <div className="filter-title-pf">Mpg</div>
+                  <form className="filter-form-pf">
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="min1"
+                      name="min1"
+                      value="5-15"
+                    />
+                    <label for="min1"> 5-15</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="min2"
+                      name="min2"
+                      value="15-20"
+                    />
+                    <label for="min2"> 15-20</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="min3"
+                      name="min3"
+                      value="20-25"
+                    />
+                    <label for="min3"> 20-25</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="min4"
+                      name="min4"
+                      value="25-30"
+                    />
+                    <label for="min4"> 25-30</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="min5"
+                      name="min5"
+                      value="30+"
+                    />
+                    <label for="min5"> 30+</label>
+                  </form>
+                </div>
+                <div className="col-sm-3">
+                  <div className="filter-title-pf">Age</div>
+                  <form className="filter-form-pf">
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="age1"
+                      name="age1"
+                      value="< 21"
+                    />
+                    <label for="age1"> &#60; 21</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="age2"
+                      name="age2"
+                      value="21-25"
+                    />
+                    <label for="age2"> 21-25</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="age3"
+                      name="age3"
+                      value="26-30"
+                    />
+                    <label for="age3"> 26-30</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="age4"
+                      name="age4"
+                      value="31-35"
+                    />
+                    <label for="age4"> 31-35</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="age5"
+                      name="age5"
+                      value="35+"
+                    />
+                    <label for="age5"> 35+</label>
+                  </form>
+                </div>
+                <div className="col-sm-3">
+                  <div className="filter-title-pf">Experience</div>
+                  <form className="filter-form-pf">
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="exp1"
+                      name="exp1"
+                      value="< 21"
+                    />
+                    <label for="exp1"> Rookie</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="exp2"
+                      name="exp2"
+                      value="21-25"
+                    />
+                    <label for="exp2"> 1-3</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="exp3"
+                      name="exp3"
+                      value="26-30"
+                    />
+                    <label for="exp3"> 4-6</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="exp4"
+                      name="exp4"
+                      value="31-35"
+                    />
+                    <label for="exp4"> 7-10</label>
+                    <br />
+                    <input
+                      type="checkbox"
+                      // checked={}
+                      // onChange={}
+                      id="exp5"
+                      name="exp5"
+                      value="35+"
+                    />
+                    <label for="exp5"> 10+</label>
+                  </form>
+                </div>
+              </div>
+              <div style={{ marginTop: "30px" }}>
+                <div style={statBox}>Submit</div>
+              </div>
+            </div>
+            <div
+              className="col-sm-8"
+              style={{ color: "grey", paddingLeft: "40px" }}
+            >
+              No Players Found
+            </div>
           </div>
         </div>
       );
