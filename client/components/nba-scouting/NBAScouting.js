@@ -8,6 +8,7 @@ export default class NBAScouting extends React.Component {
     this.state = {
       playerStats: [],
       original: [],
+      pfArr: [],
       playerContracts: [],
       teams: [],
       scatterXStat: "mpg",
@@ -35,7 +36,51 @@ export default class NBAScouting extends React.Component {
       age3: true,
       age4: true,
       age5: true,
-      menuSelect: "Home"
+      menuSelect: "Home",
+      pfPG: true,
+      pfSG: true,
+      pfSF: true,
+      pfPF: true,
+      pfC: true,
+      pfMPG1: true,
+      pfMPG2: true,
+      pfMPG3: true,
+      pfMPG4: true,
+      pfMPG5: true,
+      pfEXP1: true,
+      pfEXP2: true,
+      pfEXP3: true,
+      pfEXP4: true,
+      pfEXP5: true,
+      pfAGE1: true,
+      pfAGE2: true,
+      pfAGE3: true,
+      pfAGE4: true,
+      pfAGE5: true,
+      ovrOU: "-",
+      offOU: "-",
+      defOU: "-",
+      offg1OU: "-",
+      offg2OU: "-",
+      offg3OU: "-",
+      defg1OU: "-",
+      defg2OU: "-",
+      defg3OU: "-",
+      ovrGrade: 0,
+      offGrade: 0,
+      defGrade: 0,
+      oGrade1: 0,
+      oGrade2: 0,
+      oGrade3: 0,
+      dGrade1: 0,
+      dGrade2: 0,
+      dGrade3: 0,
+      oStat1: "",
+      oStat2: "",
+      oStat3: "",
+      dStat1: "",
+      dStat2: "",
+      dStat3: ""
     };
     this.getAllNbaPlayers = this.getAllNbaPlayers.bind(this);
     this.getTeams = this.getTeams.bind(this);
@@ -69,10 +114,63 @@ export default class NBAScouting extends React.Component {
     this.handleAGE3 = this.handleAGE3.bind(this);
     this.handleAGE4 = this.handleAGE4.bind(this);
     this.handleAGE5 = this.handleAGE5.bind(this);
+    this.handlepfPG = this.handlepfPG.bind(this);
+    this.handlepfSG = this.handlepfSG.bind(this);
+    this.handlepfSF = this.handlepfSF.bind(this);
+    this.handlepfPF = this.handlepfPF.bind(this);
+    this.handlepfC = this.handlepfC.bind(this);
+    this.handlepfMPG1 = this.handlepfMPG1.bind(this);
+    this.handlepfMPG2 = this.handlepfMPG2.bind(this);
+    this.handlepfMPG3 = this.handlepfMPG3.bind(this);
+    this.handlepfMPG4 = this.handlepfMPG4.bind(this);
+    this.handlepfMPG5 = this.handlepfMPG5.bind(this);
+    this.handlepfEXP1 = this.handlepfEXP1.bind(this);
+    this.handlepfEXP2 = this.handlepfEXP2.bind(this);
+    this.handlepfEXP3 = this.handlepfEXP3.bind(this);
+    this.handlepfEXP4 = this.handlepfEXP4.bind(this);
+    this.handlepfEXP5 = this.handlepfEXP5.bind(this);
+    this.handlepfAGE1 = this.handlepfAGE1.bind(this);
+    this.handlepfAGE2 = this.handlepfAGE2.bind(this);
+    this.handlepfAGE3 = this.handlepfAGE3.bind(this);
+    this.handlepfAGE4 = this.handlepfAGE4.bind(this);
+    this.handlepfAGE5 = this.handlepfAGE5.bind(this);
     this.filterPlayers = this.filterPlayers.bind(this);
     this.handleRefresh = this.handleRefresh.bind(this);
     this.renderScoutType = this.renderScoutType.bind(this);
     this.handleScoutMenuClick = this.handleScoutMenuClick.bind(this);
+    this.renderFoundPlayers = this.renderFoundPlayers.bind(this);
+    this.handlepfSubmit = this.handlepfSubmit.bind(this);
+    this.handleOvrOU = this.handleOvrOU.bind(this);
+    this.handleOffOU = this.handleOffOU.bind(this);
+    this.handleDefOU = this.handleDefOU.bind(this);
+    this.handleOvrGrade = this.handleOvrGrade.bind(this);
+    this.handleOffGrade = this.handleOffGrade.bind(this);
+    this.handleDefGrade = this.handleDefGrade.bind(this);
+    this.handleoStat1 = this.handleoStat1.bind(this);
+    this.handleoStat2 = this.handleoStat2.bind(this);
+    this.handleoStat3 = this.handleoStat3.bind(this);
+    this.handleoffg1OU = this.handleoffg1OU.bind(this);
+    this.handleoffg2OU = this.handleoffg2OU.bind(this);
+    this.handleoffg3OU = this.handleoffg3OU.bind(this);
+    this.handleoGrade1 = this.handleoGrade1.bind(this);
+    this.handleoGrade2 = this.handleoGrade2.bind(this);
+    this.handleoGrade3 = this.handleoGrade3.bind(this);
+    this.getOverallRating = this.getOverallRating.bind(this);
+    this.getOffensiveRating = this.getOffensiveRating.bind(this);
+    this.getDefensiveRating = this.getDefensiveRating.bind(this);
+    this.getGrade = this.getGrade.bind(this);
+    this.filterpfPlayers = this.filterpfPlayers.bind(this);
+    this.handledStat1 = this.handledStat1.bind(this);
+    this.handledStat2 = this.handledStat2.bind(this);
+    this.handledStat3 = this.handledStat3.bind(this);
+    this.handledefg1OU = this.handledefg1OU.bind(this);
+    this.handledefg2OU = this.handledefg2OU.bind(this);
+    this.handledefg3OU = this.handledefg3OU.bind(this);
+    this.handledGrade1 = this.handledGrade1.bind(this);
+    this.handledGrade2 = this.handledGrade2.bind(this);
+    this.handledGrade3 = this.handledGrade3.bind(this);
+    this.calculateOffGrades = this.calculateOffGrades.bind(this);
+    this.calculateDefGrades = this.calculateDefGrades.bind(this);
   }
 
   componentDidMount() {
@@ -121,6 +219,884 @@ export default class NBAScouting extends React.Component {
       });
   }
 
+  getGrade(high, min, actual) {
+    let playerGrade;
+    let gradeSlots = 13;
+    let adjusted = high - min;
+    let gradeScale = adjusted / gradeSlots;
+
+    let eighty = high - gradeScale;
+    let sevenFive = eighty - gradeScale;
+    let seventy = sevenFive - gradeScale;
+    let sixFive = seventy - gradeScale;
+    let sixty = sixFive - gradeScale;
+    let fiveFive = sixty - gradeScale;
+    let fifty = fiveFive - gradeScale;
+    let fourFive = fifty - gradeScale;
+    let fourty = fourFive - gradeScale;
+    let threeFive = fourty - gradeScale;
+    let thirty = threeFive - gradeScale;
+    let twoFive = thirty - gradeScale;
+
+    if (actual >= eighty) {
+      playerGrade = 80;
+    } else if (actual >= sevenFive) {
+      playerGrade = 75;
+    } else if (actual >= seventy) {
+      playerGrade = 70;
+    } else if (actual >= sixFive) {
+      playerGrade = 65;
+    } else if (actual >= sixty) {
+      playerGrade = 60;
+    } else if (actual >= fiveFive) {
+      playerGrade = 55;
+    } else if (actual >= fifty) {
+      playerGrade = 50;
+    } else if (actual >= fourFive) {
+      playerGrade = 45;
+    } else if (actual >= fourty) {
+      playerGrade = 40;
+    } else if (actual >= threeFive) {
+      playerGrade = 35;
+    } else if (actual >= thirty) {
+      playerGrade = 30;
+    } else if (actual >= twoFive) {
+      playerGrade = 25;
+    } else {
+      playerGrade = 20;
+    }
+    return playerGrade;
+  }
+
+  getOverallRating(player) {
+    let per = parseFloat(player.per) * 0.4;
+    let bpm = parseFloat(player.bpm) * 0.2;
+    let ws48 = parseFloat(player.wsFourtyEight) * 0.1;
+    let ws = parseFloat(player.ws) * 0.1;
+    let vorp = parseFloat(player.vorp) * 0.25;
+    let weightedOvr = per + bpm + ws48 + ws + vorp;
+    return this.getGrade(14.0, 0, weightedOvr);
+  }
+
+  getOffensiveRating(player) {
+    var obpm = parseFloat(player.obpm);
+    var ows = parseFloat(player.ows);
+    var offRating = obpm + ows;
+    return this.getGrade(13.0, -5.0, offRating);
+  }
+
+  getDefensiveRating(player) {
+    var dbpm = parseFloat(player.dbpm);
+    var dws = parseFloat(player.dws);
+    var defRating = dbpm + dws;
+    return this.getGrade(6.5, -3.0, defRating);
+  }
+
+  getDefStatGrades(player) {}
+
+  calculateOffGrades(player) {
+    let grades = {};
+    let highPoints = 27;
+    let highAst = 8.0;
+    let highReb = 14;
+    let highFT = 0.94;
+    let highThree = 0.46;
+    let highTwo = 0.65;
+    let highTov = -0.5;
+    let highOrb = 4.6;
+    let highFgPct = 0.62;
+    let highObpm = 7.0;
+    let highPer = 27.0;
+    let highOws = 7.0;
+    let highVorp = 5.0;
+    let highWs = 9.0;
+    let highBpm = 8.0;
+
+    if (player.position === "PG" || player.position === "SG") {
+      //highBlk = 1.2;
+      highTwo = 0.58;
+      highReb = 8.5;
+      highAst = 9.5;
+    }
+    if (player.position === "SF") {
+      //highBlk = 1.5;
+      highTwo = 0.58;
+      highReb = 10;
+    }
+
+    grades.pts = this.getGrade(highPoints, 7, (player.pts / player.mpg) * 36);
+    grades.ast = this.getGrade(highAst, 1, (player.ast / player.mpg) * 36);
+    grades.reb = this.getGrade(highReb, 1, (player.trb / player.mpg) * 36);
+    grades.ftPct = this.getGrade(highFT, 0.42, player.freeThrowPct);
+    grades.threePointPct = this.getGrade(highThree, 0.2, player.threePtPct);
+    grades.per = this.getGrade(highPer, 5.0, player.per);
+    grades.ws = this.getGrade(highWs, -1.0, player.ws);
+    grades.vorp = this.getGrade(highVorp, -1.0, player.vorp);
+    grades.bpm = this.getGrade(highBpm, -7.0, player.bpm);
+    grades.ows = this.getGrade(highOws, -2.0, player.ows);
+    grades.obpm = this.getGrade(highObpm, -6.0, player.obpm);
+    grades.orb = this.getGrade(highOrb, 0, (player.orb / player.mpg) * 36);
+    grades.tov = this.getGrade(
+      highTov,
+      -5.0,
+      ((player.tov * -1) / player.mpg) * 36
+    );
+    grades.fgPct = this.getGrade(highFgPct, 0.4, player.efgPct);
+
+    grades.twoPoint = this.getGrade(highTwo, 0.25, player.twoPtPct);
+
+    if (
+      player.position === "PG" ||
+      player.position === "SG" ||
+      player.position === "SF"
+    ) {
+      grades.twoPoint = this.getGrade(highTwo, 0.37, player.twoPtPct);
+    }
+
+    return grades;
+  }
+
+  calculateDefGrades(player) {
+    let grades = {};
+    let highBlkPct = 6.5;
+    let highStlPct = 3.0;
+    let highDrbPct = 36.0;
+    let highDbpm = 4.0;
+    let highDws = 3.3;
+    let highDrb = 11.0;
+    let highReb = 14.0;
+    let highStl = 2.4;
+    let highBlk = 2.4;
+    let highPf = 0;
+
+    if (player.position === "PG" || player.position === "SG") {
+      highBlk = 1.2;
+      highReb = 8.5;
+    }
+    if (player.position === "SF") {
+      highBlk = 1.5;
+      highReb = 10;
+    }
+
+    grades.reb = this.getGrade(highReb, 1, (player.trb / player.mpg) * 36);
+    grades.blkPct = this.getGrade(highBlkPct, 0, player.blkPct);
+    grades.stlPct = this.getGrade(highStlPct, 0, player.stlPct);
+    grades.drbPct = this.getGrade(highDrbPct, 5, player.drbPct);
+    grades.dws = this.getGrade(highDws, 0, player.dws);
+    grades.drb = this.getGrade(highDrb, 1, (player.drb / player.mpg) * 36);
+    grades.stl = this.getGrade(highStl, 0, (player.stl / player.mpg) * 36);
+    grades.blk = this.getGrade(highBlk, 0, (player.blk / player.mpg) * 36);
+    grades.dbpm = this.getGrade(highDbpm, -4, player.dbpm);
+    grades.pf = this.getGrade(highPf, -6.0, (player.pf / player.mpg) * 36 * -1);
+
+    return grades;
+  }
+
+  renderFoundPlayers() {
+    if (this.state.pfArr.length === 0) {
+      return (
+        <div>
+          <div>No Players Found</div>
+        </div>
+      );
+    } else {
+      return this.state.pfArr.map((player, index) => (
+        <div className="row" style={{ display: "flex", marginBottom: "20px" }}>
+          <div
+            className="col-sm-3"
+            key={index}
+            style={{ color: "white", fontSize: "14px" }}
+          >
+            {player.name}
+            <span style={{ paddingLeft: ".5rem", fontSize: "10px" }}>
+              {player.position}
+            </span>
+          </div>
+          <div
+            className="col-sm-3"
+            key={index}
+            style={{ color: "white", fontSize: "14px", paddingLeft: "15px" }}
+          >
+            {player.team}
+          </div>
+          <div
+            className="col-sm-2"
+            style={{ color: "white", textAlign: "center" }}
+          >
+            {player.ovrGrade}
+          </div>
+          <div
+            className="col-sm-2"
+            style={{ color: "white", textAlign: "center" }}
+          >
+            {player.offGrade}
+          </div>
+          <div
+            className="col-sm-2"
+            style={{ color: "white", textAlign: "center" }}
+          >
+            {player.defGrade}
+          </div>
+        </div>
+      ));
+    }
+  }
+
+  handlepfSubmit() {
+    let arr = [...this.state.original];
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].ovrGrade = this.getOverallRating(arr[i]);
+      arr[i].offGrade = this.getOffensiveRating(arr[i]);
+      arr[i].defGrade = this.getDefensiveRating(arr[i]);
+      arr[i].offStatGrades = this.calculateOffGrades(arr[i]);
+      arr[i].defStatGrades = this.calculateDefGrades(arr[i]);
+    }
+    this.filterpfPlayers(arr, this.state);
+  }
+
+  filterpfPlayers(players, state) {
+    if (this.state.ovrOU === "gte") {
+      players = players.filter(function(player) {
+        return player.ovrGrade >= state.ovrGrade;
+      });
+    }
+    if (this.state.ovrOU === "lte") {
+      players = players.filter(function(player) {
+        return player.ovrGrade <= state.ovrGrade;
+      });
+    }
+    if (this.state.offOU === "gte") {
+      players = players.filter(function(player) {
+        return player.offGrade >= state.offGrade;
+      });
+    }
+    if (this.state.offOU === "lte") {
+      players = players.filter(function(player) {
+        return player.offGrade <= state.offGrade;
+      });
+    }
+    if (this.state.defOU === "gte") {
+      players = players.filter(function(player) {
+        return player.defGrade >= state.defGrade;
+      });
+    }
+    if (this.state.defOU === "lte") {
+      players = players.filter(function(player) {
+        return player.defGrade <= state.defGrade;
+      });
+    }
+    /////////////////////////////////////////////////
+    /////        OFFENSIVE STATS       //////////////
+    /////////////////////////////////////////////////
+    if (this.state.oStat1 === "pts") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.pts >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.pts <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "pts") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.pts >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.pts <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "pts") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.pts >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.pts <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "ast") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ast >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ast <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "ast") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ast >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ast <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "ast") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ast >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ast <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "trb") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.reb >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.reb <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "trb") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.reb >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.reb <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "trb") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.reb >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.reb <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "orb") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.orb >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.orb <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "orb") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.orb >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.orb <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "orb") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.orb >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.orb <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "freeThrowPct") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ftPct >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ftPct <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "freeThrowPct") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ftPct >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ftPct <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "freeThrowPct") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ftPct >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ftPct <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "threePtPct") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.threePointPct >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.threePointPct <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "threePtPct") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.threePointPct >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.threePointPct <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "threePtPct") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.threePointPct >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.threePointPct <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "twoPtPct") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.twoPoint >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.twoPoint <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "twoPtPct") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.twoPoint >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.twoPoint <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "twoPtPct") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.twoPoint >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.twoPoint <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "fgPct") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.fgPct >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.fgPct <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "fgPct") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.fgPct >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.fgPct <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "fgPct") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.fgPct >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.fgPct <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "tov") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.tov >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.tov <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "tov") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.tov >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.tov <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "tov") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.tov >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.tov <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "obpm") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.obpm >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.obpm <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "obpm") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.obpm >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.obpm <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "obpm") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.obpm >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.obpm <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "per") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.per >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.per <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "per") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.per >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.per <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "per") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.per >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.per <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "ows") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ows >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ows <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "ows") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ows >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ows <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "ows") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ows >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ows <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "ws") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ws >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ws <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "ws") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ws >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ws <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "ws") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ws >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.ws <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "vorp") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.vorp >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.vorp <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "vorp") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.vorp >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.vorp <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "vorp") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.vorp >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.vorp <= state.oGrade3;
+        });
+      }
+    }
+    if (this.state.oStat1 === "bpm") {
+      if (this.state.offg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.bpm >= state.oGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.bpm <= state.oGrade1;
+        });
+      }
+    }
+    if (this.state.oStat2 === "bpm") {
+      if (this.state.offg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.bpm >= state.oGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.bpm <= state.oGrade2;
+        });
+      }
+    }
+    if (this.state.oStat3 === "bpm") {
+      if (this.state.offg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.offStatGrades.bpm >= state.oGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.offStatGrades.bpm <= state.oGrade3;
+        });
+      }
+    }
+    console.log("Filtered ARR: ", players);
+    this.setState({ pfArr: players });
+  }
+
+  handleOvrOU(evt) {
+    this.setState({ ovrOU: evt.target.value });
+  }
+
+  handleOffOU(evt) {
+    this.setState({ offOU: evt.target.value });
+  }
+
+  handleDefOU(evt) {
+    this.setState({ defOU: evt.target.value });
+  }
+
+  handleOvrGrade(evt) {
+    if (evt.target.value !== "-") {
+      this.setState({ ovrGrade: parseInt(evt.target.value) }, () => {
+        console.log(this.state.ovrGrade);
+      });
+    } else {
+      this.setState({ ovrGrade: evt.target.value });
+    }
+  }
+
+  handleOffGrade(evt) {
+    if (evt.target.value !== "-") {
+      this.setState({ offGrade: parseInt(evt.target.value) });
+    } else {
+      this.setState({ offGrade: evt.target.value });
+    }
+  }
+
+  handleDefGrade(evt) {
+    if (evt.target.value !== "-") {
+      this.setState({ defGrade: parseInt(evt.target.value) });
+    } else {
+      this.setState({ defGrade: evt.target.value });
+    }
+  }
+
+  handleoStat1(evt) {
+    this.setState({ oStat1: evt.target.value });
+  }
+
+  handleoStat2(evt) {
+    this.setState({ oStat2: evt.target.value });
+  }
+
+  handleoStat3(evt) {
+    this.setState({ oStat3: evt.target.value });
+  }
+
+  handledStat1(evt) {
+    this.setState({ dStat1: evt.target.value });
+  }
+
+  handledStat2(evt) {
+    this.setState({ dStat2: evt.target.value });
+  }
+
+  handledStat3(evt) {
+    this.setState({ dStat3: evt.target.value });
+  }
+
+  handleoffg1OU(evt) {
+    this.setState({ offg1OU: evt.target.value });
+  }
+
+  handleoffg2OU(evt) {
+    this.setState({ offg2OU: evt.target.value });
+  }
+
+  handleoffg3OU(evt) {
+    this.setState({ offg3OU: evt.target.value });
+  }
+
+  handledefg1OU(evt) {
+    this.setState({ defg1OU: evt.target.value });
+  }
+
+  handledefg2OU(evt) {
+    this.setState({ defg2OU: evt.target.value });
+  }
+
+  handledefg3OU(evt) {
+    this.setState({ defg3OU: evt.target.value });
+  }
+
+  handleoGrade1(evt) {
+    this.setState({ oGrade1: evt.target.value });
+  }
+
+  handleoGrade2(evt) {
+    this.setState({ oGrade2: evt.target.value });
+  }
+
+  handleoGrade3(evt) {
+    this.setState({ oGrade3: evt.target.value });
+  }
+
+  handledGrade1(evt) {
+    this.setState({ dGrade1: evt.target.value });
+  }
+
+  handledGrade2(evt) {
+    this.setState({ dGrade2: evt.target.value });
+  }
+
+  handledGrade3(evt) {
+    this.setState({ dGrade3: evt.target.value });
+  }
+
   renderScoutType() {
     var statBox = {
       display: "inline-block",
@@ -130,6 +1106,11 @@ export default class NBAScouting extends React.Component {
       width: "140px",
       textAlign: "center",
       cursor: "pointer"
+    };
+    let pfth = {
+      color: "grey",
+      textDecoration: "underline",
+      fontSize: "14px"
     };
     if (this.state.menuSelect === "Home") {
       return (
@@ -218,17 +1199,25 @@ export default class NBAScouting extends React.Component {
               style={{
                 color: "white",
                 marginTop: "20px",
-                marginLeft: "40px",
-                fontSize: "20px"
+                paddingBottom: "10px",
+                paddingLeft: "40px",
+                fontSize: "20px",
+                borderBottom: "2px solid grey"
               }}
             >
               Player Finder
             </div>
           </div>
-          <div className="row" style={{ marginTop: "20px" }}>
+          <div className="row">
             <div
               className="col-sm-4"
-              style={{ color: "grey", paddingLeft: "40px" }}
+              style={{
+                color: "grey",
+                paddingLeft: "40px",
+                paddingTop: "20px",
+                paddingRight: "20px",
+                borderRight: "1px solid grey"
+              }}
             >
               <div style={{ textDecoration: "underline" }}>Overall Grades</div>
               <div>
@@ -238,17 +1227,22 @@ export default class NBAScouting extends React.Component {
                     name="overall"
                     id="overall"
                     style={{ marginLeft: "29px" }}
+                    onChange={this.handleOvrOU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="grade" id="grade">
+                  <select
+                    name="gradeOvr"
+                    id="gradeOvr"
+                    onChange={this.handleOvrGrade}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -273,17 +1267,22 @@ export default class NBAScouting extends React.Component {
                     name="offense"
                     id="offense"
                     style={{ marginLeft: "24px" }}
+                    onChange={this.handleOffOU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="grade" id="grade">
+                  <select
+                    name="grade"
+                    id="grade"
+                    onChange={this.handleOffGrade}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -308,17 +1307,22 @@ export default class NBAScouting extends React.Component {
                     name="defense"
                     id="defense"
                     style={{ marginLeft: "20px" }}
+                    onChange={this.handleDefOU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="grade" id="grade">
+                  <select
+                    name="grade"
+                    id="grade"
+                    onChange={this.handleDefGrade}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -341,23 +1345,23 @@ export default class NBAScouting extends React.Component {
               </div>
               <div>
                 <form className="pf-form" style={{ display: "inline-block" }}>
-                  <select name="stat" id="stat">
-                    <option value="le">-</option>
-                    <option value="-">Scoring</option>
-                    <option value="ge">Assist</option>
-                    <option value="le">Rebounding</option>
-                    <option value="le">Off Reb</option>
-                    <option value="le">Free Throws</option>
-                    <option value="le">3P%</option>
-                    <option value="le">2P%</option>
-                    <option value="le">FG%</option>
-                    <option value="le">Turnovers</option>
-                    <option value="le">OBPM</option>
-                    <option value="le">PER</option>
-                    <option value="le">OWS</option>
-                    <option value="le">Win Shares</option>
-                    <option value="le">VORP</option>
-                    <option value="le">BPM</option>
+                  <select name="stat" id="stat" onChange={this.handleoStat1}>
+                    <option value="-">-</option>
+                    <option value="pts">Scoring</option>
+                    <option value="ast">Assist</option>
+                    <option value="trb">Rebounding</option>
+                    <option value="orb">Off Reb</option>
+                    <option value="freeThrowPct">Free Throws</option>
+                    <option value="threePtPct">3P%</option>
+                    <option value="twoPtPct">2P%</option>
+                    <option value="fgPct">FG%</option>
+                    <option value="tov">Turnovers</option>
+                    <option value="obpm">OBPM</option>
+                    <option value="per">PER</option>
+                    <option value="ows">OWS</option>
+                    <option value="ws">Win Shares</option>
+                    <option value="vorp">VORP</option>
+                    <option value="bpm">BPM</option>
                   </select>
                 </form>
                 <form
@@ -367,18 +1371,22 @@ export default class NBAScouting extends React.Component {
                   <select
                     name="stat-ou"
                     id="stat-ou"
-                    //style={{ marginLeft: "20px" }}
+                    onChange={this.handleoffg1OU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="ograde1" id="ograde1">
+                  <select
+                    name="ograde1"
+                    id="ograde1"
+                    onChange={this.handleoGrade1}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -398,23 +1406,23 @@ export default class NBAScouting extends React.Component {
               </div>
               <div>
                 <form className="pf-form" style={{ display: "inline-block" }}>
-                  <select name="stat" id="stat">
-                    <option value="le">-</option>
-                    <option value="-">Scoring</option>
-                    <option value="ge">Assist</option>
-                    <option value="le">Rebounding</option>
-                    <option value="le">Off Reb</option>
-                    <option value="le">Free Throws</option>
-                    <option value="le">3P%</option>
-                    <option value="le">2P%</option>
-                    <option value="le">FG%</option>
-                    <option value="le">Turnovers</option>
-                    <option value="le">OBPM</option>
-                    <option value="le">PER</option>
-                    <option value="le">OWS</option>
-                    <option value="le">Win Shares</option>
-                    <option value="le">VORP</option>
-                    <option value="le">BPM</option>
+                  <select name="stat" id="stat" onChange={this.handleoStat2}>
+                    <option value="-">-</option>
+                    <option value="pts">Scoring</option>
+                    <option value="ast">Assist</option>
+                    <option value="trb">Rebounding</option>
+                    <option value="orb">Off Reb</option>
+                    <option value="freeThrowPct">Free Throws</option>
+                    <option value="threePtPct">3P%</option>
+                    <option value="twoPtPct">2P%</option>
+                    <option value="fgPct">FG%</option>
+                    <option value="tov">Turnovers</option>
+                    <option value="obpm">OBPM</option>
+                    <option value="per">PER</option>
+                    <option value="ows">OWS</option>
+                    <option value="ws">Win Shares</option>
+                    <option value="vorp">VORP</option>
+                    <option value="bpm">BPM</option>
                   </select>
                 </form>
                 <form
@@ -424,18 +1432,22 @@ export default class NBAScouting extends React.Component {
                   <select
                     name="stat-ou"
                     id="stat-ou"
-                    //style={{ marginLeft: "20px" }}
+                    onChange={this.handleoffg2OU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="ograde1" id="ograde1">
+                  <select
+                    name="ograde1"
+                    id="ograde1"
+                    onChange={this.handleoGrade2}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -455,23 +1467,23 @@ export default class NBAScouting extends React.Component {
               </div>
               <div>
                 <form className="pf-form" style={{ display: "inline-block" }}>
-                  <select name="stat" id="stat">
-                    <option value="le">-</option>
-                    <option value="-">Scoring</option>
-                    <option value="ge">Assist</option>
-                    <option value="le">Rebounding</option>
-                    <option value="le">Off Reb</option>
-                    <option value="le">Free Throws</option>
-                    <option value="le">3P%</option>
-                    <option value="le">2P%</option>
-                    <option value="le">FG%</option>
-                    <option value="le">Turnovers</option>
-                    <option value="le">OBPM</option>
-                    <option value="le">PER</option>
-                    <option value="le">OWS</option>
-                    <option value="le">Win Shares</option>
-                    <option value="le">VORP</option>
-                    <option value="le">BPM</option>
+                  <select name="stat" id="stat" onChange={this.handleoStat3}>
+                    <option value="-">-</option>
+                    <option value="pts">Scoring</option>
+                    <option value="ast">Assist</option>
+                    <option value="trb">Rebounding</option>
+                    <option value="orb">Off Reb</option>
+                    <option value="freeThrowPct">Free Throws</option>
+                    <option value="threePtPct">3P%</option>
+                    <option value="twoPtPct">2P%</option>
+                    <option value="fgPct">FG%</option>
+                    <option value="tov">Turnovers</option>
+                    <option value="obpm">OBPM</option>
+                    <option value="per">PER</option>
+                    <option value="ows">OWS</option>
+                    <option value="ws">Win Shares</option>
+                    <option value="vorp">VORP</option>
+                    <option value="bpm">BPM</option>
                   </select>
                 </form>
                 <form
@@ -481,18 +1493,22 @@ export default class NBAScouting extends React.Component {
                   <select
                     name="stat-ou"
                     id="stat-ou"
-                    //style={{ marginLeft: "20px" }}
+                    onChange={this.handleoffg3OU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="ograde1" id="ograde1">
+                  <select
+                    name="ograde1"
+                    id="ograde1"
+                    onChange={this.handleoGrade3}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -515,18 +1531,18 @@ export default class NBAScouting extends React.Component {
               </div>
               <div>
                 <form className="pf-form" style={{ display: "inline-block" }}>
-                  <select name="stat" id="stat">
-                    <option value="le">-</option>
-                    <option value="-">Steals</option>
-                    <option value="ge">Blocks</option>
-                    <option value="le">Rebounding</option>
-                    <option value="le">Def Reb</option>
-                    <option value="le">Drb%</option>
-                    <option value="le">Blk%</option>
-                    <option value="le">Stl%</option>
-                    <option value="le">Fouls</option>
-                    <option value="le">DBPM</option>
-                    <option value="le">DWS</option>
+                  <select name="stat" id="stat" onChange={this.handledStat1}>
+                    <option value="-">-</option>
+                    <option value="stl">Steals</option>
+                    <option value="blk">Blocks</option>
+                    <option value="trb">Rebounding</option>
+                    <option value="drb">Def Reb</option>
+                    <option value="drbPct">Drb%</option>
+                    <option value="blkPct">Blk%</option>
+                    <option value="stlPct">Stl%</option>
+                    <option value="pf">Fouls</option>
+                    <option value="dbpm">DBPM</option>
+                    <option value="dws">DWS</option>
                   </select>
                 </form>
                 <form
@@ -536,18 +1552,22 @@ export default class NBAScouting extends React.Component {
                   <select
                     name="stat-ou"
                     id="stat-ou"
-                    //style={{ marginLeft: "20px" }}
+                    onChange={this.handledefg1OU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="ograde1" id="ograde1">
+                  <select
+                    name="ograde1"
+                    id="ograde1"
+                    onChange={this.handledGrade1}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -567,18 +1587,18 @@ export default class NBAScouting extends React.Component {
               </div>
               <div>
                 <form className="pf-form" style={{ display: "inline-block" }}>
-                  <select name="stat" id="stat">
-                    <option value="le">-</option>
-                    <option value="-">Steals</option>
-                    <option value="ge">Blocks</option>
-                    <option value="le">Rebounding</option>
-                    <option value="le">Def Reb</option>
-                    <option value="le">Drb%</option>
-                    <option value="le">Blk%</option>
-                    <option value="le">Stl%</option>
-                    <option value="le">Fouls</option>
-                    <option value="le">DBPM</option>
-                    <option value="le">DWS</option>
+                  <select name="stat" id="stat" onChange={this.handledStat2}>
+                    <option value="-">-</option>
+                    <option value="stl">Steals</option>
+                    <option value="blk">Blocks</option>
+                    <option value="trb">Rebounding</option>
+                    <option value="drb">Def Reb</option>
+                    <option value="drbPct">Drb%</option>
+                    <option value="blkPct">Blk%</option>
+                    <option value="stlPct">Stl%</option>
+                    <option value="pf">Fouls</option>
+                    <option value="dbpm">DBPM</option>
+                    <option value="dws">DWS</option>
                   </select>
                 </form>
                 <form
@@ -588,18 +1608,22 @@ export default class NBAScouting extends React.Component {
                   <select
                     name="stat-ou"
                     id="stat-ou"
-                    //style={{ marginLeft: "20px" }}
+                    onChange={this.handledefg2OU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="ograde1" id="ograde1">
+                  <select
+                    name="ograde1"
+                    id="ograde1"
+                    onChange={this.handledGrade2}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -619,18 +1643,18 @@ export default class NBAScouting extends React.Component {
               </div>
               <div>
                 <form className="pf-form" style={{ display: "inline-block" }}>
-                  <select name="stat" id="stat">
-                    <option value="le">-</option>
-                    <option value="-">Steals</option>
-                    <option value="ge">Blocks</option>
-                    <option value="le">Rebounding</option>
-                    <option value="le">Def Reb</option>
-                    <option value="le">Drb%</option>
-                    <option value="le">Blk%</option>
-                    <option value="le">Stl%</option>
-                    <option value="le">Fouls</option>
-                    <option value="le">DBPM</option>
-                    <option value="le">DWS</option>
+                  <select name="stat" id="stat" onChange={this.handledStat3}>
+                    <option value="-">-</option>
+                    <option value="stl">Steals</option>
+                    <option value="blk">Blocks</option>
+                    <option value="trb">Rebounding</option>
+                    <option value="drb">Def Reb</option>
+                    <option value="drbPct">Drb%</option>
+                    <option value="blkPct">Blk%</option>
+                    <option value="stlPct">Stl%</option>
+                    <option value="pf">Fouls</option>
+                    <option value="dbpm">DBPM</option>
+                    <option value="dws">DWS</option>
                   </select>
                 </form>
                 <form
@@ -640,18 +1664,22 @@ export default class NBAScouting extends React.Component {
                   <select
                     name="stat-ou"
                     id="stat-ou"
-                    //style={{ marginLeft: "20px" }}
+                    onChange={this.handledefg3OU}
                   >
                     <option value="-">-</option>
-                    <option value="ge">&ge;</option>
-                    <option value="le">&le;</option>
+                    <option value="gte">&ge;</option>
+                    <option value="lte">&le;</option>
                   </select>
                 </form>
                 <form
                   className="pf-form"
                   style={{ display: "inline-block", marginLeft: "20px" }}
                 >
-                  <select name="ograde1" id="ograde1">
+                  <select
+                    name="ograde1"
+                    id="ograde1"
+                    onChange={this.handledGrade3}
+                  >
                     <option value="-">-</option>
                     <option value="80">80</option>
                     <option value="75">75</option>
@@ -678,8 +1706,8 @@ export default class NBAScouting extends React.Component {
                   <form className="filter-form-pf">
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfPG}
+                      onChange={this.handlepfPG}
                       id="pos1"
                       name="pos1"
                       value="PG"
@@ -688,8 +1716,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfSG}
+                      onChange={this.handlepfSG}
                       id="pos2"
                       name="pos2"
                       value="SG"
@@ -698,8 +1726,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfSF}
+                      onChange={this.handlepfSF}
                       id="pos3"
                       name="pos3"
                       value="SF"
@@ -708,8 +1736,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfPF}
+                      onChange={this.handlepfPF}
                       id="pos4"
                       name="pos4"
                       value="PF"
@@ -718,8 +1746,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfC}
+                      onChange={this.handlepfC}
                       id="pos5"
                       name="pos5"
                       value="C"
@@ -732,8 +1760,8 @@ export default class NBAScouting extends React.Component {
                   <form className="filter-form-pf">
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfMPG1}
+                      onChange={this.handlepfMPG1}
                       id="min1"
                       name="min1"
                       value="5-15"
@@ -742,8 +1770,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfMPG2}
+                      onChange={this.handlepfMPG2}
                       id="min2"
                       name="min2"
                       value="15-20"
@@ -752,8 +1780,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfMPG3}
+                      onChange={this.handlepfMPG3}
                       id="min3"
                       name="min3"
                       value="20-25"
@@ -762,8 +1790,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfMPG4}
+                      onChange={this.handlepfMPG4}
                       id="min4"
                       name="min4"
                       value="25-30"
@@ -772,8 +1800,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfMPG5}
+                      onChange={this.handlepfMPG5}
                       id="min5"
                       name="min5"
                       value="30+"
@@ -786,8 +1814,8 @@ export default class NBAScouting extends React.Component {
                   <form className="filter-form-pf">
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfAGE1}
+                      onChange={this.handlepfAGE1}
                       id="age1"
                       name="age1"
                       value="< 21"
@@ -796,8 +1824,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfAGE2}
+                      onChange={this.handlepfAGE2}
                       id="age2"
                       name="age2"
                       value="21-25"
@@ -806,8 +1834,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfAGE3}
+                      onChange={this.handlepfAGE3}
                       id="age3"
                       name="age3"
                       value="26-30"
@@ -816,8 +1844,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfAGE4}
+                      onChange={this.handlepfAGE4}
                       id="age4"
                       name="age4"
                       value="31-35"
@@ -826,8 +1854,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfAGE5}
+                      onChange={this.handlepfAGE5}
                       id="age5"
                       name="age5"
                       value="35+"
@@ -840,8 +1868,8 @@ export default class NBAScouting extends React.Component {
                   <form className="filter-form-pf">
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfEXP1}
+                      onChange={this.handlepfEXP1}
                       id="exp1"
                       name="exp1"
                       value="< 21"
@@ -850,8 +1878,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfEXP2}
+                      onChange={this.handlepfEXP2}
                       id="exp2"
                       name="exp2"
                       value="21-25"
@@ -860,8 +1888,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfEXP3}
+                      onChange={this.handlepfEXP3}
                       id="exp3"
                       name="exp3"
                       value="26-30"
@@ -870,8 +1898,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfEXP4}
+                      onChange={this.handlepfEXP4}
                       id="exp4"
                       name="exp4"
                       value="31-35"
@@ -880,8 +1908,8 @@ export default class NBAScouting extends React.Component {
                     <br />
                     <input
                       type="checkbox"
-                      // checked={}
-                      // onChange={}
+                      checked={this.state.pfEXP5}
+                      onChange={this.handlepfEXP5}
                       id="exp5"
                       name="exp5"
                       value="35+"
@@ -890,15 +1918,39 @@ export default class NBAScouting extends React.Component {
                   </form>
                 </div>
               </div>
-              <div style={{ marginTop: "30px" }}>
-                <div style={statBox}>Submit</div>
+              <div style={{ marginTop: "30px", marginBottom: "30px" }}>
+                <div onClick={this.handlepfSubmit} style={statBox}>
+                  Submit
+                </div>
               </div>
             </div>
             <div
               className="col-sm-8"
-              style={{ color: "grey", paddingLeft: "40px" }}
+              style={{
+                color: "grey",
+                paddingLeft: "40px",
+                paddingTop: "20px",
+                paddingRight: "20px"
+              }}
             >
-              No Players Found
+              <div className="row" style={{ marginBottom: "10px" }}>
+                <div className="col-sm-3">
+                  <div style={pfth}>Name</div>
+                </div>
+                <div className="col-sm-3" style={{ paddingLeft: "15px" }}>
+                  <div style={pfth}>Team</div>
+                </div>
+                <div className="col-sm-2" style={{ textAlign: "center" }}>
+                  <div style={pfth}>Overall</div>
+                </div>
+                <div className="col-sm-2" style={{ textAlign: "center" }}>
+                  <div style={pfth}>Offense</div>
+                </div>
+                <div className="col-sm-2" style={{ textAlign: "center" }}>
+                  <div style={pfth}>Defense</div>
+                </div>
+              </div>
+              {this.renderFoundPlayers()}
             </div>
           </div>
         </div>
@@ -1506,10 +2558,18 @@ export default class NBAScouting extends React.Component {
     });
   }
 
+  handlepfPG(evt) {
+    this.setState({ pfPG: evt.target.checked });
+  }
+
   handleSG(evt) {
     this.setState({ sg: evt.target.checked }, () => {
       this.filterPlayers();
     });
+  }
+
+  handlepfSG(evt) {
+    this.setState({ pfSG: evt.target.checked });
   }
 
   handleSF(evt) {
@@ -1518,10 +2578,18 @@ export default class NBAScouting extends React.Component {
     });
   }
 
+  handlepfSF(evt) {
+    this.setState({ pfSF: evt.target.checked });
+  }
+
   handlePF(evt) {
     this.setState({ pf: evt.target.checked }, () => {
       this.filterPlayers();
     });
+  }
+
+  handlepfPF(evt) {
+    this.setState({ pfPF: evt.target.checked });
   }
 
   handleC(evt) {
@@ -1530,30 +2598,58 @@ export default class NBAScouting extends React.Component {
     });
   }
 
+  handlepfC(evt) {
+    this.setState({ pfC: evt.target.checked });
+  }
+
   handleMPG1(evt) {
     this.setState({ mpg1: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfMPG1(evt) {
+    this.setState({ pfMPG1: evt.target.checked });
+  }
+
   handleMPG2(evt) {
     this.setState({ mpg2: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfMPG2(evt) {
+    this.setState({ pfMPG2: evt.target.checked });
+  }
+
   handleMPG3(evt) {
     this.setState({ mpg3: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfMPG3(evt) {
+    this.setState({ pfMPG3: evt.target.checked });
+  }
+
   handleMPG4(evt) {
     this.setState({ mpg4: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfMPG4(evt) {
+    this.setState({ pfMPG4: evt.target.checked });
+  }
+
   handleMPG5(evt) {
     this.setState({ mpg5: evt.target.checked }, () => {
       this.filterPlayers();
     });
+  }
+
+  handlepfMPG5(evt) {
+    this.setState({ pfMPG5: evt.target.checked });
   }
 
   handleEXP1(evt) {
@@ -1561,25 +2657,49 @@ export default class NBAScouting extends React.Component {
       this.filterPlayers();
     });
   }
+
+  handlepfEXP1(evt) {
+    this.setState({ pfEXP1: evt.target.checked });
+  }
+
   handleEXP2(evt) {
     this.setState({ exp2: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfEXP2(evt) {
+    this.setState({ pfEXP2: evt.target.checked });
+  }
+
   handleEXP3(evt) {
     this.setState({ exp3: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfEXP3(evt) {
+    this.setState({ pfEXP3: evt.target.checked });
+  }
+
   handleEXP4(evt) {
     this.setState({ exp4: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfEXP4(evt) {
+    this.setState({ pfEXP4: evt.target.checked });
+  }
+
   handleEXP5(evt) {
     this.setState({ exp5: evt.target.checked }, () => {
       this.filterPlayers();
     });
+  }
+
+  handlepfEXP5(evt) {
+    this.setState({ pfEXP5: evt.target.checked });
   }
 
   handleAGE1(evt) {
@@ -1587,25 +2707,49 @@ export default class NBAScouting extends React.Component {
       this.filterPlayers();
     });
   }
+
+  handlepfAGE1(evt) {
+    this.setState({ pfAGE1: evt.target.checked });
+  }
+
   handleAGE2(evt) {
     this.setState({ age2: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfAGE2(evt) {
+    this.setState({ pfAGE2: evt.target.checked });
+  }
+
   handleAGE3(evt) {
     this.setState({ age3: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfAGE3(evt) {
+    this.setState({ pfAGE3: evt.target.checked });
+  }
+
   handleAGE4(evt) {
     this.setState({ age4: evt.target.checked }, () => {
       this.filterPlayers();
     });
   }
+
+  handlepfAGE4(evt) {
+    this.setState({ pfAGE4: evt.target.checked });
+  }
+
   handleAGE5(evt) {
     this.setState({ age5: evt.target.checked }, () => {
       this.filterPlayers();
     });
+  }
+
+  handlepfAGE5(evt) {
+    this.setState({ pfAGE5: evt.target.checked });
   }
 
   handleScoutMenuClick(evt) {
