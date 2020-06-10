@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "./NavBar";
-import TeamInfo from "./TeamInfo";
+import TeamInfo2 from "./TeamInfo2";
 import Footer from "./Footer";
 
 export default class TeamPage extends React.Component {
@@ -10,9 +10,9 @@ export default class TeamPage extends React.Component {
 
   render() {
     return (
-      <div className="team-grid">
+      <div>
         <NavBar />
-        <TeamInfo props={this.props} />
+        <TeamInfo2 props={this.props} />
         <Footer />
       </div>
     );

@@ -247,6 +247,7 @@ export default class PolarColumn extends React.Component {
           dataLabels: {
             useHTML: true,
             enabled: true,
+            align: "center",
             crop: false,
             overflow: "allow",
             allowOverlap: true,

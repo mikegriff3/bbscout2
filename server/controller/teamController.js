@@ -36,7 +36,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("Players Array: \n", playersArr);
-    for (var i = 550; i < playersArr.length; i++) {
+    for (var i = 400; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.Salaries.findOrCreate({
         where: {
@@ -49,7 +49,7 @@ module.exports = {
           yearFour: player["y4"],
           yearFive: player["y5"],
           yearSix: player["y6"],
-          yearOneOption: player["y1option"],
+          //yearOneOption: player["y1option"],
           yearTwoOption: player["y2option"],
           yearThirdOption: player["y3option"],
           yearFourOption: player["y4option"],

@@ -407,7 +407,7 @@ export default class NBAScouting extends React.Component {
             key={index}
             style={{ color: "white", fontSize: "14px" }}
           >
-            {player.name}
+            <a href={`/player/${player.id}`}>{player.name}</a>
             <span style={{ paddingLeft: ".5rem", fontSize: "10px" }}>
               {player.position}
             </span>
@@ -982,6 +982,472 @@ export default class NBAScouting extends React.Component {
           return player.offStatGrades.bpm <= state.oGrade3;
         });
       }
+    }
+    if (this.state.dStat1 === "stl") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stl >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stl <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "stl") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stl >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stl <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "stl") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stl >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stl <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "blk") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blk >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blk <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "blk") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blk >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blk <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "blk") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blk >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blk <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "trb") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.reb >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.reb <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "trb") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.reb >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.reb <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "trb") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.reb >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.reb <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "drb") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drb >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drb <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "drb") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drb >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drb <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "drb") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drb >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drb <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "drbPct") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drbPct >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drbPct <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "drbPct") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drbPct >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drbPct <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "drbPct") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drbPct >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.drbPct <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "blkPct") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blkPct >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blkPct <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "blkPct") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blkPct >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blkPct <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "blkPct") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blkPct >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.blkPct <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "stlPct") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stlPct >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stlPct <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "stlPct") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stlPct >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stlPct <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "stlPct") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stlPct >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.stlPct <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "pf") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.pf >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.pf <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "pf") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.pf >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.pf <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "pf") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.pf >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.pf <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "dbpm") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dbpm >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dbpm <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "dbpm") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dbpm >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dbpm <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "dbpm") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dbpm >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dbpm <= state.dGrade3;
+        });
+      }
+    }
+    if (this.state.dStat1 === "dws") {
+      if (this.state.defg1OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dws >= state.dGrade1;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dws <= state.dGrade1;
+        });
+      }
+    }
+    if (this.state.dStat2 === "dws") {
+      if (this.state.defg2OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dws >= state.dGrade2;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dws <= state.dGrade2;
+        });
+      }
+    }
+    if (this.state.dStat3 === "dws") {
+      if (this.state.defg3OU === "gte") {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dws >= state.dGrade3;
+        });
+      } else {
+        players = players.filter(function(player) {
+          return player.defStatGrades.dws <= state.dGrade3;
+        });
+      }
+    }
+    //////////////// Filters ////////////////////////
+    if (!this.state.pfPG) {
+      players = players.filter(function(player) {
+        return player.position !== "PG";
+      });
+    }
+
+    if (!this.state.pfSG) {
+      players = players.filter(function(player) {
+        return player.position !== "SG";
+      });
+    }
+
+    if (!this.state.pfSF) {
+      players = players.filter(function(player) {
+        return player.position !== "SF";
+      });
+    }
+
+    if (!this.state.pfPF) {
+      players = players.filter(function(player) {
+        return player.position !== "PF";
+      });
+    }
+
+    if (!this.state.pfC) {
+      players = players.filter(function(player) {
+        return player.position !== "C";
+      });
+    }
+
+    if (!this.state.pfMPG1) {
+      players = players.filter(function(player) {
+        return player.mpg >= 15.0;
+      });
+    }
+    if (!this.state.pfMPG2) {
+      players = players.filter(function(player) {
+        if (player.mpg < 15.0 || player.mpg >= 20.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfMPG3) {
+      players = players.filter(function(player) {
+        if (player.mpg < 20.0 || player.mpg >= 25.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfMPG4) {
+      players = players.filter(function(player) {
+        if (player.mpg < 25.0 || player.mpg >= 30.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfMPG5) {
+      players = players.filter(function(player) {
+        return player.mpg < 30.0;
+      });
+    }
+
+    if (!this.state.pfEXP1) {
+      players = players.filter(function(player) {
+        return player.experience !== "R";
+      });
+    }
+    if (!this.state.pfEXP2) {
+      players = players.filter(function(player) {
+        if (player.experience === "R" || player.experience > 3) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfEXP3) {
+      players = players.filter(function(player) {
+        if (
+          player.experience === "R" ||
+          player.experience < 4 ||
+          player.experience > 6
+        ) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfEXP4) {
+      players = players.filter(function(player) {
+        if (
+          player.experience === "R" ||
+          player.experience < 7 ||
+          player.experience > 10
+        ) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfEXP5) {
+      players = players.filter(function(player) {
+        if (player.experience === "R" || player.experience < 11) {
+          return player;
+        }
+      });
+    }
+
+    if (!this.state.pfAGE1) {
+      players = players.filter(function(player) {
+        return player.age >= 21;
+      });
+    }
+    if (!this.state.pfAGE2) {
+      players = players.filter(function(player) {
+        if (player.age < 21 || player.age > 25.0) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfAGE3) {
+      players = players.filter(function(player) {
+        if (player.age < 26 || player.age > 30) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfAGE4) {
+      players = players.filter(function(player) {
+        if (player.age < 31 || player.age > 35) {
+          return player;
+        }
+      });
+    }
+    if (!this.state.pfAGE5) {
+      players = players.filter(function(player) {
+        return player.age < 35;
+      });
     }
     console.log("Filtered ARR: ", players);
     this.setState({ pfArr: players });

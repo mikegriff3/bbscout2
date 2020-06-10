@@ -113,37 +113,37 @@ export default class PlayerContract extends React.Component {
     return (
       <tbody>
         <tr style={{ color: "white" }}>
-          <td>2017-2018</td>
+          <td>2019-2020</td>
           <td>{this.convertDollars(this.props.contract.yearOne)}</td>
           <td>{this.props.contract.signedUsing}</td>
           <td>{this.convertDollars(this.props.contract.guaranteed)}</td>
         </tr>
         <tr style={{ color: "white" }}>
-          <td>2018-2019</td>
+          <td>2020-2021</td>
           <td style={yrTwoHeader}>
             {this.convertDollars(this.props.contract.yearTwo)}
           </td>
         </tr>
         <tr style={{ color: "white" }}>
-          <td>2019-2020</td>
+          <td>2021-2022</td>
           <td style={yrThreeHeader}>
             {this.convertDollars(this.props.contract.yearThird)}
           </td>
         </tr>
         <tr style={{ color: "white" }}>
-          <td>2020-2021</td>
+          <td>2022-2023</td>
           <td style={yrFourHeader}>
             {this.convertDollars(this.props.contract.yearFour)}
           </td>
         </tr>
         <tr style={{ color: "white" }}>
-          <td>2021-2022</td>
+          <td>2023-2024</td>
           <td style={yrFiveHeader}>
             {this.convertDollars(this.props.contract.yearFive)}
           </td>
         </tr>
         <tr style={{ color: "white" }}>
-          <td>2022-2023</td>
+          <td>2024-2025</td>
           <td style={yrSixHeader}>
             {this.convertDollars(this.props.contract.yearSix)}
           </td>

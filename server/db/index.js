@@ -522,7 +522,7 @@ const Salaries = salariesdb.define("salary", {
   yearFour: { type: Sequelize.STRING, allowNull: true },
   yearFive: { type: Sequelize.STRING, allowNull: true },
   yearSix: { type: Sequelize.STRING, allowNull: true },
-  yearOneOption: { type: Sequelize.STRING, allowNull: true },
+  //yearOneOption: { type: Sequelize.STRING, allowNull: true },
   yearTwoOption: { type: Sequelize.STRING, allowNull: true },
   yearThirdOption: { type: Sequelize.STRING, allowNull: true },
   yearFourOption: { type: Sequelize.STRING, allowNull: true },

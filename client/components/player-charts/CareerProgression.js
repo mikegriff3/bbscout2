@@ -19,9 +19,15 @@ export default class CareerProgression extends React.Component {
     this.getStat(this.state.progStat);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.getStat(nextProps.progStat);
+  componentDidUpdate(prevprops){
+    if(prevprops !== this.props){
+      this.getStat(this.props.progStat);
+    }
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   this.getStat(nextProps.progStat);
+  // }
 
   scaleStat(high, stat, low) {
     var scaled = (100 / (high - low)) * (stat - low);
