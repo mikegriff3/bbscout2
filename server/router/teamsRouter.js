@@ -72,6 +72,7 @@ router.get("/getgPositionStats", controller.getgPositionStats);
 router.get("/getAllNbaPlayers", controller.getAllNbaPlayers);
 router.get("/getAllCollegePlayers", controller.getAllCollegePlayers);
 router.get("/getAllgPlayers", controller.getAllgPlayers);
+router.get("/getNbaSchedule", controller.getNbaSchedule);
 router.post("/createPostStats", controller.createPostStats);
 router.post("/createHustleStats", controller.createHustleStats);
 router.post("/createShootingStats", controller.createShootingStats);
@@ -82,6 +83,7 @@ router.post("/createIsoStats", controller.createIsoStats);
 router.post("/createTransitionStats", controller.createTransitionStats);
 router.post("/createSpeedDistanceStats", controller.createSpeedDistanceStats);
 router.post("/createPlayerSalaries", controller.createPlayerSalaries);
+router.post("/createNbaSchedule", controller.createNbaSchedule);
 
 router.get("/nbaPlayersList", controller.nbaPlayersList);
 router.get("/collegePlayersList", controller.collegePlayersList);

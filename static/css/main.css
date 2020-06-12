@@ -402,7 +402,7 @@ body {
   font-size: 2.2rem;
 }
 
-.team-info{
+.team-info {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -496,6 +496,13 @@ body {
   justify-content: flex-end;
   position: relative;
 }
+
+.team__menu-container {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+
 .player__gauge-container {
   grid-column: 1 / -1;
   display: flex;
@@ -922,10 +929,7 @@ th {
   grid-template-rows: max-content 1fr 30%;
   grid-template-columns: 100%;
 }
-.team__menu-container {
-  display: flex;
-  justify-content: flex-end;
-}
+
 .team__menu {
   height: 3.5rem;
   width: 30%;
@@ -966,11 +970,10 @@ th {
   justify-content: center;
 }
 .team__chart-section {
-  margin-top: 4rem;
-  display: grid;
+  /*display: grid;*/
   width: 100%;
-  margin-bottom: 2rem;
-  grid-row-gap: 2rem;
+  /*margin-bottom: 2rem;
+  grid-row-gap: 2rem;*/
 }
 .team__pie-chart-container {
   background-color: rgba(0, 0, 0, 0.7);
@@ -985,7 +988,7 @@ th {
   background-color: rgba(0, 0, 0, 0.7);
   display: grid;
   grid-template-rows: min-content 1fr;
-  margin-top: 2rem;
+  /*margin-top: 2rem;*/
 }
 .team__scatter-chart {
   margin-top: 2rem;

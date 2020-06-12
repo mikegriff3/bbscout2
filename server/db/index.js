@@ -161,6 +161,23 @@ const PlayersHistory = playerHistdb.define("playerHistory", {
 // });
 PlayersHistory.sync();
 
+const NbaSchedule = playerHistdb.define("schedule", {
+  date: { type: Sequelize.STRING, allowNull: false },
+  start: { type: Sequelize.STRING, allowNull: true },
+  visitor: { type: Sequelize.STRING, allowNull: true },
+  visitorPts: { type: Sequelize.STRING, allowNull: true },
+  home: { type: Sequelize.STRING, allowNull: true },
+  homePts: { type: Sequelize.STRING, allowNull: true },
+  attend: { type: Sequelize.STRING, allowNull: true }
+});
+
+// NbaSchedule.sync({ force: true }).then(() => {
+//   return NbaSchedule.bulkCreate([
+//     { date: "Michael Griffin", visitor: "Lakeshow" }
+//   ]);
+// });
+NbaSchedule.sync();
+
 // const CollegeTeams = bbscoutdb.define("cteam", {
 //   Name: { type: Sequelize.STRING, allowNull: false },
 //   GP: { type: Sequelize.STRING, allowNull: true },
@@ -1311,6 +1328,7 @@ module.exports = {
   // PlayersSeventeen,
   // PlayersFifteen,
   //CollegeTeams,
-  PlayersHistory
+  PlayersHistory,
   //PlayersNineteen
+  NbaSchedule
 };

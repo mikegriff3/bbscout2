@@ -67,6 +67,48 @@ module.exports = {
         });
     }
   },
+  createNbaSchedule: (req, res) => {
+    console.log("SAVING Games");
+    var playersArr = req.body.data;
+    //console.log("Players Array: \n", playersArr);
+    for (var i = 0; i < playersArr.length; i++) {
+      var player = playersArr[i];
+      db.NbaSchedule.findOrCreate({
+        where: {
+          date: player["date"],
+          start: player["start"],
+          visitor: player["visitor"],
+          visitorPts: player["visitorPts"],
+          home: player["home"],
+          homePts: player["homePts"],
+          attend: player["attend"]
+        }
+      })
+        .then(data => {
+          console.log("Player added successfully");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  getNbaSchedule: (req, res) => {
+    console.log("REQ!!!!!: ", req.query.team);
+    var team = req.query.team;
+    db.NbaSchedule.findAll({
+      where: {
+        [Op.or]: [{ visitor: team }, { home: team }]
+      }
+    })
+      .then(data => {
+        res.status(200).send(data);
+        console.log("Successfully retrieved roster!!");
+      })
+      .catch(err => {
+        res.status(500).send(err);
+        console.log("ERROR RETREIVING ROSTER\n", err);
+      });
+  },
   upsertPlayerInfo: (req, res) => {},
   getTeamsPlayers: (req, res) => {
     var team = req.query.team;

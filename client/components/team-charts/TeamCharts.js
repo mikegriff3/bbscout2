@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import PlayerContracts from "./PlayerContracts";
 
 export default class TeamCharts extends React.Component {
   constructor() {
@@ -19,7 +20,8 @@ export default class TeamCharts extends React.Component {
       barStat: "pts",
       renderBar: false,
       renderScatterX: false,
-      renderScatterY: false
+      renderScatterY: false,
+      schedule: []
     };
     this.createChart = this.createChart.bind(this);
     this.getPlayerShare = this.getPlayerShare.bind(this);
@@ -41,6 +43,24 @@ export default class TeamCharts extends React.Component {
   }
 
   componentDidMount() {
+    let arr = [...this.props.schedule];
+    let newArr = arr.slice(-10);
+    for (let k = 0; k < newArr.length; k++) {
+      let dateArr = newArr[k].date.split(" ");
+      newArr[k].date = dateArr[1] + " " + dateArr[2];
+      if (
+        (newArr[k].home === this.props.team.Name &&
+          parseInt(newArr[k].homePts) > parseInt(newArr[k].visitorPts)) ||
+        (newArr[k].visitor === this.props.team.Name &&
+          parseInt(newArr[k].visitorPts) > parseInt(newArr[k].homePts))
+      ) {
+        newArr[k].result = "W";
+        newArr[k].color = "green";
+      } else {
+        newArr[k].result = "L";
+        newArr[k].color = "red";
+      }
+    }
     var playerData = [];
     var scatterData = [];
     axios
@@ -73,7 +93,7 @@ export default class TeamCharts extends React.Component {
             id: playerData[j].id
           });
         }
-        this.setState({ data: scatterData }, () => {
+        this.setState({ data: scatterData, schedule: newArr }, () => {
           this.getColumnData(this.state.barStat);
           this.getPlayerShare(this.state.pieStat.toLowerCase());
           //this.createChart();
@@ -82,6 +102,30 @@ export default class TeamCharts extends React.Component {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.schedule !== this.props.schedule) {
+      let arr = [...this.props.schedule];
+      let newArr = arr.slice(-10);
+      for (let k = 0; k < newArr.length; k++) {
+        let dateArr = newArr[k].date.split(" ");
+        newArr[k].date = dateArr[1] + " " + dateArr[2];
+        if (
+          (newArr[k].home === this.props.team.Name &&
+            parseInt(newArr[k].homePts) > parseInt(newArr[k].visitorPts)) ||
+          (newArr[k].visitor === this.props.team.Name &&
+            parseInt(newArr[k].visitorPts) > parseInt(newArr[k].homePts))
+        ) {
+          newArr[k].result = "W";
+          newArr[k].color = "green";
+        } else {
+          newArr[k].result = "L";
+          newArr[k].color = "red";
+        }
+      }
+      this.setState({ schedule: newArr });
+    }
   }
 
   handleSearch() {
@@ -1127,50 +1171,51 @@ export default class TeamCharts extends React.Component {
       ]
     });
 
-    var barChart = new Highcharts.Chart({
-      chart: {
-        renderTo: "bar-container",
-        type: "column",
-        options3d: {
-          enabled: true,
-          alpha: 0,
-          beta: 10,
-          depth: 37,
-          viewDistance: 25
-        },
-        backgroundColor: null
-      },
-      title: {
-        text: `${this.props.team.Name} Stat Averages`
-      },
-      subtitle: {
-        text: ""
-      },
-      exporting: { enabled: false },
-      plotOptions: {
-        column: {
-          depth: 25
-        }
-      },
-      series: [
-        {
-          name: `${this.state.barStat}`,
-          color: {
-            linearGradient: {
-              x1: 0,
-              x2: 0,
-              y1: 0,
-              y2: 1
-            },
-            stops: [[0, "rgba(204, 0, 153, 0.7)"], [1, "rgba(102, 0, 77,0.7)"]]
-          },
-          data: this.state.columnData
-        }
-      ]
-    });
+    // var barChart = new Highcharts.Chart({
+    //   chart: {
+    //     renderTo: "bar-container",
+    //     type: "column",
+    //     options3d: {
+    //       enabled: true,
+    //       alpha: 0,
+    //       beta: 10,
+    //       depth: 37,
+    //       viewDistance: 25
+    //     },
+    //     backgroundColor: null
+    //   },
+    //   title: {
+    //     text: `${this.props.team.Name} Stat Averages`
+    //   },
+    //   subtitle: {
+    //     text: ""
+    //   },
+    //   exporting: { enabled: false },
+    //   plotOptions: {
+    //     column: {
+    //       depth: 25
+    //     }
+    //   },
+    //   series: [
+    //     {
+    //       name: `${this.state.barStat}`,
+    //       color: {
+    //         linearGradient: {
+    //           x1: 0,
+    //           x2: 0,
+    //           y1: 0,
+    //           y2: 1
+    //         },
+    //         stops: [[0, "rgba(204, 0, 153, 0.7)"], [1, "rgba(102, 0, 77,0.7)"]]
+    //       },
+    //       data: this.state.columnData
+    //     }
+    //   ]
+    // });
   }
 
   render() {
+    let schedule = this.state.schedule;
     var headerStyle1 = {
       backgroundImage:
         "linear-gradient(to right, rgba(210, 255, 77, 0) 0.15%, rgba(210, 255, 77, 0.8) 40%, rgba(210, 255, 77, 0))",
@@ -1191,40 +1236,152 @@ export default class TeamCharts extends React.Component {
     };
     return (
       <div className="team__chart-section">
-        <div className="team__pie-chart-container">
-          <div className="team__chart-title-container">
-            <div style={headerStyle1} className="team__chart-title">
-              Player Shares
+        <div
+          className="row"
+          style={{
+            backgroundColor: "rgba(0,0,0,0.7)",
+            padding: "40px 40px 0px 40px"
+          }}
+        >
+          <div
+            className="col-sm-6 team-schedule"
+            style={{ padding: "0px 40px" }}
+          >
+            <div className="team__chart-title-container">
+              <div style={headerStyle2} className="team__chart-title">
+                Previous Games
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                marginTop: "40px",
+                padding: "0px 20px"
+              }}
+            >
+              <table
+                cellSpacing="0"
+                style={{
+                  width: "100%",
+                  color: "white",
+                  borderCollapse: "collapse"
+                }}
+              >
+                <thead>
+                  <tr className="temp">
+                    <th className="stat-th">Date</th>
+                    <th className="stat-th">Away</th>
+                    <th className="stat-th">Pts</th>
+                    <th className="stat-th">Home</th>
+                    <th className="stat-th">Pts</th>
+                    <th className="stat-th">Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {schedule.map(function(game, index) {
+                    return (
+                      <tr className="full-data" style={{ height: "40px" }}>
+                        <td>{game["date"]}</td>
+                        <td>{game["visitor"]}</td>
+                        <td>{game["visitorPts"]}</td>
+                        <td>{game["home"]}</td>
+                        <td>{game["homePts"]}</td>
+                        <td style={{ color: game["color"] }}>
+                          {game["result"]}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
-          <div
-            className="team__pie-chart"
-            id="pie-container"
-            style={{
-              height: "400px"
-            }}
-          />
-          <div className="pie-stat-container">
-            <div className="pie-stat" onClick={this.handlePieClick}>
-              {this.state.pieStat.toUpperCase()}
-              {this.renderPieMenu()}
+          <div className="col-sm-6">
+            <div className="team__chart-title-container">
+              <div style={headerStyle1} className="team__chart-title">
+                Player Shares
+              </div>
+            </div>
+            <div
+              className="team__pie-chart"
+              id="pie-container"
+              style={{
+                height: "350px",
+                paddingTop: "20px"
+              }}
+            />
+            <div className="pie-stat-container">
+              <div className="pie-stat" onClick={this.handlePieClick}>
+                {this.state.pieStat.toUpperCase()}
+                {this.renderPieMenu()}
+              </div>
             </div>
           </div>
         </div>
-        <div className="team__scatter-chart-container">
-          <div className="team__chart-title-container">
-            <div style={headerStyle2} className="team__chart-title">
-              Player Stats
-            </div>
-          </div>
-          <div
-            className="team__scatter-chart"
-            id="scatter-container"
+        <div
+          className="hr-box"
+          style={{ backgroundColor: "rgba(0,0,0,0.7)", padding: "0 80px" }}
+        >
+          <hr
             style={{
-              height: "500px"
+              borderBottom: "1px solid #eee",
+              borderTop: "0px",
+              margin: "0",
+              paddingTop: "50px"
             }}
           />
-          <div className="team-scatter-menu-container">
+        </div>
+        <div
+          className="row contract-container"
+          style={{
+            padding: "60px 80px 0px 80px",
+            backgroundColor: "rgba(0,0,0,0.7)"
+          }}
+        >
+          <div style={headerStyle2} className="team__chart-title">
+            Team Contracts
+          </div>
+          <PlayerContracts contracts={this.props.contracts} />
+        </div>
+        <div
+          className="hr-box"
+          style={{ backgroundColor: "rgba(0,0,0,0.7)", padding: "0 80px" }}
+        >
+          <hr
+            style={{
+              borderBottom: "1px solid #eee",
+              borderTop: "0px",
+              margin: "0",
+              paddingTop: "50px"
+            }}
+          />
+        </div>
+        <div
+          className="team__scatter-chart-container"
+          style={{ paddingTop: "40px" }}
+        >
+          <div
+            className="team__chart-title-container"
+            style={{ paddingLeft: "80px" }}
+          >
+            <div style={headerStyle2} className="team__chart-title">
+              Player Graph
+            </div>
+          </div>
+          <div style={{ padding: "0px 100px" }}>
+            <div
+              className="team__scatter-chart"
+              id="scatter-container"
+              style={{
+                height: "500px"
+              }}
+            />
+          </div>
+          <div
+            className="team-scatter-menu-container"
+            style={{ padding: "0px 80px" }}
+          >
             <div className="axis-container">
               <div>Y-AXIS:</div>
               <div className="scatter-stat" onClick={this.handleScatterClickY}>
@@ -1244,7 +1401,7 @@ export default class TeamCharts extends React.Component {
             </div>
           </div>
         </div>
-        <div className="team__bar-chart-container">
+        {/*<div className="team__bar-chart-container">
           <div className="team__chart-title-container">
             <div style={headerStyle3} className="team__chart-title">
               Player Comparison
@@ -1263,7 +1420,7 @@ export default class TeamCharts extends React.Component {
               {this.renderBarMenu()}
             </div>
           </div>
-        </div>
+          </div>*/}
       </div>
     );
   }

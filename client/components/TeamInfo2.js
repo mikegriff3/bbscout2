@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import TeamCharts from "./team-charts/TeamCharts";
+import TeamRankings from "./team-charts/TeamRankings";
+import TeamSeasonStats from "./team-charts/TeamSeasonStats";
 
 const mapStateToProps = state => {
   return {
@@ -28,7 +30,10 @@ class TeamInfo2 extends React.Component {
       leagueStats: [],
       contracts: [],
       teamId: this.props.props.match.params.id,
-      team: {}
+      team: {},
+      selection: "Team Rankings",
+      showMenu: false,
+      schedule: []
     };
     this.getTeam = this.getTeam.bind(this);
     this.getLeagueStats = this.getLeagueStats.bind(this);
@@ -41,6 +46,10 @@ class TeamInfo2 extends React.Component {
     this.getOffenseRating = this.getOffenseRating.bind(this);
     this.getDefenseRating = this.getDefenseRating.bind(this);
     this.getGrade = this.getGrade.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.renderMenu = this.renderMenu.bind(this);
+    this.getTeamSchedule = this.getTeamSchedule.bind(this);
+    this.handleMenuClick = this.handleMenuClick.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +93,7 @@ class TeamInfo2 extends React.Component {
         this.setState({ team: data.data }, () => {
           this.getRoster();
           this.getTeamContracts();
+          this.getTeamSchedule();
         });
       })
       .catch(err => {
@@ -102,6 +112,23 @@ class TeamInfo2 extends React.Component {
       });
   }
 
+  getTeamSchedule() {
+    var team = this.state.team.Name;
+    axios
+      .get("/api/teams/getNbaSchedule", {
+        params: {
+          team: team
+        }
+      })
+      .then(data => {
+        let arr = data.data.sort(function(a, b) {
+          return new Date(a.date) - new Date(b.date);
+        });
+        this.setState({ schedule: arr });
+      })
+      .catch("error retrieving players!!!");
+  }
+
   sampleGLeague() {
     if (this.state.team.Name === "Minnesota Timberwolves") {
       return (
@@ -117,7 +144,66 @@ class TeamInfo2 extends React.Component {
     }
   }
 
-  renderSelection() {}
+  renderSelection() {
+    if (this.state.selection === "Team Rankings") {
+      return (
+        <TeamRankings
+          leagueStats={this.state.leagueStats}
+          team={this.state.team.Name}
+        />
+      );
+    } else if (this.state.selection === "Player Ratings") {
+      //return <TeamPlayerRatings />;
+    } else if (this.state.selection === "Season Stats") {
+      return <TeamSeasonStats team={this.state.team} />;
+    } else if (this.state.selection === "Depth Chart") {
+      //return <TeamDepthChart />;
+    } else if (this.state.selection === "League Standings") {
+      //return <LeagueStandings />;
+    } else if (this.state.selection === "Team Salary") {
+      //return <TeamSalary />;
+    }
+  }
+
+  handleClick() {
+    this.setState({
+      showMenu: !this.state.showMenu
+    });
+  }
+
+  handleMenuClick(event) {
+    this.setState({
+      selection: event.currentTarget.textContent,
+      showMenu: false
+    });
+  }
+
+  renderMenu() {
+    if (this.state.showMenu) {
+      return (
+        <div className="menu-option">
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            Season Stats
+          </div>
+          {/*<div className="menu-choice" onClick={this.handleMenuClick}>
+            Depth Chart
+      </div>*/}
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            Player Ratings
+          </div>
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            Team Salary
+          </div>
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            Team Rankings
+          </div>
+          <div className="menu-choice" onClick={this.handleMenuClick}>
+            League Standings
+          </div>
+        </div>
+      );
+    }
+  }
 
   getOverallRating() {
     if (this.state.team) {
@@ -623,23 +709,30 @@ class TeamInfo2 extends React.Component {
       color: "white",
       cursor: "pointer"
     };
-    let placeholderImg = "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/South_Bay_Lakers_logo.svg/1200px-South_Bay_Lakers_logo.svg.png"
+    let placeholderImg =
+      "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/South_Bay_Lakers_logo.svg/1200px-South_Bay_Lakers_logo.svg.png";
     if (
       JSON.stringify(this.state.team) != "{}" &&
       this.props.players.length > 0
     ) {
       return (
         <div className="container-fluid">
-          <div className="row team-row" style={{
-            minHeight: "calc(96vh - 4rem)",
-            backgroundColor: "rgba(0,0,0,0.7)"
-          }}>
+          <div
+            className="row team-row"
+            style={{
+              minHeight: "calc(96vh - 4rem)",
+              backgroundColor: "rgba(0,0,0,0.7)"
+            }}
+          >
             <div className="team-card col-sm-4 col-xs-12">
-              <div className="team-logo-container" style={{
-                height: "auto",
-                width: "65%",
-                marginBottom: "4rem"
-              }}>
+              <div
+                className="team-logo-container"
+                style={{
+                  height: "auto",
+                  width: "65%",
+                  marginBottom: "4rem"
+                }}
+              >
                 <img
                   src={this.state.team.Logo}
                   alt="Team Logo"
@@ -688,30 +781,40 @@ class TeamInfo2 extends React.Component {
             </div>
             <div className="col-sm-8 col-xs-12">
               <div className="team__menu-container">
-                <div style={headerStyle} className="team__menu">
-                  Player Ratings
+                <div
+                  style={headerStyle}
+                  className="team__menu"
+                  onClick={this.handleClick}
+                >
+                  <div>
+                    {this.state.selection}{" "}
+                    <span style={{ fontSize: "10px" }}>&#9660;</span>
+                  </div>
                 </div>
+                {this.renderMenu()}
+              </div>
+              <div className="row" style={{ paddingTop: "4rem" }}>
+                <div className="team-charts">{this.renderSelection()}</div>
               </div>
               <div
                 className="row"
-                style={{ paddingTop: "2rem" }}
+                style={{
+                  marginTop: "3rem",
+                  //display: "flex",
+                  alignItems: "center",
+                  height: "170px"
+                }}
               >
-                <div className="team-charts">{this.renderSelection()}</div>
-              </div>
-              <div className="row" style={{
-                marginTop: "3rem",
-                //display: "flex",
-                alignItems: "center",
-                height: "170px"
-              }}>
-                <div className="team-ratings-oversight-container col-sm-5 col-xs-12" 
+                <div
+                  className="team-ratings-oversight-container col-sm-5 col-xs-12"
                   style={{
-                  paddingBottom: "1.5rem",
-                  textTransform: "uppercase",
-                  color: "grey",
-                  fontSize: "1.4rem",
-                  height: "100%"
-                }}>
+                    paddingBottom: "1.5rem",
+                    textTransform: "uppercase",
+                    color: "grey",
+                    fontSize: "1.4rem",
+                    height: "100%"
+                  }}
+                >
                   <div className="rating-bar">
                     <div style={{ paddingLeft: ".6rem" }}>Overall</div>
                     {this.getOverallRating()}
@@ -725,8 +828,10 @@ class TeamInfo2 extends React.Component {
                     {this.getDefenseRating()}
                   </div>
                 </div>
-                <div className="team__stat-overview col-sm-4 col-xs-12"
-                style={{ height: "100%" }}>
+                <div
+                  className="team__stat-overview col-sm-4 col-xs-12"
+                  style={{ height: "100%" }}
+                >
                   <div className="stat-box">
                     <span className="stat-title">ORTG</span>
                     <span className="stat-text">
@@ -764,18 +869,17 @@ class TeamInfo2 extends React.Component {
                     </span>
                   </div>
                 </div>
-                <div className="col-sm-3 col-xs-12" style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyItems: "center",
-                  height: "100%"
-                }}
+                <div
+                  className="col-sm-3 col-xs-12"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyItems: "center",
+                    height: "100%"
+                  }}
                 >
-                <div className="team-image-box">
-                    <img
-                      src={placeholderImg}
-                      className="img-responsive"
-                    />
+                  <div className="team-image-box">
+                    <img src={placeholderImg} className="img-responsive" />
                   </div>
                 </div>
               </div>
@@ -799,6 +903,7 @@ class TeamInfo2 extends React.Component {
             players={this.props.players[0]}
             leagueStats={this.state.leagueStats}
             contracts={this.state.contracts}
+            schedule={this.state.schedule}
           />
         </div>
       );
