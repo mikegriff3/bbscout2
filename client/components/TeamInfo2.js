@@ -4,6 +4,8 @@ import axios from "axios";
 import TeamCharts from "./team-charts/TeamCharts";
 import TeamRankings from "./team-charts/TeamRankings";
 import TeamSeasonStats from "./team-charts/TeamSeasonStats";
+import TeamRoster from "./team-charts/TeamRoster";
+import LeagueStandings from "./team-charts/LeagueStandings";
 
 const mapStateToProps = state => {
   return {
@@ -152,14 +154,19 @@ class TeamInfo2 extends React.Component {
           team={this.state.team.Name}
         />
       );
-    } else if (this.state.selection === "Player Ratings") {
-      //return <TeamPlayerRatings />;
+    } else if (this.state.selection === "Team Roster") {
+      return <TeamRoster players={this.props.players[0]} />;
     } else if (this.state.selection === "Season Stats") {
       return <TeamSeasonStats team={this.state.team} />;
     } else if (this.state.selection === "Depth Chart") {
       //return <TeamDepthChart />;
     } else if (this.state.selection === "League Standings") {
-      //return <LeagueStandings />;
+      return (
+        <LeagueStandings
+          team={this.state.team}
+          leagueStats={this.state.leagueStats}
+        />
+      );
     } else if (this.state.selection === "Team Salary") {
       //return <TeamSalary />;
     }
@@ -183,17 +190,17 @@ class TeamInfo2 extends React.Component {
       return (
         <div className="menu-option">
           <div className="menu-choice" onClick={this.handleMenuClick}>
+            Team Roster
+          </div>
+          <div className="menu-choice" onClick={this.handleMenuClick}>
             Season Stats
           </div>
           {/*<div className="menu-choice" onClick={this.handleMenuClick}>
             Depth Chart
       </div>*/}
-          <div className="menu-choice" onClick={this.handleMenuClick}>
-            Player Ratings
-          </div>
-          <div className="menu-choice" onClick={this.handleMenuClick}>
+          {/*<div className="menu-choice" onClick={this.handleMenuClick}>
             Team Salary
-          </div>
+    </div>*/}
           <div className="menu-choice" onClick={this.handleMenuClick}>
             Team Rankings
           </div>
@@ -793,7 +800,7 @@ class TeamInfo2 extends React.Component {
                 </div>
                 {this.renderMenu()}
               </div>
-              <div className="row" style={{ paddingTop: "4rem" }}>
+              <div className="row" style={{ paddingTop: "3.5rem" }}>
                 <div className="team-charts">{this.renderSelection()}</div>
               </div>
               <div

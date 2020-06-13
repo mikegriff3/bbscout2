@@ -40,10 +40,11 @@ export default class TeamCharts extends React.Component {
     this.selectBarStat = this.selectBarStat.bind(this);
     this.updateColumnData = this.updateColumnData.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.checkLoad = this.checkLoad.bind(this);
   }
 
   componentDidMount() {
-    let arr = [...this.props.schedule];
+    let arr = this.props.schedule.slice();
     let newArr = arr.slice(-10);
     for (let k = 0; k < newArr.length; k++) {
       let dateArr = newArr[k].date.split(" ");
@@ -60,6 +61,11 @@ export default class TeamCharts extends React.Component {
         newArr[k].result = "L";
         newArr[k].color = "red";
       }
+    }
+    if (newArr.length > 0) {
+      this.setState({
+        schedule: newArr
+      });
     }
     var playerData = [];
     var scatterData = [];
@@ -93,7 +99,7 @@ export default class TeamCharts extends React.Component {
             id: playerData[j].id
           });
         }
-        this.setState({ data: scatterData, schedule: newArr }, () => {
+        this.setState({ data: scatterData }, () => {
           this.getColumnData(this.state.barStat);
           this.getPlayerShare(this.state.pieStat.toLowerCase());
           //this.createChart();
@@ -106,25 +112,27 @@ export default class TeamCharts extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.schedule !== this.props.schedule) {
-      let arr = [...this.props.schedule];
-      let newArr = arr.slice(-10);
-      for (let k = 0; k < newArr.length; k++) {
-        let dateArr = newArr[k].date.split(" ");
-        newArr[k].date = dateArr[1] + " " + dateArr[2];
+      let arr2 = this.props.schedule.slice();
+      let newArr2 = arr2.slice(-10);
+      for (let k = 0; k < newArr2.length; k++) {
+        let dateArr = newArr2[k].date.split(" ");
+        newArr2[k].date = dateArr[1] + " " + dateArr[2];
         if (
-          (newArr[k].home === this.props.team.Name &&
-            parseInt(newArr[k].homePts) > parseInt(newArr[k].visitorPts)) ||
-          (newArr[k].visitor === this.props.team.Name &&
-            parseInt(newArr[k].visitorPts) > parseInt(newArr[k].homePts))
+          (newArr2[k].home === this.props.team.Name &&
+            parseInt(newArr2[k].homePts) > parseInt(newArr2[k].visitorPts)) ||
+          (newArr2[k].visitor === this.props.team.Name &&
+            parseInt(newArr2[k].visitorPts) > parseInt(newArr2[k].homePts))
         ) {
-          newArr[k].result = "W";
-          newArr[k].color = "green";
+          newArr2[k].result = "W";
+          newArr2[k].color = "green";
         } else {
-          newArr[k].result = "L";
-          newArr[k].color = "red";
+          newArr2[k].result = "L";
+          newArr2[k].color = "red";
         }
       }
-      this.setState({ schedule: newArr });
+      if (newArr2.length > 0) {
+        this.setState({ schedule: newArr2 });
+      }
     }
   }
 
@@ -1214,8 +1222,59 @@ export default class TeamCharts extends React.Component {
     // });
   }
 
+  checkLoad() {
+    if (this.state.schedule.length > 0) {
+      let schedule = this.state.schedule;
+      return (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginTop: "40px",
+            padding: "0px 20px"
+          }}
+        >
+          <table
+            cellSpacing="0"
+            style={{
+              width: "100%",
+              color: "white",
+              borderCollapse: "collapse"
+            }}
+          >
+            <thead>
+              <tr className="temp">
+                <th className="stat-th">Date</th>
+                <th className="stat-th">Away</th>
+                <th className="stat-th">Pts</th>
+                <th className="stat-th">Home</th>
+                <th className="stat-th">Pts</th>
+                <th className="stat-th">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {schedule.map(function(game, index) {
+                return (
+                  <tr className="full-data" style={{ height: "40px" }}>
+                    <td>{game["date"]}</td>
+                    <td>{game["visitor"]}</td>
+                    <td>{game["visitorPts"]}</td>
+                    <td>{game["home"]}</td>
+                    <td>{game["homePts"]}</td>
+                    <td style={{ color: game["color"] }}>{game["result"]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    } else {
+      return <div style={{ color: "white" }}>Loading Games...</div>;
+    }
+  }
+
   render() {
-    let schedule = this.state.schedule;
     var headerStyle1 = {
       backgroundImage:
         "linear-gradient(to right, rgba(210, 255, 77, 0) 0.15%, rgba(210, 255, 77, 0.8) 40%, rgba(210, 255, 77, 0))",
@@ -1252,50 +1311,7 @@ export default class TeamCharts extends React.Component {
                 Previous Games
               </div>
             </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                marginTop: "40px",
-                padding: "0px 20px"
-              }}
-            >
-              <table
-                cellSpacing="0"
-                style={{
-                  width: "100%",
-                  color: "white",
-                  borderCollapse: "collapse"
-                }}
-              >
-                <thead>
-                  <tr className="temp">
-                    <th className="stat-th">Date</th>
-                    <th className="stat-th">Away</th>
-                    <th className="stat-th">Pts</th>
-                    <th className="stat-th">Home</th>
-                    <th className="stat-th">Pts</th>
-                    <th className="stat-th">Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {schedule.map(function(game, index) {
-                    return (
-                      <tr className="full-data" style={{ height: "40px" }}>
-                        <td>{game["date"]}</td>
-                        <td>{game["visitor"]}</td>
-                        <td>{game["visitorPts"]}</td>
-                        <td>{game["home"]}</td>
-                        <td>{game["homePts"]}</td>
-                        <td style={{ color: game["color"] }}>
-                          {game["result"]}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            {this.checkLoad()}
           </div>
           <div className="col-sm-6">
             <div className="team__chart-title-container">

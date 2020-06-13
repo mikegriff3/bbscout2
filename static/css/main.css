@@ -560,6 +560,7 @@ body {
 .player__ratings-rating {
   padding-right: 1rem;
   font-size: 1.3rem;
+  padding-bottom: 1px;
 }
 .player__ratings-container {
   display: grid;

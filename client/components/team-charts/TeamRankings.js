@@ -85,7 +85,7 @@ export default class TeamRankings extends React.Component {
 
   render() {
     return (
-      <div className="row" style={{ height: "350px" }}>
+      <div className="row" style={{ height: "340px" }}>
         <div className="col-sm-6" style={{ height: "100%" }}>
           <div
             style={{

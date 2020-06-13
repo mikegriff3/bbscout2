@@ -8,7 +8,10 @@ export default class TeamSeasonStats extends React.Component {
   render() {
     var stat = this.props.team;
     return (
-      <div className="row" style={{ padding: "0px 40px 20px 20px" }}>
+      <div
+        className="row"
+        style={{ height: "340px", padding: "0px 40px 0px 20px" }}
+      >
         <div
           style={{
             color: "white",
