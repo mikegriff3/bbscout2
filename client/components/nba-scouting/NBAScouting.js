@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import PlayerScatter from "./nba-scouting-charts/PlayerScatter";
+import UpcomingFAs from "./UpcomingFAs";
 
 export default class NBAScouting extends React.Component {
   constructor() {
@@ -2430,7 +2431,7 @@ export default class NBAScouting extends React.Component {
             marginTop: "20px"
           }}
         >
-          Free Agency Here
+          <UpcomingFAs contracts={this.state.playerContracts} />
         </div>
       );
     }

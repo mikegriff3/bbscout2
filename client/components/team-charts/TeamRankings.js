@@ -68,7 +68,7 @@ export default class TeamRankings extends React.Component {
         break;
       }
     }
-    if (stat === "TOV" || stat === "DRtg") {
+    if (stat === "DRtg") {
       rank = 31 - rank;
     }
     if (rank === 1 || rank === 21) {
