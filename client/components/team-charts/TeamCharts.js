@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import PlayerContracts from "./PlayerContracts";
+import PlayerStats from "./PlayerStats";
 
 export default class TeamCharts extends React.Component {
   constructor() {
@@ -1416,6 +1417,33 @@ export default class TeamCharts extends React.Component {
               SEARCH
             </div>
           </div>
+        </div>
+        <div
+          className="hr-box"
+          style={{ backgroundColor: "rgba(0,0,0,0.7)", padding: "0 80px" }}
+        >
+          <hr
+            style={{
+              borderBottom: "1px solid #eee",
+              borderTop: "0px",
+              margin: "0",
+              paddingTop: "50px"
+            }}
+          />
+        </div>
+        <PlayerStats players={this.props.players} />
+        <div
+          className="hr-box"
+          style={{ backgroundColor: "rgba(0,0,0,0.7)", padding: "0 80px" }}
+        >
+          <hr
+            style={{
+              borderBottom: "1px solid #eee",
+              borderTop: "0px",
+              margin: "0",
+              paddingTop: "50px"
+            }}
+          />
         </div>
         {/*<div className="team__bar-chart-container">
           <div className="team__chart-title-container">

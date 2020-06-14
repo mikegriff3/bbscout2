@@ -736,7 +736,7 @@ class TeamInfo2 extends React.Component {
                 className="team-logo-container"
                 style={{
                   height: "auto",
-                  width: "65%",
+                  width: "50%",
                   marginBottom: "4rem"
                 }}
               >
@@ -886,7 +886,10 @@ class TeamInfo2 extends React.Component {
                   }}
                 >
                   <div className="team-image-box">
-                    <img src={placeholderImg} className="img-responsive" />
+                    <img
+                      src={this.state.team.Color_Third}
+                      className="img-responsive"
+                    />
                   </div>
                 </div>
               </div>
