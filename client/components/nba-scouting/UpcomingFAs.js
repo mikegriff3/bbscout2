@@ -81,12 +81,18 @@ export default class UpcomingFAs extends React.Component {
         // Check if contract is expiring
         if (
           (contracts[i].yearTwo === "" ||
-            contracts[i].yearTwoOption === "Player") &&
+            contracts[i].yearTwoOption === "Player" ||
+            contracts[i].yearTwoOption === "Team") &&
           contracts[i].yearOne !== "TBD"
         ) {
           // For every expiring contract create player object with FA type and current salary
           var player = {};
-          if (contracts[i].signedUsing === "1st Round Pick") {
+          player.yearTwoOption = contracts[i].yearTwoOption;
+          if (
+            contracts[i].signedUsing === "1st Round Pick" &&
+            contracts[i].yearTwoOption !== "Player" &&
+            contracts[i].yearTwoOption !== "Team"
+          ) {
             player.name = contracts[i].name;
             player.team = contracts[i].team;
             player.current = contracts[i].yearOne;
@@ -96,6 +102,11 @@ export default class UpcomingFAs extends React.Component {
             player.team = contracts[i].team;
             player.current = contracts[i].yearOne;
             player.type = "Player Option";
+          } else if (contracts[i].yearTwoOption === "Team") {
+            player.name = contracts[i].name;
+            player.team = contracts[i].team;
+            player.current = contracts[i].yearOne;
+            player.type = "Team Option";
           } else {
             player.name = contracts[i].name;
             player.team = contracts[i].team;
@@ -119,11 +130,27 @@ export default class UpcomingFAs extends React.Component {
           unrestricted={this.state.type1}
           restricted={this.state.type2}
           playerOption={this.state.type3}
+          teamOption={this.state.type4}
           pg={this.state.pg}
           sg={this.state.sg}
           sf={this.state.sf}
           pf={this.state.pf}
           c={this.state.c}
+          mpg1={this.state.mpg1}
+          mpg2={this.state.mpg2}
+          mpg3={this.state.mpg3}
+          mpg4={this.state.mpg4}
+          mpg5={this.state.mpg5}
+          exp1={this.state.exp1}
+          exp2={this.state.exp2}
+          exp3={this.state.exp3}
+          exp4={this.state.exp4}
+          exp5={this.state.exp5}
+          age1={this.state.age1}
+          age2={this.state.age2}
+          age3={this.state.age3}
+          age4={this.state.age4}
+          age5={this.state.age5}
         />
       ));
     }
@@ -276,7 +303,7 @@ export default class UpcomingFAs extends React.Component {
                 onChange={this.handleSF}
                 id="pos3"
               ></input>{" "}
-              <label for="pos3">Shooting Forward</label>
+              <label for="pos3">Small Forward</label>
               <br />
               <input
                 type="checkbox"
@@ -311,7 +338,6 @@ export default class UpcomingFAs extends React.Component {
                   checked={this.state.mpg1}
                   onChange={this.handleMPG1}
                   id="mpg1"
-                  disabled
                 ></input>{" "}
                 <label for="mpg1">&#60; 15</label>
                 <br />
@@ -320,7 +346,6 @@ export default class UpcomingFAs extends React.Component {
                   checked={this.state.mpg2}
                   onChange={this.handleMPG2}
                   id="mpg2"
-                  disabled
                 ></input>{" "}
                 <label for="mpg2">15-20</label>
                 <br />
@@ -329,7 +354,6 @@ export default class UpcomingFAs extends React.Component {
                   checked={this.state.mpg3}
                   onChange={this.handleMPG3}
                   id="mpg3"
-                  disabled
                 ></input>{" "}
                 <label for="mpg3">20-25</label>
                 <br />
@@ -338,7 +362,6 @@ export default class UpcomingFAs extends React.Component {
                   checked={this.state.mpg4}
                   onChange={this.handleMPG4}
                   id="mpg4"
-                  disabled
                 ></input>{" "}
                 <label for="mpg4">25-30</label>
                 <br />
@@ -347,9 +370,8 @@ export default class UpcomingFAs extends React.Component {
                   checked={this.state.mpg5}
                   onChange={this.handleMPG5}
                   id="mpg5"
-                  disabled
                 ></input>
-                <label for="mpg5">> 30</label>
+                <label for="mpg5">30+</label>
               </form>
             </div>
           </div>
@@ -368,7 +390,6 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.exp1}
                 onChange={this.handleEXP1}
                 id="exp1"
-                disabled
               ></input>{" "}
               <label for="exp1">Rookie</label>
               <br />
@@ -377,7 +398,6 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.exp2}
                 onChange={this.handleEXP2}
                 id="exp2"
-                disabled
               ></input>{" "}
               <label for="exp2">1-3</label>
               <br />
@@ -386,7 +406,6 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.exp3}
                 onChange={this.handleEXP3}
                 id="exp3"
-                disabled
               ></input>{" "}
               <label for="exp3">4-6</label>
               <br />
@@ -395,7 +414,6 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.exp4}
                 onChange={this.handleEXP4}
                 id="exp4"
-                disabled
               ></input>{" "}
               <label for="exp4">7-10</label>
               <br />
@@ -404,9 +422,8 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.exp5}
                 onChange={this.handleEXP5}
                 id="exp5"
-                disabled
               ></input>
-              <label for="exp5">> 10</label>
+              <label for="exp5">10+</label>
             </form>
           </div>
           <div className="col-md-2">
@@ -424,7 +441,6 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.age1}
                 onChange={this.handleAGE1}
                 id="age1"
-                disabled
               ></input>{" "}
               <label for="age1">&#60; 21</label>
               <br />
@@ -433,7 +449,6 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.age2}
                 onChange={this.handleAGE2}
                 id="age2"
-                disabled
               ></input>{" "}
               <label for="age2">21-25</label>
               <br />
@@ -442,7 +457,6 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.age3}
                 onChange={this.handleAGE3}
                 id="age3"
-                disabled
               ></input>{" "}
               <label for="age3">26-30</label>
               <br />
@@ -451,7 +465,6 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.age4}
                 onChange={this.handleAGE4}
                 id="age4"
-                disabled
               ></input>{" "}
               <label for="age4">31-35</label>
               <br />
@@ -460,9 +473,8 @@ export default class UpcomingFAs extends React.Component {
                 checked={this.state.age5}
                 onChange={this.handleAGE5}
                 id="age5"
-                disabled
               ></input>
-              <label for="age5">> 35</label>
+              <label for="age5">35+</label>
             </form>
           </div>
           <div className="col-md-2">
@@ -498,6 +510,14 @@ export default class UpcomingFAs extends React.Component {
                 id="type3"
               ></input>
               <label for="type3">Player Option</label>
+              <br />
+              <input
+                type="checkbox"
+                checked={this.state.type4}
+                onChange={this.handleTYPE4}
+                id="type4"
+              ></input>
+              <label for="type4">Team Option</label>
             </form>
           </div>
         </div>

@@ -557,6 +557,16 @@ body {
   color: white;
   text-align: end;
 }
+.fa__ratings-oversight-button {
+  width: 60%;
+  background-color: transparent;
+  border-radius: 100px;
+  height: 2.2rem;
+  outline: none;
+  border: solid 2px grey;
+  color: white;
+  text-align: end;
+}
 .player__ratings-rating {
   padding-right: 1rem;
   font-size: 1.3rem;
