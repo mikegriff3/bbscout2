@@ -33,7 +33,7 @@
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
     "sass-loader": "^7.1.0",
-    "sequelize": "^5.10.1",
+    "sequelize": "^5.15.1",
     "url-loader": "^4.1.0",
     "webpack": "^4.36.1"
   },
