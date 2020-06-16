@@ -1475,10 +1475,12 @@ class PlayerInfo2 extends React.Component {
                   }}
                 >
                   <div className="team-image-box">
-                    <img
-                      src={this.state.colors.Logo}
-                      className="img-responsive"
-                    />
+                    <a href={`/team/${this.state.colors.id}`}>
+                      <img
+                        src={this.state.colors.Logo}
+                        className="img-responsive"
+                      />
+                    </a>
                   </div>
                 </div>
               </div>

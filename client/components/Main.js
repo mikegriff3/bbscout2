@@ -4,6 +4,7 @@ import TeamPage from "./TeamPage";
 import PlayerPage from "./PlayerPage";
 import NBAScoutingPage from "./nba-scouting/NBAScoutingPage";
 import Test from "./Test";
+import Home from "./Home";
 // import CollegeScoutingPage from "./CollegeScoutingPage";
 // import GLeagueScoutingPage from "./GLeagueScoutingPage";
 // import CollegePlayerPage from "./College/CollegePlayerPage";
@@ -30,8 +31,9 @@ const Main = () => (
       <Route path="/player/:id" component={PlayerPage} />
       <Route path="/team/:id" component={TeamPage} />
       <Route path="/test" component={Test} />
+      <Route path="/home" component={Home} />
       <Route path="/nba-scouting" component={NBAScoutingPage} />
-      <Redirect from="/" to="/nba-scouting" />
+      <Redirect from="/" to="/home" />
     </Switch>
   </BrowserRouter>
 );

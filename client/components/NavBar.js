@@ -1,6 +1,7 @@
 import React from "react";
 import Search from "./Search";
 import axios from "axios";
+import Pic from "./image3.png";
 
 export default class NavBar extends React.Component {
   constructor() {
@@ -64,15 +65,28 @@ export default class NavBar extends React.Component {
 
   render() {
     let displayProp;
+    let backColor = "rgba(0,0,0,0.7)";
     if (this.state.showLinks) {
       displayProp = "flex";
     } else {
       displayProp = "none";
     }
+    if (this.props.page === "home") {
+      backColor = "rgba(0,0,0,1)";
+    }
     return (
-      <header className="navigation">
+      <header className="navigation" style={{ backgroundColor: backColor }}>
         <div className="navigation__title">
-          BB SCOUT
+          <a href={`/home`} style={{ textDecoration: "none" }}>
+            <div style={{ display: "inline-block" }}>
+              <img
+                className="img-responsive"
+                src={Pic}
+                style={{ width: "33px", display: "inline-block" }}
+              />
+            </div>
+            <span style={{ paddingLeft: "10px" }}>PRODIGY</span>
+          </a>
           {/*<img
             src="https://ui-ex.com/images/basketball-transparent-vector-2.png"
             alt="bbscout logo"
