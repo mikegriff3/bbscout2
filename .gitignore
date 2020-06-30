@@ -1,6 +1,7 @@
 node_modules
 static/bundle.js
 
+
 logs
 *.log
 npm-debug.log*
