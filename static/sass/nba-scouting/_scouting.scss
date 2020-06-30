@@ -1,0 +1,126 @@
+.scouting-grid {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(6rem, 1fr) [center-start] repeat(
+      8,
+      [col-start] minmax(min-content, 14rem) [col-end]
+    )
+    [center-end] minmax(6rem, 1fr) [full-end];
+  grid-row-gap: 2rem;
+}
+
+.scouting-container {
+  grid-column: center-start / center-end;
+}
+
+.scout {
+  grid-column: center-start / center-end;
+  display: grid;
+  //grid-template-rows: calc(96vh - 8rem);
+  background-color: $color-background-dark;
+  margin-top: 2rem;
+
+  &__header-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__header {
+    height: 3.5rem;
+    width: 28rem;
+    margin-top: 1rem;
+    clip-path: polygon(7% 0%, 100% 0%, 93% 100%, 0% 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 4rem;
+    letter-spacing: 1.1px;
+    font-size: 2rem;
+  }
+
+  &__scatter-chart-container {
+    height: 60rem;
+  }
+
+  &__scatter-chart {
+    height: 50rem;
+  }
+
+  &__menu-item {
+    color: grey;
+    margin-left: 2rem;
+    cursor: pointer;
+    padding-top: 1rem;
+
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+.player-comp {
+  grid-column: center-start / center-end;
+  display: grid;
+  background-color: $color-background-dark;
+  margin-top: 3rem;
+  grid-template-columns: 50% 50%;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+
+  &__header {
+    grid-column: 1 / -1;
+    height: 3.5rem;
+    width: 25rem;
+    color: white;
+    padding-left: 4rem;
+    margin-top: 2rem;
+    clip-path: polygon(7% 0%, 100% 0%, 93% 100%, 0% 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    letter-spacing: 1.1px;
+    font-size: 1.6rem;
+    margin-bottom: 4rem;
+  }
+}
+
+.playerOne {
+  grid-column: 1 / 2;
+  display: grid;
+  justify-content: center;
+  text-align: center;
+}
+
+.playerTwo {
+  grid-column: 2 / -1;
+  display: grid;
+  justify-content: center;
+  text-align: center;
+}
+
+.player-comp__picture {
+  display: block;
+  height: 20rem;
+  width: auto;
+  object-fit: fit;
+}
+
+.player-comp__name {
+  color: white;
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+
+.player-comp__info {
+  margin-top: 1.5rem;
+}
+
+.player-comp__info-stat {
+  color: grey;
+  font-size: 1.6rem;
+}
+
+.player-comp__info-text {
+  color: white;
+  font-size: 1.8rem;
+}

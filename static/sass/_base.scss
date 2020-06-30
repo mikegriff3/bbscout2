@@ -1,0 +1,57 @@
+// Color Variables
+$color-black: #000;
+$color-white: #fff;
+$color-background-dark: rgba(0, 0, 0, 0.7);
+
+// Font Variables
+$font-primary: sans-serif;
+
+// Breakpoint Variables
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  height: 100%;
+
+  box-sizing: border-box;
+  font-size: 62.5%; // 1rem equals 10px
+
+  background-image: url("https://i2.wp.com/www.nustm.org/wp-content/uploads/2017/06/background-image-html.jpg?fit=1920%2C1200&ssl=1");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body {
+  font-family: $font-primary;
+  //color: $color-grey-dark-2;
+  //font-weight: 300;
+  line-height: 1.6;
+}
+
+.highcharts-credits {
+  display: none;
+}
+
+.loading-gif {
+  display: grid;
+  justify-content: center;
+  grid-template-rows: repeat(2, min-content);
+  text-align: center;
+  height: 60rem;
+  margin-top: 4rem;
+  align-items: center;
+}
+
+.gif {
+  height: 130px;
+}
+
+.load-text {
+  font-size: 1.8rem;
+}
