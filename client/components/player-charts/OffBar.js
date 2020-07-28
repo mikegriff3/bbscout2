@@ -425,12 +425,16 @@ export default class OffBar extends React.Component {
 
   render() {
     return (
-      <div
-        id="container-rating-off"
-        style={{
-          height: "525px",
-        }}
-      />
+      <div style={{ position: "relative", width: "100%", height: "525px" }}>
+        <div
+          id="container-rating-off"
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "525px",
+          }}
+        />
+      </div>
     );
   }
 }
