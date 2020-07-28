@@ -1254,12 +1254,14 @@ class PlayerInfo2 extends React.Component {
         "linear-gradient(to right, rgba(102, 252, 241, 0) 0.15%, rgba(102, 252, 241, 0.8) 40%, rgba(102, 252, 241, 0))",
       color: "white",
       cursor: "pointer",
+      minWidth: "fit-content",
     };
     var headerStyle3 = {
       backgroundImage:
         "linear-gradient(to right, rgba(102, 252, 241, 0) 0.15%, rgba(102, 252, 241, 0.8) 40%, rgba(102, 252, 241, 0))",
       color: "white",
       cursor: "pointer",
+      minWidth: "fit-content",
     };
     var nameStyle = {
       color: this.state.colors.Color_Main || "red",
@@ -1281,17 +1283,11 @@ class PlayerInfo2 extends React.Component {
               minHeight: "calc(96vh - 4rem)",
               backgroundColor: "rgba(0,0,0,0.7)",
               //display: "flex"
+              paddingBottom: "3rem",
             }}
           >
-            <div className="player-card col-sm-4 col-xs-12">
-              <div
-                className="player-pic-container"
-                style={{
-                  height: "auto",
-                  width: "65%",
-                  marginBottom: "4rem",
-                }}
-              >
+            <div className="player-card col-sm-5 col-md-4 col-xs-12">
+              <div className="player-pic-container">
                 <img
                   src={picture}
                   alt="Player picture"
@@ -1372,7 +1368,7 @@ class PlayerInfo2 extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="player-stats col-sm-8 col-xs-12">
+            <div className="player-stats col-sm-7 col-md-8 col-xs-12">
               <div className="player__menu-container">
                 <div
                   style={headerStyle}
@@ -1396,15 +1392,13 @@ class PlayerInfo2 extends React.Component {
                 className="player-rating-row row"
                 style={{
                   marginTop: "3rem",
-                  //display: "flex",
                   alignItems: "center",
                   height: "170px",
                 }}
               >
                 <div
-                  className="player-ratings-oversight-container col-sm-5 col-xs-12"
+                  className="player-ratings-oversight-container col-sm-6 col-lg-6 col-md-6 col-xs-12"
                   style={{
-                    paddingBottom: "1.5rem",
                     textTransform: "uppercase",
                     color: "grey",
                     fontSize: "1.4rem",
@@ -1425,7 +1419,7 @@ class PlayerInfo2 extends React.Component {
                   </div>
                 </div>
                 <div
-                  className="player__stat-overview col-sm-4 col-xs-12"
+                  className="player__stat-overview col-sm-6 col-lg-6 col-md-6 col-xs-12"
                   style={{ height: "100%" }}
                 >
                   <div className="stat-box">
@@ -1466,12 +1460,13 @@ class PlayerInfo2 extends React.Component {
                   </div>
                 </div>
                 <div
-                  className="col-sm-3 col-xs-12"
+                  className="player-team-pic col-sm-0 col-md-0 col-xs-12 col-lg-3"
                   style={{
                     display: "flex",
                     alignItems: "center",
                     justifyItems: "center",
                     height: "100%",
+                    marginTop: ".75rem",
                   }}
                 >
                   <div className="team-image-box">

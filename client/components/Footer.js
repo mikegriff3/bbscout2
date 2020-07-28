@@ -19,14 +19,14 @@ export default class Footer extends React.Component {
           color: "grey",
         }}
       >
-        <div className="row" style={{ display: "flex" }}>
-          <div className="col-md-3">
+        <div className="row footer-select">
+          <div className="col-md-3 col-xs-6">
             <div className="footer-title playfair">PRODIGY</div>
             <div className="footer-title-sub playfair">
               MODERN SPORTS ANALYTICS.
             </div>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-2 col-xs-6">
             <div className="footer-header playfair">EXPLORE</div>
             <div>Home</div>
             <div>NBA</div>
@@ -34,7 +34,7 @@ export default class Footer extends React.Component {
             <div>G-League</div>
             <div>International</div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 col-xs-6">
             <div className="footer-header playfair">CONTACT</div>
             <div>Michael Griffin</div>
             <div>Software Engineer</div>
@@ -42,13 +42,13 @@ export default class Footer extends React.Component {
             <div>Email:</div>
             <div>mikegriff951@gmail.com</div>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-2 col-xs-6">
             <div className="footer-header playfair">FOLLOW</div>
             <div>Instagram</div>
             <div>Twitter</div>
             <div>LinkedIn</div>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-2 col-xs-6">
             <div className="footer-header playfair">LEGAL</div>
             <div>Terms</div>
             <div>Privacy</div>

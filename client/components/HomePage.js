@@ -14,33 +14,14 @@ export default class HomePage extends React.Component {
     let backImage = "";
     return (
       <div className="container-fluid">
-        <div
-          className="row"
-          style={{
-            height: "calc(96vh - 4rem)",
-            minHeight: "content",
-            backgroundColor: "rgb(0,0,0)",
-            display: "flex",
-            alignItems: "center",
-            position: "relative",
-          }}
-        >
-          <div style={{ paddingLeft: "80px" }}>
+        <div className="row header">
+          <div className="header-pic">
             <img className="img-responsive" src={Pic2} />
           </div>
-          {/*<div style={{ position: "absolute", right: "2%", top: "5%" }}>
-            <img
-              className="img-responsive"
-              src={Pic}
-              style={{ width: "550px" }}
-            />
-          </div>*/}
           <div
-            class="text2"
+            className="text2"
             style={{
               color: "white",
-              //paddingBottom: "40px",
-              paddingLeft: "60px",
             }}
           >
             <h1>PRODIGY</h1>
@@ -75,10 +56,10 @@ export default class HomePage extends React.Component {
           </div>
           <div className="col-md-6">
             <div
+              className="how-works"
               style={{
                 color: "white",
                 paddingTop: "40px",
-                paddingRight: "20px",
               }}
             >
               Prodigy is a basketball analytics application that visualizes
@@ -101,7 +82,10 @@ export default class HomePage extends React.Component {
             </div>
           </div>
           <div className="col-md-6">
-            <div style={{ padding: "80px 50px 40px" }}>
+            <div
+              className="how-works-pic"
+              style={{ padding: "80px 50px 40px" }}
+            >
               <img className="img-responsive" src={Sample} />
             </div>
           </div>
@@ -139,24 +123,24 @@ export default class HomePage extends React.Component {
           </div>
         </div>
         <div
-          className="row"
+          className="row mts"
           style={{
             backgroundColor: "rgb(0,0,0)",
             padding: "0px 80px 0px 80px",
-            display: "flex",
+            //display: "flex",
             alignItems: "center",
           }}
         >
-          <div className="col-md-6">
-            <div style={{ padding: "0px 90px 0px 50px" }}>
+          <div className="col-md-6 col-xs-12">
+            <div className="mts-pic">
               <img className="img-responsive" src={Sample2} />
             </div>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-6 col-xs-12">
             <div
+              className="mts-text"
               style={{
                 color: "white",
-                paddingLeft: "20px",
               }}
             >
               Prodigy does more than stats. The application is a full front
@@ -196,19 +180,19 @@ export default class HomePage extends React.Component {
           </div>
         </div>
         <div
-          className="row"
+          className="row cust"
           style={{
             backgroundColor: "rgb(0,0,0)",
             padding: "0px 80px",
-            display: "flex",
+            //display: "flex",
             alignItems: "center",
           }}
         >
           <div className="col-md-6">
             <div
+              className="cust-text"
               style={{
                 color: "white",
-                paddingRight: "20px",
               }}
             >
               Every organization has their own needs, preferences, and

@@ -80,7 +80,7 @@ export default class OffBar extends React.Component {
         fg: fg,
         usgPct: usgPct,
         obpm: obpm,
-        ows: ows
+        ows: ows,
       },
       () => {
         this.createChart();
@@ -154,16 +154,16 @@ export default class OffBar extends React.Component {
     var chart = Highcharts.chart("container-rating-off", {
       chart: {
         type: "bar",
-        backgroundColor: null
+        backgroundColor: null,
       },
       title: {
-        text: null
+        text: null,
       },
       subtitle: {
-        text: null
+        text: null,
       },
       exporting: {
-        enabled: false
+        enabled: false,
       },
       xAxis: {
         categories: [
@@ -179,49 +179,49 @@ export default class OffBar extends React.Component {
           "eFG%",
           "USG%",
           "OBPM",
-          "OWS"
+          "OWS",
         ],
         title: {
-          text: null
-        }
+          text: null,
+        },
       },
       yAxis: {
         min: 18,
         max: 80,
         title: {
           text: null,
-          align: "high"
+          align: "high",
         },
         labels: {
           overflow: "justify",
-          enabled: false
+          enabled: false,
         },
         gridLineWidth: 0,
-        minorGridLineWidth: 0
+        minorGridLineWidth: 0,
       },
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`,
       },
       plotOptions: {
         bar: {
           dataLabels: {
             enabled: true,
             style: {
-              color: "white"
-            }
+              color: "white",
+            },
           },
-          grouping: false
+          grouping: false,
         },
         series: {
-          borderRadius: 10
-        }
+          borderRadius: 10,
+        },
       },
       credits: {
-        enabled: false
+        enabled: false,
       },
       legend: {
-        enabled: false
+        enabled: false,
       },
       series: [
         {
@@ -240,8 +240,8 @@ export default class OffBar extends React.Component {
             { y: 80, color: "transparent" },
             { y: 80, color: "transparent" },
             { y: 80, color: "transparent" },
-            { y: 80, color: "transparent" }
-          ]
+            { y: 80, color: "transparent" },
+          ],
         },
         {
           name: "Grade",
@@ -252,14 +252,14 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               stat: this.state.player.pts,
               per36: (
                 (this.state.player.pts / this.state.player.mpg) *
                 36
-              ).toFixed(1)
+              ).toFixed(1),
             },
             {
               y: this.state.reb.Grade,
@@ -267,14 +267,14 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               stat: this.state.player.orb,
               per36: (
                 (this.state.player.orb / this.state.player.mpg) *
                 36
-              ).toFixed(1)
+              ).toFixed(1),
             },
             {
               y: this.state.ast.Grade,
@@ -282,14 +282,14 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               stat: this.state.player.ast,
               per36: (
                 (this.state.player.ast / this.state.player.mpg) *
                 36
-              ).toFixed(1)
+              ).toFixed(1),
             },
             {
               y: this.state.threePoint.Grade,
@@ -297,10 +297,10 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
-              stat: this.state.player.threePtPct
+              stat: this.state.player.threePtPct,
             },
             {
               y: this.state.twoPoint.Grade,
@@ -308,10 +308,10 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
-              stat: this.state.player.twoPtPct
+              stat: this.state.player.twoPtPct,
             },
             {
               y: this.state.ft.Grade,
@@ -319,10 +319,10 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
-              stat: this.state.player.freeThrowPct
+              stat: this.state.player.freeThrowPct,
             },
             {
               y: this.state.astPct.Grade,
@@ -330,11 +330,11 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "Ast%",
-              stat: this.state.player.astPct
+              stat: this.state.player.astPct,
             },
             {
               y: this.state.orbPct.Grade,
@@ -342,11 +342,11 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "Orb%",
-              stat: this.state.player.orbPct
+              stat: this.state.player.orbPct,
             },
             {
               y: this.state.fg.Grade,
@@ -354,11 +354,11 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "eFG%",
-              stat: this.state.player.efgPct
+              stat: this.state.player.efgPct,
             },
             {
               y: this.state.tovPct.Grade,
@@ -366,11 +366,11 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "Tov%",
-              stat: this.state.player.tovPct
+              stat: this.state.player.tovPct,
             },
             {
               y: this.state.usgPct.Grade,
@@ -378,11 +378,11 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "USG%",
-              stat: this.state.player.usgPct
+              stat: this.state.player.usgPct,
             },
             {
               y: this.state.obpm.Grade,
@@ -390,11 +390,11 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "OBPM",
-              stat: this.state.player.obpm
+              stat: this.state.player.obpm,
             },
             {
               y: this.state.ows.Grade,
@@ -402,15 +402,24 @@ export default class OffBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "OWS",
-              stat: this.state.player.ows
-            }
-          ]
-        }
-      ]
+              stat: this.state.player.ows,
+            },
+          ],
+        },
+      ],
+      responsive: {
+        rules: [
+          {
+            condition: {
+              maxWidth: 525,
+            },
+          },
+        ],
+      },
     });
   }
 
@@ -419,7 +428,7 @@ export default class OffBar extends React.Component {
       <div
         id="container-rating-off"
         style={{
-          height: "525px"
+          height: "525px",
         }}
       />
     );
