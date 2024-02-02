@@ -454,13 +454,13 @@ class PlayerInfo2 extends React.Component {
       return (
         <div className="menu-option">
           <div className="menu-choice" onClick={this.handleMenuClick}>
+            Player Ratings
+          </div>
+          <div className="menu-choice" onClick={this.handleMenuClick}>
             Season Stats
           </div>
           <div className="menu-choice" onClick={this.handleMenuClick}>
             Career Stats
-          </div>
-          <div className="menu-choice" onClick={this.handleMenuClick}>
-            Player Ratings
           </div>
           <div className="menu-choice" onClick={this.handleMenuClick}>
             Contract
@@ -1286,7 +1286,10 @@ class PlayerInfo2 extends React.Component {
               paddingBottom: "3rem",
             }}
           >
-            <div className="player-card col-sm-5 col-md-4 col-xs-12">
+            <div
+              className="player-card col-sm-5 col-md-4 col-xs-12"
+              style={{ paddingBottom: "6px" }}
+            >
               <div className="player-pic-container">
                 <img
                   src={picture}
@@ -1402,7 +1405,7 @@ class PlayerInfo2 extends React.Component {
                     textTransform: "uppercase",
                     color: "grey",
                     fontSize: "1.4rem",
-                    height: "100%",
+                    height: "85%",
                   }}
                 >
                   <div className="rating-bar">
@@ -1420,7 +1423,7 @@ class PlayerInfo2 extends React.Component {
                 </div>
                 <div
                   className="player__stat-overview col-sm-6 col-lg-6 col-md-6 col-xs-12"
-                  style={{ height: "100%" }}
+                  style={{ height: "95%" }}
                 >
                   <div className="stat-box">
                     <span className="stat-title">PPG</span>
@@ -1465,8 +1468,7 @@ class PlayerInfo2 extends React.Component {
                     display: "flex",
                     alignItems: "center",
                     justifyItems: "center",
-                    height: "100%",
-                    marginTop: ".75rem",
+                    height: "107%",
                   }}
                 >
                   <div className="team-image-box">
@@ -1646,7 +1648,7 @@ class PlayerInfo2 extends React.Component {
           <div>
             <img
               className="gif"
-              src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif"
             />
           </div>
           <div>Loading Player...</div>

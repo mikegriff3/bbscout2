@@ -20,7 +20,7 @@ export default class PlayerRatings2 extends React.Component {
     super();
     this.state = {
       statCat: "Basic",
-      showStatMenu: false
+      showStatMenu: false,
     };
     this.selectStatCat = this.selectStatCat.bind(this);
     this.renderPolarCol = this.renderPolarCol.bind(this);
@@ -35,7 +35,7 @@ export default class PlayerRatings2 extends React.Component {
 
   setStatMenu() {
     this.setState({
-      showStatMenu: !this.state.showStatMenu
+      showStatMenu: !this.state.showStatMenu,
     });
   }
 
@@ -45,7 +45,7 @@ export default class PlayerRatings2 extends React.Component {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      cursor: "pointer"
+      cursor: "pointer",
     };
     if (this.state.showStatMenu) {
       return (
@@ -53,98 +53,98 @@ export default class PlayerRatings2 extends React.Component {
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Basic
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Offense
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Defense
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Shooting
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Extended Offense
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             P+R Ball Handler
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             P+R Roll Man
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Isolation
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Post Up
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Catch and Shoot
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Transition
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Hustle
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Speed + Distance
           </div>
           <div
             style={itemStyle}
             classname="stat-menu-item"
-            onClick={e => this.selectStatCat(e)}
+            onClick={(e) => this.selectStatCat(e)}
           >
             Overall
           </div>
@@ -263,7 +263,7 @@ export default class PlayerRatings2 extends React.Component {
             </div>
           </div>
           <div className="polar-area-container col-md-6 col-xs-12">
-            <PolarArea player={this.props.player} colors={this.props.colors} />
+            <PolarArea player={this.props.player} />
           </div>
         </div>
         <div className="row">

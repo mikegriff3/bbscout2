@@ -184,6 +184,9 @@ export default class OffBar extends React.Component {
         title: {
           text: null,
         },
+        style: {
+          fontSize: "24px",
+        },
       },
       yAxis: {
         min: 18,

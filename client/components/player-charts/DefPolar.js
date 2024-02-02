@@ -359,14 +359,10 @@ export default class DefPolar extends React.Component {
 
   render() {
     return (
-      <div style={{ position: "relative", width: "100%", height: "525px" }}>
+      <div>
         <div
           id="container-column-def"
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "525px",
-          }}
+          style={{ height: "30rem", width: "3" }}
         />
       </div>
     );

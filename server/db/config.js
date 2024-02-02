@@ -18,7 +18,7 @@ const Sequelize = require("sequelize");
 //   .catch(err => console.log("FAILED TO CONNECT TO DB", err));
 
 const db = new Sequelize(
-  "postgres://cbncypxc:GWEic6mmnNU5q46ZOO2z1djA4RGwz4aN@baasu.db.elephantsql.com:5432/cbncypxc",
+  "postgres://ygldlctj:DzggMV4DXKAZfbFv9RpsuUbWi9UUdO_u@mahmud.db.elephantsql.com/ygldlctj",
   {
     dialect: "postgres",
     pool: {
@@ -26,13 +26,45 @@ const db = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      // evict: 20000,
+    },
   }
 );
 
-const playerHistdb = new Sequelize(
-  "postgres://jupsdajv:iX10xzBNGQBT4GkegGM8VEFw7GisAFYt@ruby.db.elephantsql.com:5432/jupsdajv",
+db.authenticate()
+  .then(() => console.log("Successfully connected to DB"))
+  .catch((err) => console.log("Could not connect to DB", err));
+
+// const playerHistdb = new Sequelize(
+//   "postgres://jupsdajv:iX10xzBNGQBT4GkegGM8VEFw7GisAFYt@ruby.db.elephantsql.com:5432/jupsdajv",
+//   {
+//     dialect: "postgres",
+//     pool: {
+//       max: 5,
+//       min: 0,
+//       idle: 20000,
+//       acquire: 20000,
+//       evict: 20000,
+//     },
+//   }
+// );
+
+// const cdb = new Sequelize(
+//   "postgres://mmtnbyyu:8th65F6EICt46OY-pbY6thbqhB6-rSKv@baasu.db.elephantsql.com:5432/mmtnbyyu",
+//   {
+//     dialect: "postgres",
+//     pool: {
+//       max: 5,
+//       min: 0,
+//       idle: 20000,
+//       acquire: 20000,
+//       evict: 20000,
+//     },
+//   }
+// );
+
+const catchShootDB = new Sequelize(
+  "postgres://uswrrdhl:c_JP-Ex2z2vJrQ0UVNsBVljtEUVxSilr@mahmud.db.elephantsql.com/uswrrdhl",
   {
     dialect: "postgres",
     pool: {
@@ -40,13 +72,13 @@ const playerHistdb = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      //evict: 20000,
+    },
   }
 );
 
-const cdb = new Sequelize(
-  "postgres://mmtnbyyu:8th65F6EICt46OY-pbY6thbqhB6-rSKv@baasu.db.elephantsql.com:5432/mmtnbyyu",
+const hustleDB = new Sequelize(
+  "postgres://iuwmrsqq:qdYN3AslfP5cnTkK44DfMWVcOY2KkZCQ@kashin.db.elephantsql.com/iuwmrsqq",
   {
     dialect: "postgres",
     pool: {
@@ -54,13 +86,13 @@ const cdb = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      //evict: 20000,
+    },
   }
 );
 
-const tracking1db = new Sequelize(
-  "postgres://rgbbkvhn:RoFTSWi2ndWF1L7-4-tZ2fSXZ8URIMAI@baasu.db.elephantsql.com:5432/rgbbkvhn",
+const isolationDB = new Sequelize(
+  "postgres://ttbukfwh:ZSA99SNO0nkjn2YsEqaKflAJXudUdaev@kashin.db.elephantsql.com/ttbukfwh",
   {
     dialect: "postgres",
     pool: {
@@ -68,13 +100,13 @@ const tracking1db = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      //evict: 20000,
+    },
   }
 );
 
-const tracking2db = new Sequelize(
-  "postgres://egqmdmfe:Eu1ZB7Gu8rYvUHaDq7cIy9rRukJF_d1j@baasu.db.elephantsql.com:5432/egqmdmfe",
+const postUpDB = new Sequelize(
+  "postgres://xewljthf:TXRaOK30Dv0AMuseriV1mrlD4LKwZpmK@kashin.db.elephantsql.com/xewljthf",
   {
     dialect: "postgres",
     pool: {
@@ -82,13 +114,13 @@ const tracking2db = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      evict: 20000,
+    },
   }
 );
 
-const tracking3db = new Sequelize(
-  "postgres://wzcmoelm:3CtorJfN43mhXCmInSymZUclqOOgDp3I@baasu.db.elephantsql.com:5432/wzcmoelm",
+const prbhDB = new Sequelize(
+  "postgres://zytdyoku:oJicEVnxUa1WPe4j9imuJi8u09qU28xW@kashin.db.elephantsql.com/zytdyoku",
   {
     dialect: "postgres",
     pool: {
@@ -96,13 +128,13 @@ const tracking3db = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      //evict: 20000,
+    },
   }
 );
 
-const tracking4db = new Sequelize(
-  "postgres://asuxfsaz:bfBmtDyILtHgKOl8fs8WltvLcVbfpCZK@baasu.db.elephantsql.com:5432/asuxfsaz",
+const prrmDB = new Sequelize(
+  "postgres://ucnsirje:CNsmax1fEABUvkYJZTAG4O0FDbX4PN-U@kashin.db.elephantsql.com/ucnsirje",
   {
     dialect: "postgres",
     pool: {
@@ -110,13 +142,13 @@ const tracking4db = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      evict: 20000,
+    },
   }
 );
 
-const tracking5db = new Sequelize(
-  "postgres://tqbgvbpo:5v95bJP5LhrnvTWJEjU7S86iX-Mgu-RJ@baasu.db.elephantsql.com:5432/tqbgvbpo",
+const shootingDB = new Sequelize(
+  "postgres://kxyegdfk:gIira8fSSfXL4UOYqVcAPuX2zw-zJFzL@kashin.db.elephantsql.com/kxyegdfk",
   {
     dialect: "postgres",
     pool: {
@@ -124,13 +156,13 @@ const tracking5db = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      //evict: 20000,
+    },
   }
 );
 
-const tracking6db = new Sequelize(
-  "postgres://uakrmsnc:xeqZxGoud6uH9RY2T3-6bWz8qBdKamnB@baasu.db.elephantsql.com:5432/uakrmsnc",
+const speedDistanceDB = new Sequelize(
+  "postgres://ltuavsqx:1Cbm3UpkNUvQu3kpu-HUK2tBWVcDgVZC@kashin.db.elephantsql.com/ltuavsqx",
   {
     dialect: "postgres",
     pool: {
@@ -138,13 +170,13 @@ const tracking6db = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      //evict: 20000,
+    },
   }
 );
 
-const tracking7db = new Sequelize(
-  "postgres://kcbzmhhw:lIMEUPLqCuLDKoTvwnqR6dt3ksKQAfkF@stampy.db.elephantsql.com:5432/kcbzmhhw",
+const transitionDB = new Sequelize(
+  "postgres://ibinlcjc:jSCCqHf4HOk5iT2FFo_PMWNWFJMLb1St@kashin.db.elephantsql.com/ibinlcjc",
   {
     dialect: "postgres",
     pool: {
@@ -152,83 +184,55 @@ const tracking7db = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      evict: 20000,
+    },
   }
 );
 
-const tracking8db = new Sequelize(
-  "postgres://ppjxhxez:dEoHNJtxwsiNxQjuIt85nL1BiNwoQcMt@baasu.db.elephantsql.com:5432/ppjxhxez",
-  {
-    dialect: "postgres",
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 20000,
-      acquire: 20000,
-      evict: 20000
-    }
-  }
-);
+// const ligaacbdb = new Sequelize(
+//   "postgres://duxdpgwx:fsdbfMAx6UIMhQJhlMHs-mqql6WCrX2o@baasu.db.elephantsql.com:5432/duxdpgwx",
+//   {
+//     dialect: "postgres",
+//     pool: {
+//       max: 5,
+//       min: 0,
+//       idle: 20000,
+//       acquire: 20000,
+//       evict: 20000,
+//     },
+//   }
+// );
 
-const tracking9db = new Sequelize(
-  "postgres://qslbecqo:Txeq9tJOsaToAgy3G_HIDcvEYQFT9izV@stampy.db.elephantsql.com:5432/qslbecqo",
-  {
-    dialect: "postgres",
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 20000,
-      acquire: 20000,
-      evict: 20000
-    }
-  }
-);
+// const eurodb = new Sequelize(
+//   "postgres://nfovijmt:fn8nhHXaG61oqOLEbTuiAA0IabybxSec@baasu.db.elephantsql.com:5432/nfovijmt",
+//   {
+//     dialect: "postgres",
+//     pool: {
+//       max: 5,
+//       min: 0,
+//       idle: 20000,
+//       acquire: 20000,
+//       evict: 20000,
+//     },
+//   }
+// );
 
-const ligaacbdb = new Sequelize(
-  "postgres://duxdpgwx:fsdbfMAx6UIMhQJhlMHs-mqql6WCrX2o@baasu.db.elephantsql.com:5432/duxdpgwx",
-  {
-    dialect: "postgres",
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 20000,
-      acquire: 20000,
-      evict: 20000
-    }
-  }
-);
-
-const eurodb = new Sequelize(
-  "postgres://nfovijmt:fn8nhHXaG61oqOLEbTuiAA0IabybxSec@baasu.db.elephantsql.com:5432/nfovijmt",
-  {
-    dialect: "postgres",
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 20000,
-      acquire: 20000,
-      evict: 20000
-    }
-  }
-);
-
-const gleaguedb = new Sequelize(
-  "postgres://cachveoj:tuzux8D7xfrOFiMK3R3AJObM6pRSJ6wn@stampy.db.elephantsql.com:5432/cachveoj",
-  {
-    dialect: "postgres",
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 20000,
-      acquire: 20000,
-      evict: 20000
-    }
-  }
-);
+// const gleaguedb = new Sequelize(
+//   "postgres://cachveoj:tuzux8D7xfrOFiMK3R3AJObM6pRSJ6wn@stampy.db.elephantsql.com:5432/cachveoj",
+//   {
+//     dialect: "postgres",
+//     pool: {
+//       max: 5,
+//       min: 0,
+//       idle: 20000,
+//       acquire: 20000,
+//       evict: 20000,
+//     },
+//   }
+// );
 
 const salariesdb = new Sequelize(
-  "postgres://fhdnfxka:bpybkL-Nn0gUQNg1cy9AQH6WS6XvyLCS@baasu.db.elephantsql.com:5432/fhdnfxka",
+  "postgres://fekgyfmn:a1cq0ZX0InRxnkhCCIWe1KG9GRSGSPKw@kashin.db.elephantsql.com/fekgyfmn",
   {
     dialect: "postgres",
     pool: {
@@ -236,31 +240,26 @@ const salariesdb = new Sequelize(
       min: 0,
       idle: 20000,
       acquire: 20000,
-      evict: 20000
-    }
+      //evict: 20000,
+    },
   }
 );
-
-console.log("connected to remote db - NBA");
-console.log("connected to remote db - College");
-console.log("connected to remote db - Tracking");
-console.log("connected to remote db - Liga-ACB");
 
 module.exports = {
   db,
-  cdb,
-  ligaacbdb,
-  tracking1db,
-  tracking2db,
-  tracking3db,
-  tracking4db,
-  tracking5db,
-  tracking6db,
-  tracking7db,
-  tracking8db,
-  tracking9db,
-  eurodb,
-  gleaguedb,
+  // cdb,
+  // ligaacbdb,
+  catchShootDB,
+  hustleDB,
+  isolationDB,
+  postUpDB,
+  prbhDB,
+  prrmDB,
+  shootingDB,
+  speedDistanceDB,
+  transitionDB,
+  // eurodb,
+  // gleaguedb,
   salariesdb,
-  playerHistdb
+  // playerHistdb,
 };

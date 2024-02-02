@@ -28,12 +28,13 @@ export default class NavBar extends React.Component {
       .all([
         axios.get("/api/teams/getLeagueStats"),
         axios.get("/api/teams/getAllNbaPlayers"),
-        axios.get("/api/teams/getgLeagueStats"),
-        axios.get("/api/teams/getAllgPlayers"),
-        axios.get("/api/teams/getAllCollegePlayers"),
+        // axios.get("/api/teams/getgLeagueStats"),
+        // axios.get("/api/teams/getAllgPlayers"),
+        // axios.get("/api/teams/getAllCollegePlayers"),
       ])
       .then(
-        axios.spread((teams, players, gteams, gplayers, cplayers) => {
+        //axios.spread((teams, players, gteams, gplayers, cplayers) => {
+        axios.spread((teams, players) => {
           for (let i = 0; i < teams.data.length; i++) {
             teams.data[i].name = teams.data[i].Name;
             delete teams.data[i].Name;
@@ -46,29 +47,30 @@ export default class NavBar extends React.Component {
             var tag = `player/${players.data[i].id}`;
             players.data[i].tag = tag;
           }
-          for (let i = 0; i < gteams.data.length; i++) {
-            gteams.data[i].name = gteams.data[i].Name;
-            delete gteams.data[i].Name;
-            gteams.data[i].picture = gteams.data[i].Logo;
-            delete gteams.data[i].Logo;
-            var tag = `gleague-team/${gteams.data[i].id}`;
-            gteams.data[i].tag = tag;
-          }
-          for (let i = 0; i < gplayers.data.length; i++) {
-            var tag = `gleague-player/${gplayers.data[i].id}`;
-            gplayers.data[i].tag = tag;
-          }
-          for (let i = 0; i < cplayers.data.length; i++) {
-            var tag = `college-player/${cplayers.data[i].id}`;
-            cplayers.data[i].tag = tag;
-          }
+          // for (let i = 0; i < gteams.data.length; i++) {
+          //   gteams.data[i].name = gteams.data[i].Name;
+          //   delete gteams.data[i].Name;
+          //   gteams.data[i].picture = gteams.data[i].Logo;
+          //   delete gteams.data[i].Logo;
+          //   var tag = `gleague-team/${gteams.data[i].id}`;
+          //   gteams.data[i].tag = tag;
+          // }
+          // for (let i = 0; i < gplayers.data.length; i++) {
+          //   var tag = `gleague-player/${gplayers.data[i].id}`;
+          //   gplayers.data[i].tag = tag;
+          // }
+          // for (let i = 0; i < cplayers.data.length; i++) {
+          //   var tag = `college-player/${cplayers.data[i].id}`;
+          //   cplayers.data[i].tag = tag;
+          // }
           var results = teams.data.concat(
-            players.data,
-            gteams.data,
-            gplayers.data,
-            cplayers.data
+            players.data
+            // gteams.data,
+            // gplayers.data,
+            // cplayers.data
           );
-          //console.log(results);
+          //var results = players.data;
+          console.log("RESULTS: ", results);
           this.setState({ results: results });
         })
       )
@@ -107,7 +109,7 @@ export default class NavBar extends React.Component {
                 style={{ width: "33px", display: "inline-block" }}
               />
             </div>
-            <span style={{ paddingLeft: "10px" }}>PRODIGY</span>
+            <span style={{ paddingLeft: "10px" }}>SCOUT</span>
           </a>
           {/*<img
             src="https://ui-ex.com/images/basketball-transparent-vector-2.png"

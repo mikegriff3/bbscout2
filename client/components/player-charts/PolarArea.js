@@ -9,16 +9,16 @@ export default class PolarArea extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.player.name && this.props.colors) {
-      var areaColor = "#eee";
-      if (
-        this.props.colors.Color_Main === "#000" ||
-        this.props.colors.Color_Main === "#000000"
-      ) {
-        areaColor = this.props.colors.Color_Sec;
-      } else {
-        areaColor = this.props.colors.Color_Sec;
-      }
+    if (this.props.player.name) {
+      // var areaColor = "#eee";
+      // if (
+      //   this.props.colors.Color_Main === "#000" ||
+      //   this.props.colors.Color_Main === "#000000"
+      // ) {
+      //   areaColor = this.props.colors.Color_Sec;
+      // } else {
+      //   areaColor = this.props.colors.Color_Sec;
+      // }
       this.setState({ player: this.props.player, colors: "#eee" }, () => {
         this.calculateGrades();
         //this.createChart();
@@ -27,16 +27,16 @@ export default class PolarArea extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.player.name && nextProps.colors) {
-      var areaColor = "#eee";
-      if (
-        nextProps.colors.Color_Main === "#000" ||
-        nextProps.colors.Color_Main === "#000000"
-      ) {
-        areaColor = nextProps.colors.Color_Sec;
-      } else {
-        areaColor = nextProps.colors.Color_Sec;
-      }
+    if (nextProps.player.name) {
+      // var areaColor = "#eee";
+      // if (
+      //   nextProps.colors.Color_Main === "#000" ||
+      //   nextProps.colors.Color_Main === "#000000"
+      // ) {
+      //   areaColor = nextProps.colors.Color_Sec;
+      // } else {
+      //   areaColor = nextProps.colors.Color_Sec;
+      // }
       this.setState({ player: nextProps.player, colors: "#eee" }, () => {
         this.calculateGrades();
         //this.createChart();
@@ -93,7 +93,7 @@ export default class PolarArea extends React.Component {
         reb: reb,
         stl: stl,
         blk: blk,
-        threePoint: threePoint
+        threePoint: threePoint,
       },
       () => {
         this.createChart();
@@ -157,21 +157,22 @@ export default class PolarArea extends React.Component {
         type: "area",
         backgroundColor: null,
         style: {
-          fontFamily: "Open Sans Condensed, sans-serif"
-        }
+          fontFamily: "Open Sans Condensed, sans-serif",
+          fontSize: "24px",
+        },
       },
 
       title: {
         text: null,
-        x: 0
+        x: 0,
       },
 
       exporting: {
-        enabled: false
+        enabled: false,
       },
 
       pane: {
-        size: "80%"
+        size: "80%",
       },
 
       xAxis: {
@@ -181,11 +182,11 @@ export default class PolarArea extends React.Component {
           "Playmaking",
           "3P%",
           "Blocks",
-          "Steals"
+          "Steals",
         ],
         tickmarkPlacement: "on",
         lineWidth: 0,
-        gridLineColor: "grey"
+        gridLineColor: "grey",
       },
 
       yAxis: {
@@ -196,15 +197,15 @@ export default class PolarArea extends React.Component {
         max: 80,
         tickInterval: 10,
         labels: {
-          enabled: false
+          enabled: false,
         },
-        gridLineColor: "grey"
+        gridLineColor: "grey",
       },
 
       tooltip: {
         shared: false,
         pointFormat:
-          '<span style="color:"black">{series.name}: <b>{point.y:,.0f}</b><br/>'
+          '<span style="color:"black">{series.name}: <b>{point.y:,.0f}</b><br/>',
       },
 
       legend: {
@@ -212,7 +213,7 @@ export default class PolarArea extends React.Component {
         verticalAlign: "top",
         y: 70,
         layout: "vertical",
-        enabled: false
+        enabled: false,
       },
 
       series: [
@@ -224,12 +225,12 @@ export default class PolarArea extends React.Component {
             this.state.ast.Grade,
             this.state.threePoint.Grade,
             this.state.blk.Grade,
-            this.state.stl.Grade
+            this.state.stl.Grade,
           ],
           pointPlacement: "on",
-          color: `${this.state.colors}`
-        }
-      ]
+          color: `${this.state.colors}`,
+        },
+      ],
     });
   }
 

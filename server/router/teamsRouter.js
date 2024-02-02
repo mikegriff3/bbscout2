@@ -63,6 +63,7 @@ router.put("/updategPlayersAdv", controller.updategPlayersAdv);
 router.put("/updateCurrentSalary", controller.updateCurrentSalary);
 router.put("/upsertPlayerInfo", controller.upsertPlayerInfo);
 router.put("/updateTeams", controller.updateTeams);
+router.put("/updateTeamsAdvanced", controller.updateTeamsAdvanced);
 router.put("/updatecTeams", controller.updatecTeams);
 router.put("/updategTeams", controller.updategTeams);
 router.put("/updategTeamsAdv", controller.updategTeamsAdv);

@@ -108,7 +108,7 @@ export default class DefBar extends React.Component {
         deflections: deflections,
         contestedTwo: contestedTwo,
         contestedThree: contestedThree,
-        contestedShots: contestedShots
+        contestedShots: contestedShots,
       },
       () => {
         this.createChart();
@@ -182,16 +182,19 @@ export default class DefBar extends React.Component {
     var chart = Highcharts.chart("container-rating-def", {
       chart: {
         type: "bar",
-        backgroundColor: null
+        backgroundColor: null,
+        style: {
+          fontSize: "24px",
+        },
       },
       title: {
-        text: null
+        text: null,
       },
       exporting: {
-        enabled: false
+        enabled: false,
       },
       subtitle: {
-        text: null
+        text: null,
       },
       xAxis: {
         categories: [
@@ -206,49 +209,52 @@ export default class DefBar extends React.Component {
           "DFCT",
           "CNT2",
           "CNT3",
-          "CNTS"
+          "CNTS",
         ],
         title: {
-          text: null
-        }
+          text: null,
+        },
+        style: {
+          fontSize: "24px",
+        },
       },
       yAxis: {
         min: 18,
         max: 80,
         title: {
           text: null,
-          align: "high"
+          align: "high",
         },
         labels: {
           overflow: "justify",
-          enabled: false
+          enabled: false,
         },
         gridLineWidth: 0,
-        minorGridLineWidth: 0
+        minorGridLineWidth: 0,
       },
       tooltip: {
         headerFormat: "<b>{point.key}</b><br/>",
-        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`
+        pointFormat: `<span>Rating: {point.y}</span><br/><span>Per Game: {point.stat}</span><br/><span>Per 36: {point.per36}</span>`,
       },
       plotOptions: {
         bar: {
           dataLabels: {
             enabled: true,
             style: {
-              color: "white"
-            }
+              color: "white",
+            },
           },
-          grouping: false
+          grouping: false,
         },
         series: {
-          borderRadius: 10
-        }
+          borderRadius: 10,
+        },
       },
       credits: {
-        enabled: false
+        enabled: false,
       },
       legend: {
-        enabled: false
+        enabled: false,
       },
       series: [
         {
@@ -266,8 +272,8 @@ export default class DefBar extends React.Component {
             { y: 80, color: "transparent" },
             { y: 80, color: "transparent" },
             { y: 80, color: "transparent" },
-            { y: 80, color: "transparent" }
-          ]
+            { y: 80, color: "transparent" },
+          ],
         },
         {
           name: "Grade",
@@ -278,11 +284,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "Blk%",
-              stat: this.state.player.blkPct
+              stat: this.state.player.blkPct,
             },
             {
               y: this.state.stlPct.Grade,
@@ -290,11 +296,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "Stl%",
-              stat: this.state.player.stlPct
+              stat: this.state.player.stlPct,
             },
             {
               y: this.state.drbPct.Grade,
@@ -302,11 +308,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "Drb%",
-              stat: this.state.player.drbPct
+              stat: this.state.player.drbPct,
             },
             {
               y: this.state.drb.Grade,
@@ -314,15 +320,15 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "Drb",
               stat: this.state.player.drb,
               per36: (
                 (this.state.player.drb / this.state.player.mpg) *
                 36
-              ).toFixed(1)
+              ).toFixed(1),
             },
             {
               y: this.state.dbpm.Grade,
@@ -330,11 +336,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "DBPM",
-              stat: this.state.player.dbpm
+              stat: this.state.player.dbpm,
             },
             {
               y: this.state.dws.Grade,
@@ -342,11 +348,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "DWS",
-              stat: this.state.player.dws
+              stat: this.state.player.dws,
             },
             {
               y: this.state.chargesDrawn.Grade,
@@ -354,11 +360,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "CHRG",
-              stat: this.state.hustle.chargesDrawn
+              stat: this.state.hustle.chargesDrawn,
             },
             {
               y: this.state.looseBallRec.Grade,
@@ -366,11 +372,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "LBRC",
-              stat: this.state.hustle.looseBallRec
+              stat: this.state.hustle.looseBallRec,
             },
             {
               y: this.state.deflections.Grade,
@@ -378,11 +384,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "DFCT",
-              stat: this.state.hustle.deflections
+              stat: this.state.hustle.deflections,
             },
             {
               y: this.state.contestedTwo.Grade,
@@ -390,11 +396,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "CNT2",
-              stat: this.state.hustle.contestedTwo
+              stat: this.state.hustle.contestedTwo,
             },
             {
               y: this.state.contestedThree.Grade,
@@ -402,11 +408,11 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "CNT3",
-              stat: this.state.hustle.contestedThree
+              stat: this.state.hustle.contestedThree,
             },
             {
               y: this.state.contestedShots.Grade,
@@ -414,15 +420,15 @@ export default class DefBar extends React.Component {
                 linearGradient: { x1: 0, y1: 1, x2: 0, y2: 0 },
                 stops: [
                   [0, "rgba(96, 128, 0, 0.8)"],
-                  [1, "rgba(243, 243, 21, 0.8)"]
-                ]
+                  [1, "rgba(243, 243, 21, 0.8)"],
+                ],
               },
               name: "CNTS",
-              stat: this.state.hustle.contestedShots
-            }
-          ]
-        }
-      ]
+              stat: this.state.hustle.contestedShots,
+            },
+          ],
+        },
+      ],
     });
   }
 
@@ -431,7 +437,7 @@ export default class DefBar extends React.Component {
       <div
         id="container-rating-def"
         style={{
-          height: "490px"
+          height: "490px",
         }}
       />
     );

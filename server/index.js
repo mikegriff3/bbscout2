@@ -5,7 +5,7 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const db = require("./db/config");
-const model = require("./db");
+const model = require("./db").default;
 const router = require("./router");
 // middleware
 app.use(parser.urlencoded({ limit: "20mb", extended: true }));
@@ -17,7 +17,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../static/index.html"));
 });
 // have express instance listen in on a PORT
-app.listen(PORT, err => {
+app.listen(PORT, (err) => {
   if (err) {
     console.log("there was an error in the server! ", err);
   } else {

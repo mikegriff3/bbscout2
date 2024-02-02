@@ -24,7 +24,7 @@ export default class HomePage extends React.Component {
               color: "white",
             }}
           >
-            <h1>PRODIGY</h1>
+            <h1>SCOUT</h1>
             <h2>MODERN SPORTS ANALYTICS.</h2>
           </div>
         </div>
@@ -62,17 +62,17 @@ export default class HomePage extends React.Component {
                 paddingTop: "40px",
               }}
             >
-              Prodigy is a basketball analytics application that visualizes
-              stats and ratings for NBA, College, G-League, and International
-              teams and players. Our rating system is based on a 20-80 scale and
-              uses a player's per 36 minute stats. This allows a user to quickly
+              Scout is a basketball analytics application that visualizes stats
+              and ratings for NBA, College, G-League, and International teams
+              and players. Our rating system is based on a 20-80 scale and uses
+              a player's per 36 minute stats. This allows a user to quickly
               discern the impact of a player's stats as well as a player's
               potential. The rating system also provides more context than
               traditional stats by giving immediate ranking vs. the top and
               bottom of the league and allows a user to see ratings relative to
               other players of the same position. Using uniquely designed graphs
               and visuals that leverage multiple data visualization techniques,
-              Prodigy provides the simplest and most innovative ways to scout
+              Scout provides the simplest and most innovative ways to scout
               multiple levels of the game. <br />
               <br />
               While stats aren't everything, knowing the ins and outs of a
@@ -143,12 +143,12 @@ export default class HomePage extends React.Component {
                 color: "white",
               }}
             >
-              Prodigy does more than stats. The application is a full front
-              office suite designed to aid in multiple aspects of running a
-              successful organization. These tools include team salaries, player
-              contracts, player finder, free agent tracker, trade finder, and
-              more. Prodigy is designed to be an all-in-one solution,
-              streamlining daily tasks performed by a front office.
+              Scout does more than stats. The application is a full front office
+              suite designed to aid in multiple aspects of running a successful
+              organization. These tools include team salaries, player contracts,
+              player finder, free agent tracker, trade finder, and more. Scout
+              is designed to be an all-in-one solution, streamlining daily tasks
+              performed by a front office.
             </div>
           </div>
         </div>

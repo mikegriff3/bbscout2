@@ -1,4 +1,5 @@
 const axios = require("axios");
+//const db = require("../db/").default;
 const db = require("../db");
 const circularJSON = require("circular-json");
 const Sequelize = require("sequelize");
@@ -9,8 +10,8 @@ module.exports = {
     console.log("get all teams hitting");
   },
   savePlayerInfo: (req, res) => {
-    console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
+    console.log("SAVING PLAYERS: ", db);
     for (var i = 400; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.Players.findOrCreate({
@@ -36,7 +37,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("Players Array: \n", playersArr);
-    for (var i = 400; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.Salaries.findOrCreate({
         where: {
@@ -56,7 +57,7 @@ module.exports = {
           yearFiveOption: player["y5option"],
           yearSixOption: player["y6option"],
           guaranteed: player["guaranteed"],
-          signedUsing: player["signedUsing"],
+          //signedUsing: player["signedUsing"],
         },
       })
         .then((data) => {
@@ -496,45 +497,45 @@ module.exports = {
           PTS: team["PTS"],
           W: team["W"],
           L: team["L"],
-          PW: team["PW"],
-          PL: team["PL"],
-          MOV: team["MOV"],
-          SOS: team["SOS"],
-          SRS: team["SRS"],
-          ORtg: team["ORtg"],
-          DRtg: team["DRtg"],
-          PACE: team["PACE"],
-          FTr: team["FTr"],
-          Three_PAr: team["3PAr"],
-          OFF_eFG_PCT: team["OFF-eFG%"],
-          OFF_TOV_PCT: team["OFF-TOV%"],
-          ORB_PCT: team["ORB%"],
-          OFF_FT_FGA: team["OFF-FT/FGA"],
-          DEF_eFG_PCT: team["DEF-eFG%"],
-          DEF_TOV_PCT: team["DEF-TOV%"],
-          DRB_PCT: team["DRB%"],
-          DEF_FT_FGA: team["DEF-FT/FGA"],
-          oFG: team["oFG"],
-          oFGA: team["oFGA"],
-          oFGPCT: team["oFGPCT"],
-          o3P: team["o3P"],
-          o3PA: team["o3PA"],
-          o3PCT: team["o3PCT"],
-          o2P: team["o2P"],
-          o2PA: team["o2PA"],
-          o2PCT: team["o2PCT"],
-          oFTM: team["oFTM"],
-          oFTA: team["oFTA"],
-          oFTPCT: team["oFTPCT"],
-          oORB: team["oORB"],
-          oDRB: team["oDRB"],
-          oTRB: team["oTRB"],
-          oAST: team["oAST"],
-          oSTL: team["oSTL"],
-          oBLK: team["oBLK"],
-          oTOV: team["oTOV"],
-          oPF: team["oPF"],
-          oPTS: team["oPTS"],
+          // PW: team["PW"],
+          // PL: team["PL"],
+          // MOV: team["MOV"],
+          // SOS: team["SOS"],
+          // SRS: team["SRS"],
+          // ORtg: team["ORtg"],
+          // DRtg: team["DRtg"],
+          // PACE: team["PACE"],
+          // FTr: team["FTr"],
+          // Three_PAr: team["3PAr"],
+          // OFF_eFG_PCT: team["OFF-eFG%"],
+          // OFF_TOV_PCT: team["OFF-TOV%"],
+          // ORB_PCT: team["ORB%"],
+          // OFF_FT_FGA: team["OFF-FT/FGA"],
+          // DEF_eFG_PCT: team["DEF-eFG%"],
+          // DEF_TOV_PCT: team["DEF-TOV%"],
+          // DRB_PCT: team["DRB%"],
+          // DEF_FT_FGA: team["DEF-FT/FGA"],
+          // oFG: team["oFG"],
+          // oFGA: team["oFGA"],
+          // oFGPCT: team["oFGPCT"],
+          // o3P: team["o3P"],
+          // o3PA: team["o3PA"],
+          // o3PCT: team["o3PCT"],
+          // o2P: team["o2P"],
+          // o2PA: team["o2PA"],
+          // o2PCT: team["o2PCT"],
+          // oFTM: team["oFTM"],
+          // oFTA: team["oFTA"],
+          // oFTPCT: team["oFTPCT"],
+          // oORB: team["oORB"],
+          // oDRB: team["oDRB"],
+          // oTRB: team["oTRB"],
+          // oAST: team["oAST"],
+          // oSTL: team["oSTL"],
+          // oBLK: team["oBLK"],
+          // oTOV: team["oTOV"],
+          // oPF: team["oPF"],
+          // oPTS: team["oPTS"],
         },
       })
         .then((data) => {
@@ -542,6 +543,34 @@ module.exports = {
         })
         .catch((err) => {
           console.log("Error saving team average: ", err);
+        });
+    }
+  },
+  updateTeamsAdvanced: (req, res) => {
+    console.log("REQ\n", req.body.data);
+    var teams = req.body.data;
+    for (var i = 0; i < teams.length; i++) {
+      var team = teams[i];
+      db.Teams.update(
+        {
+          ORtg: team["ORtg"] || 0.0,
+          DRtg: team["DRtg"] || 0.0,
+          PACE: team["PACE"] || 0.0,
+          DRB_PCT: team["DRB%"],
+          ORB_PCT: team["ORB%"],
+          OFF_eFG_PCT: team["OFF-eFG%"],
+          OFF_TOV_PCT: team["OFF-TOV%"],
+        },
+        {
+          where: { Name: team["team"] },
+          returning: true,
+        }
+      )
+        .then((data) => {
+          console.log("Team saved successfully!!!");
+        })
+        .catch((err) => {
+          console.log("Error saving Team!!!\n", err);
         });
     }
   },
@@ -563,7 +592,7 @@ module.exports = {
   updatePlayerStats: (req, res) => {
     console.log("REQ\n", req.body.data);
     var players = req.body.data;
-    for (var i = 200; i < players.length; i++) {
+    for (var i = 400; i < players.length; i++) {
       var player = players[i];
       db.Players.update(
         {
@@ -609,7 +638,7 @@ module.exports = {
   updatePlayerAdvancedStats: (req, res) => {
     console.log("REQ\n", req.body.data);
     var players = req.body.data;
-    for (var i = 300; i < players.length; i++) {
+    for (var i = 400; i < players.length; i++) {
       var player = players[i];
       db.Players.update(
         {
@@ -883,7 +912,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("##########Players Array: \n", playersArr.length);
-    for (var i = 400; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.PostUp.findOrCreate({
         where: {
@@ -920,7 +949,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("##########Players Array: \n", playersArr.length);
-    for (var i = 250; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.Hustle.findOrCreate({
         where: {
@@ -947,7 +976,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("##########Players Array: \n", playersArr.length);
-    for (var i = 450; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.Shooting.findOrCreate({
         where: {
@@ -979,7 +1008,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("##########Players Array: \n", playersArr.length);
-    for (var i = 450; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.CatchShoot.findOrCreate({
         where: {
@@ -1006,7 +1035,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("##########Players Array: \n", playersArr.length);
-    for (var i = 200; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.PRBallHandler.findOrCreate({
         where: {
@@ -1087,7 +1116,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("##########Players Array: \n", playersArr.length);
-    for (var i = 200; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.Transition.findOrCreate({
         where: {
@@ -1114,7 +1143,7 @@ module.exports = {
     console.log("SAVING PLAYERS");
     var playersArr = req.body.data;
     //console.log("##########Players Array: \n", playersArr.length);
-    for (var i = 250; i < playersArr.length; i++) {
+    for (var i = 0; i < playersArr.length; i++) {
       var player = playersArr[i];
       db.SpeedDistance.findOrCreate({
         where: {
@@ -1307,8 +1336,7 @@ module.exports = {
     db.cTeams
       .update(
         {
-          Logo:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/North_Carolina_Tar_Heels_logo.svg/973px-North_Carolina_Tar_Heels_logo.svg.png",
+          Logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/North_Carolina_Tar_Heels_logo.svg/973px-North_Carolina_Tar_Heels_logo.svg.png",
           Color_Main: "#4B9CD3",
           Color_Sec: "#fff",
           Color_Third: "#13294B",

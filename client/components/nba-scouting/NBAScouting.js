@@ -3521,7 +3521,7 @@ export default class NBAScouting extends React.Component {
         <div className="loading-gif">
           <img
             className="gif"
-            src="https://thumbs.gfycat.com/AggressiveGrouchyHammerkop-max-1mb.gif"
+            src="https://upload.wikimedia.org/wikipedia/commons/a/ad/YouTube_loading_symbol_3_%28transparent%29.gif"
           />
           <div className="load-text">Loading Players...</div>
         </div>
